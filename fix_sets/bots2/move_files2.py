@@ -6,12 +6,12 @@ from fix_sets.bots.move_files2 import to_move_work
 import re
 # import json
 import sys
-from newapi import printe
-from newapi.ncc_page import NEW_API
+from api_bots import printe
+from api_bots.ncc_page import NEW_API
 from fix_sets.jsons_dirs import get_study_dir#, jsons_dir
 from logs_fix.files import move_text_dir
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 # api_new.Login_to_wiki()
 
 def change_names(file_dict, ty, study_id):

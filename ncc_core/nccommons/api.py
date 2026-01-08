@@ -17,9 +17,9 @@ from nccommons import api
 import sys
 import time
 # ---
-from newapi import printe
+from api_bots import printe
 from nccommons import api_upload
-from newapi.ncc_page import NEW_API
+from api_bots.ncc_page import NEW_API
 
 api_new = NEW_API('www', family='nccommons')
 # api_new.Login_to_wiki()

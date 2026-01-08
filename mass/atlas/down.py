@@ -22,7 +22,7 @@ like:(
     disease_url
     all images link in the disease_url like:
     "image_name": "image_url"
-* add main_dir = Path(__file__).parent, and change : folder_name to os.path.join(str(main_dir), disease_name)
+* add root_folder = Path(__file__).parent, and change : folder_name to os.path.join(str(root_folder), disease_name)
 * also image_url = urljoin("https://www.atlasdermatologico.com.br/", link['href'])
 
 
@@ -35,14 +35,13 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from pathlib import Path
 import json
+from images_path import atlas_images_path
 
-main_dir = Path(__file__).parent
-main_dir = main_dir / 'images'
+root_folder = atlas_images_path
 
-if not os.path.exists(main_dir):
-    os.makedirs(main_dir)
+if not os.path.exists(root_folder):
+    os.makedirs(root_folder)
 
 
 def remove_session_id_from_url(url):
@@ -106,7 +105,7 @@ def scrape_data(url):
         images_info = process_disease_page(disease_url, disease_name)
 
         # Step 5: Create a folder with the disease name and info.json file
-        folder_name = os.path.join(main_dir, disease_name)
+        folder_name = os.path.join(root_folder, disease_name)
 
         create_folder(folder_name, disease_name, disease_url, images_info)
 

@@ -8,12 +8,12 @@ python3 core8/pwb.py fix_db/file_infos/p2 debug
 import sys
 import json
 from pathlib import Path
-from newapi import printe
-from newapi.ncc_page import NEW_API
+from api_bots import printe
+from api_bots.ncc_page import NEW_API
 
 Dir = Path(__file__).parent
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 # api_new.Login_to_wiki()
 
 debug = "debug" in sys.argv

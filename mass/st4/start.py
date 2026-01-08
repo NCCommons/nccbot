@@ -11,7 +11,7 @@ import tqdm
 import os
 from multiprocessing import Pool
 
-from newapi import printe
+from api_bots import printe
 from mass.st4.One_x import OneCase
 from mass.st4.lists import authors, infos, all_ids, ids_by_caseId, authors_infos
 

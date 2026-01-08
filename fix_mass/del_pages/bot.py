@@ -13,12 +13,8 @@ import sys
 import tqdm
 import re
 from pathlib import Path
-from newapi import printe
-from newapi.ncc_page import MainPage as ncc_MainPage
-from newapi.ncc_page import CatDepth
-
-from fix_sets.bots2.text_cat_bot import add_cat_to_set
-from fix_mass.files import studies_titles, studies_titles2
+from api_bots import printe
+from api_bots.ncc_page import CatDepth
 from fix_mass.helps_bot.file_bot import from_cach, dumpit
 
 Dir = Path(__file__).parent

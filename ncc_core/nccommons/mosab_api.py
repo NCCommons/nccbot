@@ -22,7 +22,7 @@ import configparser
 import requests
 
 # ---
-from newapi import printe
+from api_bots import printe
 from pathlib import Path
 
 Dir = str(Path(__file__).parents[0])

@@ -5,13 +5,10 @@ python3 core8/pwb.py atlas/all_cats
 """
 import os
 import json
-from pathlib import Path
-from tqdm import tqdm
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots.ncc_page import ncc_MainPage
+from images_path import atlas_images_path
 
-# Specify the root folder
-main_dir = Path(__file__).parent
-root_folder = os.path.join(str(main_dir), 'images')
+root_folder = atlas_images_path
 
 
 def get_info(root):
@@ -24,10 +21,10 @@ def get_info(root):
     return info_data
 
 
-def process_folders(root_folder):
+def process_folders(_folder):
     all_diseases = {}
 
-    for root, dirs, files in os.walk(root_folder):
+    for root, dirs, files in os.walk(_folder):
         # Check if there's an info.json file in the current folder
         if "info.json" not in files:
             print(f"No info.json file found in {root}")
@@ -58,4 +55,4 @@ def process_folders(root_folder):
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder
-    process_folders(root_folder)
+    process_folders(str(root_folder))

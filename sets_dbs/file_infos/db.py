@@ -7,11 +7,15 @@ from sets_dbs.file_infos.db import insert_all_infos # insert_all_infos(data_list
 from sets_dbs.file_infos.db import insert_url_file # insert_url_file(url, file)
 
 """
+import os
 import sys
 from pathlib import Path
 from fix_mass.sqlite_bot import SqlLiteFilesDB
 
-Dir = Path(__file__).parent
+home_dir = os.getenv("HOME")
+project = home_dir if home_dir else "I:/ncc"
+Dir = Path(project) / "ncc_data/sets_dbs/file_infos"
+
 db_path = Dir / "db.sqlite"
 main_db_bot = SqlLiteFilesDB(db_path)
 

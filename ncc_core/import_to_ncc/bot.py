@@ -3,20 +3,18 @@
 python3 core8/pwb.py import_to_ncc/bot
 
 """
-from newapi import printe
-from newapi.wiki_page import MainPage as wiki_MainPage, NEW_API as wiki_NEW_API
+from api_bots import printe
 from nccommons import api
+from api_bots.ncc_page import ncc_NEW_API
+from api_bots.wiki_page import load_main_api
 
-from newapi.ncc_page import NEW_API as ncc_NEW_API
-
-api_new = ncc_NEW_API("www", family="nccommons")
-
-# api_new.Login_to_wiki()
+api_new = ncc_NEW_API()
 
 imges_liist = [
     "File:Extracted image icon.svg",
     "File:CC BY-NC-ND.svg",
 ]
+
 
 def import_file(title):
     """
@@ -27,7 +25,9 @@ def import_file(title):
     title_file = f"File:{title}" if not title.startswith("File:") else title
     printe.output(f"<<yellow>>get_file_text: {title} from commons.wikimedia.org:")
     # ---
-    page = wiki_MainPage(title_file, "commons", family="wikimedia")
+    main_api = load_main_api("commons", "wikimedia")
+    # ---
+    page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---
     if not page.exists() :
         printe.output(f"<<lightred>>{title} not exists on commons.wikimedia.org")
@@ -35,12 +35,12 @@ def import_file(title):
     # ---
     if page.isRedirect() :
         title_file = page.get_redirect_target()
-        page = wiki_MainPage(title_file, "commons", family="wikimedia")
+        page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---
     file_text = page.get_text()
     file_text = file_text.replace("{{PD-user|norro}}", "")
 
-    api_commons = wiki_NEW_API("commons", family="wikimedia")
+    api_commons = main_api.NEW_API()
     img_url = api_commons.Get_image_url(title_file)
     # ---
     summary = "Bot: import from commons.wikimedia.org"
@@ -67,7 +67,7 @@ def start():
     # ---
     check_titles = api_new.Find_pages_exists_or_not(images)
     # ---
-    missing_images = [ x for x in images if not check_titles.get(x, False) ]
+    missing_images = [x for x in images if not check_titles.get(x, False)]
     # ---
     printe.output(f"<<yellow>> wanted images: {len(images)}, missing_images: {len(missing_images)}")
     # ---

@@ -3,8 +3,8 @@ python3 core8/pwb.py mass/radio/bots/fix_dup ask
 tfj run fixdup1 --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/bots/fix_dup"
 
 """
-from newapi import printe
-from newapi.ncc_page import MainPage as ncc_MainPage, CatDepth
+from api_bots import printe
+from api_bots.ncc_page import ncc_MainPage, CatDepth
 from mass.radio.jsons_files import jsons
 
 # dumps_jsons(infos=0, urls=0, cases_in_ids=0, cases_dup=0, authors=0, to_work=0, all_ids=0, urls_to_get_info=0)
@@ -21,8 +21,8 @@ for n, (idn, cats) in enumerate(jsons.cases_dup.items(), start=1):
     # ---
     printe.output(f"d:s{n}/{len(jsons.cases_dup)}<<lightyellow>> {idn} {cat1} {cat2}")
     # ---
-    cat1_page = ncc_MainPage(cat1, "www", family="nccommons")
-    cat2_page = ncc_MainPage(cat2, "www", family="nccommons")
+    cat1_page = ncc_MainPage(cat1)
+    cat2_page = ncc_MainPage(cat2)
     # ---
     main_cat = cat1_page
     other_cat = cat2_page
@@ -79,7 +79,7 @@ for n, (idn, cats) in enumerate(jsons.cases_dup.items(), start=1):
     cat_files = CatDepth(other_title, sitecode="www", family="nccommons", depth=0, ns="all")
     # ---
     for file in cat_files:
-        file_page = ncc_MainPage(file, "www", family="nccommons")
+        file_page = ncc_MainPage(file)
         file_text = file_page.get_text()
         # ---
         # replace old title by new

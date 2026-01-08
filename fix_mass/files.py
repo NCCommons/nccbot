@@ -2,12 +2,13 @@
 from fix_mass.files import studies_titles, studies_titles2, study_to_case_cats, study_id_to_case_id
 """
 import json
+import os
 from pathlib import Path
 
-# from newapi import printe
+home_dir = os.getenv("HOME")
+project = home_dir if home_dir else "I:/ncc"
+jsons_dir = Path(project) / "ncc_data/ncc_jsons_dump/fix_mass_jsons"
 
-jsons_dir = Path(__file__).parent.parent / "ncc_jsons/fix_mass_jsons"
-# ---
 studies_titles = {}
 studies_titles2 = {}
 study_to_case_cats = {}

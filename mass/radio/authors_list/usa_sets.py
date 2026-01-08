@@ -13,10 +13,10 @@ import json
 from multiprocessing import Pool
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 from mass.radio.authors_list.auths_by_location import locations
 from mass.radio.jsons_bot import radio_jsons_dir
-from newapi.ncc_page import NEW_API, CatDepth
+from api_bots.ncc_page import NEW_API, CatDepth
 from fix_mass.files import studies_titles, studies_titles2
 
 studies_titles.update(studies_titles2)
@@ -31,7 +31,7 @@ with open(radio_jsons_dir / "all_ids.json", "r", encoding="utf-8") as f:
 with open(main_dir / "authors_list" / "authors_to_cases.json", "r", encoding="utf-8") as f:
     authors_to_cases = json.load(f)
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 
 
 def get_studies_of_cases(cases: list) -> list:

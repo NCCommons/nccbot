@@ -7,7 +7,7 @@ import sys
 import tqdm
 import json
 from pathlib import Path
-from ncc_jsons.dir_studies_bot import studies_urls_to_files_dir
+from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 
 # ---
 Dir = Path(__file__).parent

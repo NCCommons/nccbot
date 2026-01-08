@@ -29,7 +29,6 @@ class MyDb(DbClass):
         # self.do_query(query, values=None, get_data=False)
 
 """
-import traceback
 import configparser
 import os
 import sys
@@ -37,9 +36,7 @@ import sys
 from pywikibot import config
 import pymysql
 import pymysql.cursors
-from newapi.except_err import exception_err
-import pywikibot
-
+from api_bots import printe
 # ---
 conversions = pymysql.converters.conversions
 conversions[pymysql.FIELD_TYPE.DATE] = lambda x: str(x)
@@ -108,7 +105,7 @@ class DbClass:
         try:
             self.connection = pymysql.connect(**args, **credentials)
         except Exception as e:
-            exception_err(e)
+            printe.warning(e)
         # ---
         self.create_database_table()
 
@@ -125,7 +122,7 @@ class DbClass:
                     return True
 
             except Exception as e:
-                exception_err(e)
+                printe.warning(e)
                 # ---
                 if get_data:
                     return []
@@ -135,7 +132,7 @@ class DbClass:
             try:
                 results = cursor.fetchall()
             except Exception as e:
-                exception_err(e)
+                printe.warning(e)
                 return []
 
         return results
@@ -151,7 +148,7 @@ class DbClass:
                 return True
 
             except Exception as e:
-                exception_err(e)
+                printe.warning(e)
                 return False
 
     def create_database_table(self):

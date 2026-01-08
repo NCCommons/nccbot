@@ -22,8 +22,8 @@ import json
 from pathlib import Path
 from nccommons import api
 
-from newapi import printe
-from newapi.ncc_page import CatDepth
+from api_bots import printe
+from api_bots.ncc_page import CatDepth
 
 from mass.eyerounds.bots.catbot import category_name
 from mass.eyerounds.bots.url_to_title import urls_to_title

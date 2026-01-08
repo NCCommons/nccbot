@@ -7,12 +7,12 @@ from sets_dbs.file_infos.pages import get_files
 import sys
 import json
 from pathlib import Path
-from newapi import printe
-from newapi.ncc_page import NEW_API
+from api_bots import printe
+from api_bots.ncc_page import NEW_API
 
 Dir = Path(__file__).parent
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 # api_new.Login_to_wiki()
 
 debug = "debug" in sys.argv

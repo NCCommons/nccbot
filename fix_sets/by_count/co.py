@@ -9,7 +9,7 @@ from fix_sets.by_count.co import files_file
 import sys
 import json
 import tqdm
-from newapi import printe
+from api_bots import printe
 from pathlib import Path
 
 from fix_sets.jsons_dirs import st_ref_infos

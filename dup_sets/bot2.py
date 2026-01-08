@@ -18,7 +18,7 @@ Category:Image stacks
 """
 
 import sys
-from newapi import printe
+from api_bots import printe
 from dup_sets.move_pages import move_them
 from fix_sets.ncc_api import CatDepth
 

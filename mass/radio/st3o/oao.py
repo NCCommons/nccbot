@@ -16,8 +16,8 @@ import sys
 
 sys.argv.append("del2")
 
-from newapi import printe
-from newapi.ncc_page import MainPage as ncc_MainPage, CatDepth
+from api_bots import printe
+from api_bots.ncc_page import ncc_MainPage, CatDepth
 from mass.radio.jsons_files import jsons
 from mass.radio.bots.add_cat import add_cat_to_images
 
@@ -190,7 +190,7 @@ def create_sub_cat(study_id, case_id, case_cat, title):
     # ---
     printe.output(f"<<yellow>> create_sub_cat: {title}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if page.exists():
         return True

@@ -16,7 +16,7 @@ Category:To delete
 import tqdm
 import json
 
-from newapi import printe
+from api_bots import printe
 from fix_sets.jsons_dirs import jsons_dir
 from dup_sets.get_mem import get_all_titles
 from dup_sets.move_pages import move_titles

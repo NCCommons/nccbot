@@ -5,7 +5,7 @@ from fix_sets.bots.set_text2 import make_text_study
 """
 import sys
 import json
-from newapi import printe
+from api_bots import printe
 
 # from fix_sets.bots.has_url import has_url_append
 from fix_sets.bots.study_files import get_study_files

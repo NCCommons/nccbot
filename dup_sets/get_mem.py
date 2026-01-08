@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 import json
 
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import CatDepth
 
 

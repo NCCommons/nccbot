@@ -1,6 +1,6 @@
 import sys
 import re
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots.ncc_page import ncc_MainPage
 
 skips = ["File:Benign enlargement of subarachnoid spaces (Radiopaedia 25801-25990 Coronal 1).jpg"]
 
@@ -40,7 +40,7 @@ def update_text(title, text):
     if title in skips:
         return
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     # ---
@@ -88,7 +88,7 @@ def update_text_new(title):
     # ---
     pd_temp = "{{PD-medical}}"
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     # ---

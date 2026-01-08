@@ -8,13 +8,10 @@ python3 core8/pwb.py nccommons/mv
 # ---
 import sys
 import json
-import os
-import codecs
 
 # ---
-from newapi import printe
-from newapi.ncc_page import MainPage as ncc_MainPage
-from newapi.mdwiki_page import NEW_API
+from api_bots import printe
+from api_bots.ncc_page import ncc_MainPage
 from nccommons import api
 from api_bots import mdwiki_api
 
@@ -31,14 +28,8 @@ with open(f"{Dir}/mv.json", "r", encoding="utf-8") as f:
 # ---
 printe.output(f"len of cats: {len(cats)}")
 # ---
-# ---
-api_new = NEW_API("www", family="mdwiki")
-# api_new.Login_to_wiki()
-# pages   = api_new.Find_pages_exists_or_not(liste)
-# ---
 exists = {}
-# exists = api_new.Find_pages_exists_or_not(cats)
-# ---
+
 to_create = [x for x, t in exists.items() if t is False]
 # ---
 printe.output(f"len of to_create: {len(to_create)}")
@@ -73,7 +64,7 @@ for cat in to_update:
     # ---
     printe.output(f"cat: {n}/{len(to_update)}:")
     # ---
-    nspage = ncc_MainPage(cat, "www", family="nccommons")
+    nspage = ncc_MainPage(cat)
     # ---
     printe.output(f"GetPageText for page:{cat}")
     # ---

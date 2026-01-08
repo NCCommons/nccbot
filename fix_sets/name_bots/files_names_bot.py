@@ -8,7 +8,7 @@ import re
 # import json
 import tqdm
 import sys
-from newapi import printe
+from api_bots import printe
 
 from fix_sets.bots.study_files import get_study_files
 from fix_sets.name_bots.get_rev import get_file_urls_rev  # get_file_urls_rev(study_id)

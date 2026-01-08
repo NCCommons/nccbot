@@ -13,7 +13,7 @@ import re
 import sys
 import json
 
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import CatDepth
 from fix_sets.jsons_dirs import jsons_dir
 

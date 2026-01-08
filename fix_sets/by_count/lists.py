@@ -7,7 +7,7 @@ from fix_sets.by_count.lists import counts_from_files
 import json
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 
 Dir = Path(__file__).parent
 

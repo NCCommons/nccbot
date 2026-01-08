@@ -6,8 +6,8 @@ tfj run files --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py 
 
 """
 import re
-from newapi import printe
-from newapi.ncc_page import CatDepth
+from api_bots import printe
+from api_bots.ncc_page import CatDepth
 from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
 from mass.radio.bots.add_cat import add
 

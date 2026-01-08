@@ -10,7 +10,7 @@ import tqdm
 from multiprocessing import Pool
 
 from fix_sets.ncc_api import ncc_MainPage
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import CatDepth
 
 # [[Category:Sort studies fixed]]
@@ -21,7 +21,7 @@ def rm_one(title):
     # ---
     old_cat = "[[Category:Image set]]"
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if not page.exists():
         return

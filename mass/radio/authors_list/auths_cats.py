@@ -14,9 +14,9 @@ from mass.radio.authors_list import auths_cats
 import sys
 import json
 from pathlib import Path
-from newapi import printe
-from newapi.ncc_page import CatDepth
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots import printe
+from api_bots.ncc_page import CatDepth
+from api_bots.ncc_page import ncc_MainPage
 from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
 from mass.radio.bots.add_cat import add_cat_bot
 
@@ -33,7 +33,7 @@ print(f"Length of authors_to_cases: {len(authors_to_cases)}")
 
 
 def create_cat(cat, text):
-    page = ncc_MainPage(cat, "www", family="nccommons")
+    page = ncc_MainPage(cat)
 
     if page.exists():
         pa_text = page.get_text()

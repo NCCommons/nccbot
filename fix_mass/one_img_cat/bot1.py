@@ -14,9 +14,9 @@ python3 core8/pwb.py fix_mass/one_img_cat/bot1 ask
 """
 import sys
 from pathlib import Path
-from newapi import printe
-from newapi.ncc_page import MainPage as ncc_MainPage
-from newapi.ncc_page import CatDepth
+from api_bots import printe
+from api_bots.ncc_page import ncc_MainPage
+from api_bots.ncc_page import CatDepth
 
 from fix_sets.bots2.filter_ids import filter_no_title
 
@@ -30,7 +30,7 @@ def update_text(title, MAIN_CAT_ONE, files=0):
     # ---
     printe.output(f"<<yellow>> update_text: {files=}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     new_text = p_text
@@ -74,7 +74,7 @@ def mk_ids_titles():
 
 
 def check_cat_page(MAIN_COUNT, MAIN_CAT_ONE):
-    cat_page = ncc_MainPage(MAIN_CAT_ONE, "www", family="nccommons")
+    cat_page = ncc_MainPage(MAIN_CAT_ONE)
     # ---
     if not cat_page.exists():
         printe.output(f"<<red>> {MAIN_CAT_ONE} not exists")

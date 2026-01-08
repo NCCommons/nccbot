@@ -3,10 +3,13 @@
 from fix_sets.jsons_dirs import get_study_dir, jsons_dir
 
 """
+import os
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 
-jsons_dir = Path(__file__).parent.parent / "ncc_jsons/fix_mass_jsons"
+home_dir = os.getenv("HOME")
+project = home_dir if home_dir else "I:/ncc"
+jsons_dir = Path(project) / "ncc_data/ncc_jsons_dump/fix_mass_jsons"
 
 if not jsons_dir.exists():
     jsons_dir.mkdir()

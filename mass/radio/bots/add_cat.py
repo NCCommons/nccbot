@@ -6,10 +6,10 @@ from mass.radio.bots.add_cat import add_cat_to_images, add_cat_bot, add,
 # import re
 import sys
 from multiprocessing import Pool
-from newapi import printe
-from newapi.ncc_page import CatDepth, NEW_API, MainPage as ncc_MainPage
+from api_bots import printe
+from api_bots.ncc_page import CatDepth, NEW_API, ncc_MainPage
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 # api_new.Login_to_wiki()
 
 study_done = []
@@ -42,7 +42,7 @@ def add(da=None, title="", cat="", cat2=""):
         printe.output(f"Added {title} to {cat}: result: {added}")
         return
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
 
     if not page.exists():
         return

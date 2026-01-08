@@ -5,7 +5,7 @@ python3 core8/pwb.py mass/radio/delc ask diff
 
 """
 import re
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots.ncc_page import ncc_MainPage
 
 cats = '''
     Category:Radiopaedia case 9951 Negative ulnar variance
@@ -47,7 +47,7 @@ cats = [x.strip() for x in cats.split("\n") if x.strip()]
 # ---
 for cat in cats:
     print(f"cat: {cat}")
-    page = ncc_MainPage(cat, "www", family="nccommons")
+    page = ncc_MainPage(cat)
 
     if not page.exists():
         continue

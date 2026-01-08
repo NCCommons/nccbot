@@ -12,7 +12,7 @@ python3 core8/pwb.py fix_sets/set_cats studies_titles2 ask
 import tqdm
 import re
 import sys
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import ncc_MainPage, CatDepth
 
 from fix_sets.bots2.text_cat_bot import add_cat_to_set
@@ -31,7 +31,7 @@ def work_one_study(study_id, study_title="", categories=[]):
     # ---
     printe.output(f"_____________\n {study_id=}, {study_title=}")
     # ---
-    page = ncc_MainPage(study_title, "www", family="nccommons")
+    page = ncc_MainPage(study_title)
     # ---
     p_text = page.get_text()
     # ---

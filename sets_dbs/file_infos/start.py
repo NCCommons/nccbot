@@ -15,7 +15,7 @@ import psutil
 import re
 
 # from pathlib import Path
-# from newapi import printe
+# from api_bots import printe
 from sets_dbs.file_infos.p2 import get_files
 from sets_dbs.file_infos.db import insert_all_infos  # insert_all_infos(data_list, prnt=True)
 

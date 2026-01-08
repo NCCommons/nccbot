@@ -5,13 +5,16 @@ python3 core8/pwb.py sets_dbs/sf_infos/fix
 tfj run --mem 1Gi fix --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py sets_dbs/sf_infos/fix new"
 
 """
+import os
 import tqdm
 import sys
 from pathlib import Path
 
-from newapi.db_bot import LiteDB
+from api_bots.db_bot import LiteDB
 
-Dir = Path(__file__).parent
+home_dir = os.getenv("HOME")
+project = home_dir if home_dir else "I:/ncc"
+Dir = Path(project) / "ncc_data/sets_dbs/sf_infos"
 
 db_path_value = "sf_infos.sqlite"
 
@@ -70,7 +73,7 @@ def fix():
         # {'id': 684, 'url': '', 'urlid': '53564408', 'file': 'File:Colonic pseudo-obstruction (Radiopaedia 82485-96627 A 175).jpg'}
         # print(row)
         # ---
-        row_id = row["id"]
+        # row_id = row["id"]
         del row["id"]
         # ---
         url = row["url"] or ""

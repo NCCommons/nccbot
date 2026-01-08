@@ -15,8 +15,8 @@ import json
 from pathlib import Path
 from nccommons import api
 
-from newapi import printe
-from newapi.ncc_page import CatDepth
+from api_bots import printe
+from api_bots.ncc_page import CatDepth
 
 from mass.usaid.bots.set_bot import create_set
 from mass.usaid.bots.category_bot import create_category  # create_category(album_name, pages)

@@ -5,7 +5,7 @@ python3 core8/pwb.py mass/radio/cases_in_ids
 
 """
 import re
-from newapi.ncc_page import CatDepth
+from api_bots.ncc_page import CatDepth
 
 # ---
 from mass.radio.jsons_files import jsons, dumps_jsons, dump_json_file

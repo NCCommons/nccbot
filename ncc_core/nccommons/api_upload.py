@@ -14,10 +14,10 @@ import urllib.request
 # ---
 from nccommons.ext import get_new_ext
 from nccommons import fix_svg
-from newapi import printe
-from newapi.ncc_page import NEW_API
+from api_bots import printe
+from api_bots.ncc_page import NEW_API
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 upload_all = {1: False}
 

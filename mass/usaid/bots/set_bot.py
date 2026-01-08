@@ -4,9 +4,9 @@ from mass.eyerounds.bots.set_bot import create_set
 
 import re
 import sys
-from newapi import printe
-# from newapi.ncc_page import CatDepth
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots import printe
+# from api_bots.ncc_page import CatDepth
+from api_bots.ncc_page import ncc_MainPage
 
 # pages = CatDepth("Category:USAID sets", sitecode="www", family="nccommons", depth=2, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
 
@@ -42,7 +42,7 @@ def create_set(album_name, files) -> bool:
     # ---
     text = format_text(album_name, files)
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if not page.exists():
     # if title not in pages or not page.exists():

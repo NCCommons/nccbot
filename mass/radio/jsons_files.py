@@ -18,7 +18,7 @@ import os
 import json
 from collections import namedtuple
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 
 main_dir = Path(__file__).parent
 

@@ -7,7 +7,7 @@ import sys
 import json
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 
 from mass.eyerounds.bots.catbot import category_name
 from mass.eyerounds.bots.url_to_title import urls_to_title

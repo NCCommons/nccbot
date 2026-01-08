@@ -13,8 +13,8 @@ python3 core8/pwb.py fix_mass/one_img_cat/skiped ask
 # import re
 import sys
 from pathlib import Path
-from newapi import printe
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots import printe
+from api_bots.ncc_page import ncc_MainPage
 
 from fix_sets.bots2.text_cat_bot import add_cat_to_set
 from fix_sets.bots2.filter_ids import filter_no_title
@@ -30,7 +30,7 @@ def update_text(title, study_id):
     # ---
     printe.output(f"<<yellow>> update_text: {title}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     new_text = p_text

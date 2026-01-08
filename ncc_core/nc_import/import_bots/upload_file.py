@@ -9,13 +9,8 @@ from nc_import.bots import upload_file
 
 """
 import urllib.request
-import sys
-from newapi import printe
-from api_bots.wiki_page import NEW_API
-
-# api_new  = NEW_API('ar', family='wikipedia')
-# api_new.Login_to_wiki()
-# json1    = api_new.post_params(params, addtoken=False)
+from ..utils import printe
+from .wiki_page import load_main_api
 
 
 def download_file(url):
@@ -36,8 +31,8 @@ def do_post(code, family, params, files=None):
     """
     Makes a POST request to the Wikipedia API with specified parameters.
     """
-    api_new = NEW_API(code, family=family)
-    api_new.Login_to_wiki()
+    main_api = load_main_api(code, family)
+    api_new = main_api.NEW_API()
     # ---
     if files:
         result = api_new.post_params(params, addtoken=True, files=files)

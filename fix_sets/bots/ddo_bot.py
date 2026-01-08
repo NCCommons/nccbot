@@ -3,7 +3,7 @@ from fix_sets.bots.ddo_bot import ddo, remove_done
 """
 import sys
 from time import sleep
-from newapi import printe
+from api_bots import printe
 from fix_sets.lists.studies_fixed import studies_fixed_done
 from fix_sets.bots.has_url import already_has_url
 

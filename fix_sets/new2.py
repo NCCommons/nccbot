@@ -34,7 +34,7 @@ python3 core8/pwb.py fix_sets/new ask all
 """
 import re
 import sys
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import ncc_MainPage
 
 from fix_sets.bots.stacks import get_stacks  # get_stacks(study_id)
@@ -55,7 +55,7 @@ def update_set_text(title, n_text, study_id):
     # ---
     printe.output(f"<<yellow>> update_set_text: {title}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     # ---

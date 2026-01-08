@@ -5,7 +5,7 @@ from fix_sets.lists.sf_infos import from_sf_infs # from_sf_infs(url, study_id)
 
 """
 import json
-from newapi import printe
+from api_bots import printe
 
 from fix_sets.jsons_dirs import jsons_dir
 

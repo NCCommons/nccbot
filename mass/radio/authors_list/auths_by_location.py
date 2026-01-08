@@ -6,7 +6,7 @@ from mass.radio.authors_list.auths_by_location import locations
 import json
 import tqdm
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 
 main_dir = Path(__file__).parent
 # ---

@@ -8,7 +8,7 @@ tfj run --mem 1Gi fixjsosns --image python3.9 --command "$HOME/local/bin/python3
 import tqdm
 from pathlib import Path
 from fix_sets.jsons_dirs import get_study_dir
-from newapi import printe
+from api_bots import printe
 
 Dir = Path(__file__).parent
 
