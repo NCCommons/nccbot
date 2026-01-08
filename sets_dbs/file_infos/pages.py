@@ -7,7 +7,7 @@ from sets_dbs.file_infos.pages import get_files
 import sys
 import json
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import NEW_API
 
 Dir = Path(__file__).parent

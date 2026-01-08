@@ -8,7 +8,7 @@ python3 core8/pwb.py fix_db/file_infos/p2 debug
 import sys
 import json
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import NEW_API
 
 Dir = Path(__file__).parent

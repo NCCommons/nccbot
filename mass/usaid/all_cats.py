@@ -6,7 +6,7 @@ python3 core8/pwb.py mass/usaid/all_cats ask
 """
 import json
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import MainPage as ncc_MainPage
 
 # Specify the root folder

@@ -15,7 +15,7 @@ import time
 import pywikibot
 
 # ---
-from newapi import printe
+from api_bots import printe
 
 # ---
 from newapi.mdwiki_page import NEW_API

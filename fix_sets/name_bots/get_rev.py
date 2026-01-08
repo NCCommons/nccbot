@@ -13,7 +13,7 @@ import json
 
 # from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import post_ncc_params
 
 # from fix_mass.files import study_to_case_cats

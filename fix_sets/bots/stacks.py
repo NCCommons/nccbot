@@ -5,7 +5,7 @@ from fix_sets.bots.stacks import get_stacks# get_stacks(study_id)
 """
 import requests
 import json
-from newapi import printe
+from api_bots import printe
 from fix_sets.jsons_dirs import get_study_dir
 from fix_mass.helps_bot.file_bot import from_cach, dumpit
 

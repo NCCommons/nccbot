@@ -17,7 +17,7 @@ import os
 import time
 import json
 from tqdm import tqdm
-from newapi import printe
+from api_bots import printe
 from pathlib import Path
 from nccommons import api
 from nccommons import mosab_api

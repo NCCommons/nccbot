@@ -10,7 +10,7 @@ tfj run usaid --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py 
 import sys
 import json
 import requests
-from newapi import printe
+from api_bots import printe
 from pathlib import Path
 
 main_dir = Path(__file__).parent

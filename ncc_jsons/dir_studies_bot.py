@@ -4,7 +4,7 @@ from ncc_jsons.dir_studies_bot import studies_dir, studies_urls_to_files_dir
 """
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 
 main_dir = Path(__file__).parent
 # ---

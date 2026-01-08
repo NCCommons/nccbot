@@ -17,7 +17,7 @@ from nccommons import api
 import sys
 import time
 # ---
-from newapi import printe
+from api_bots import printe
 from nccommons import api_upload
 from newapi.ncc_page import NEW_API
 

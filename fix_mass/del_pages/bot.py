@@ -13,7 +13,7 @@ import sys
 import tqdm
 import re
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import CatDepth
 from fix_mass.helps_bot.file_bot import from_cach, dumpit
 

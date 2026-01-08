@@ -14,7 +14,7 @@ from mass.radio.authors_list import auths_cats
 import sys
 import json
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import CatDepth
 from newapi.ncc_page import MainPage as ncc_MainPage
 from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()

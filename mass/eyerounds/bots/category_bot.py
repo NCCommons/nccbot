@@ -6,7 +6,7 @@ from mass.eyerounds.bots.category_bot import create_category # create_category(c
 
 import sys
 from nccommons import api
-from newapi import printe
+from api_bots import printe
 
 
 def create_category(cat, chapter_url, pages) -> str:

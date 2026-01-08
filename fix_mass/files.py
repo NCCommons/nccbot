@@ -4,7 +4,7 @@ from fix_mass.files import studies_titles, studies_titles2, study_to_case_cats, 
 import json
 from pathlib import Path
 
-# from newapi import printe
+# from api_bots import printe
 
 jsons_dir = Path(__file__).parent.parent / "ncc_jsons/fix_mass_jsons"
 # ---

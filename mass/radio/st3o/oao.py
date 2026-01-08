@@ -16,7 +16,7 @@ import sys
 
 sys.argv.append("del2")
 
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import MainPage as ncc_MainPage, CatDepth
 from mass.radio.jsons_files import jsons
 from mass.radio.bots.add_cat import add_cat_to_images

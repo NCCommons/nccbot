@@ -11,7 +11,7 @@ import json
 import traceback
 
 # ---
-from newapi import printe
+from api_bots import printe
 from mass.radio.get_studies import get_images_stacks, get_images
 from mass.radio.bots.studies_utf import dump_studies_urls_to_files
 from ncc_jsons.dir_studies_bot import studies_dir

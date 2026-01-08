@@ -19,7 +19,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 import tqdm
-from newapi import printe
+from api_bots import printe
 
 
 def extract_images_from_tag(soup):

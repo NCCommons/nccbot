@@ -6,7 +6,7 @@ from fix_mass.helps_bot.file_bot import from_cach, dumpit
 import sys
 import json
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 
 
 def from_cach(file):

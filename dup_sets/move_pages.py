@@ -8,7 +8,7 @@ import tqdm
 import sys
 from multiprocessing import Pool
 
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import ncc_MainPage, CatDepth
 
 len_all = {1: 0}

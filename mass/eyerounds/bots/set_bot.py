@@ -4,7 +4,7 @@ from mass.eyerounds.bots.set_bot import create_set
 
 import re
 import sys
-from newapi import printe
+from api_bots import printe
 # from newapi.ncc_page import CatDepth
 from newapi.ncc_page import MainPage as ncc_MainPage
 

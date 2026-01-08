@@ -13,7 +13,7 @@ python3 core8/pwb.py fix_mass/one_img_cat/skiped ask
 # import re
 import sys
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import MainPage as ncc_MainPage
 
 from fix_sets.bots2.text_cat_bot import add_cat_to_set

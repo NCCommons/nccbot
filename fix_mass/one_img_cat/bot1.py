@@ -14,7 +14,7 @@ python3 core8/pwb.py fix_mass/one_img_cat/bot1 ask
 """
 import sys
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import MainPage as ncc_MainPage
 from newapi.ncc_page import CatDepth
 

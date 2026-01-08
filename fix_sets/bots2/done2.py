@@ -7,7 +7,7 @@ python3 core8/pwb.py fix_sets/bots2/done2 printurl
 """
 
 import sys
-from newapi import printe
+from api_bots import printe
 import json
 from pathlib import Path
 

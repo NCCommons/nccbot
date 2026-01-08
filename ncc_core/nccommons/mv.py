@@ -12,7 +12,7 @@ import os
 import codecs
 
 # ---
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import MainPage as ncc_MainPage
 from newapi.mdwiki_page import NEW_API
 from nccommons import api

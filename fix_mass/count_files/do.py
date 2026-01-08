@@ -19,7 +19,7 @@ import tqdm
 import time
 import json
 from multiprocessing import Pool
-from newapi import printe
+from api_bots import printe
 from pathlib import Path
 from fix_mass.count_files.Case_co import CaseDo
 from ncc_jsons.dir_studies_bot import studies_urls_to_files_dir

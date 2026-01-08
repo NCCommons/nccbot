@@ -12,7 +12,7 @@ import psutil
 import json
 import tqdm
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from fix_sets.jsons_dirs import jsons_dir
 
 Dir = Path(__file__).parent

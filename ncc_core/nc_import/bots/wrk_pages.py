@@ -1,5 +1,5 @@
 import wikitextparser as wtp
-from newapi import printe
+from api_bots import printe
 from .wiki_page import MainPage
 from .import_files import import_file
 

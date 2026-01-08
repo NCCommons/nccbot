@@ -8,7 +8,7 @@ python3 core8/pwb.py mass/radio/syss/add_syss nodump
 import os
 import json
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from mass.radio.jsons_files import jsons, dump_json_file
 from mass.radio.geturlsnew import length_of_systems
 

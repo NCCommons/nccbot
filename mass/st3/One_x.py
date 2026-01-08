@@ -5,7 +5,7 @@ from mass.st3.One_x import OneCase
 import sys
 import tqdm
 from nccommons import api
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import NEW_API, MainPage as ncc_MainPage
 
 from mass.st3.One_x_helps import CASE_HELPS

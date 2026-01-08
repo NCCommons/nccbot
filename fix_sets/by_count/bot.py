@@ -12,7 +12,7 @@ $HOME/local/bin/python3 core8/pwb.py fix_sets/by_count/bot hasskip 8 ask
 import sys
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 from fix_sets.bots.ddo_bot import ddo, studies_fixed_done
 from fix_sets.new import work_one_study
 from fix_sets.by_count.co import from_files

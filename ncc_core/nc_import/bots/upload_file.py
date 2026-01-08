@@ -9,7 +9,7 @@ from nc_import.bots import upload_file
 
 """
 import urllib.request
-from newapi import printe
+from api_bots import printe
 from .wiki_page import NEW_API
 
 # api_new  = NEW_API('ar', family='wikipedia')

@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 
 # ---
-from newapi import printe
+from api_bots import printe
 from mass.st3.start import main_by_ids
 
 # ---

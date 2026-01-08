@@ -8,7 +8,7 @@ import re
 
 # import sys
 # from pathlib import Path
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import CatDepth
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
 from fix_mass.helps_bot.file_bot import from_cach, dumpit

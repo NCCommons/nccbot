@@ -13,7 +13,7 @@ import json
 from multiprocessing import Pool
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 from mass.radio.authors_list.auths_by_location import locations
 from mass.radio.jsons_bot import radio_jsons_dir
 from newapi.ncc_page import NEW_API, CatDepth

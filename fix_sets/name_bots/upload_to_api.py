@@ -6,7 +6,7 @@ from fix_sets.name_bots.upload_to_api import get_from_api
 import sys
 from pathlib import Path
 
-from newapi import printe
+from api_bots import printe
 from mass.radio.bots.bmp import work_bmp
 from fix_sets.ncc_api import post_ncc_params
 from nccommons.ext import get_new_ext

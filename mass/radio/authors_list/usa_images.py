@@ -16,7 +16,7 @@ from mass.radio.authors_list.usa import get_usa_auths
 
 from newapi.ncc_page import MainPage as ncc_MainPage
 from newapi.ncc_page import CatDepth
-from newapi import printe
+from api_bots import printe
 
 # from mass.radio.lists.PD_medical import PD_medical_pages_def
 # PD_medical_pages = PD_medical_pages_def()

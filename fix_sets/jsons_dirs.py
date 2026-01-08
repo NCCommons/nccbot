@@ -4,7 +4,7 @@ from fix_sets.jsons_dirs import get_study_dir, jsons_dir
 
 """
 from pathlib import Path
-from newapi import printe
+from api_bots import printe
 
 jsons_dir = Path(__file__).parent.parent / "ncc_jsons/fix_mass_jsons"
 

@@ -6,7 +6,7 @@ from mass.eyerounds.bots.names import make_files_names
 
 import os
 import sys
-from newapi import printe
+from api_bots import printe
 
 
 

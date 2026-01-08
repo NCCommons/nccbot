@@ -8,7 +8,7 @@ import sys
 import json
 from pathlib import Path
 from mass.eyerounds.bots.get_case_info import extract_infos_from_url
-from newapi import printe
+from api_bots import printe
 
 main_dir = Path(__file__).parent
 jsonfile = main_dir / "jsons/urls.json"

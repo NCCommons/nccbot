@@ -9,7 +9,7 @@ import re
 import os
 from datetime import datetime
 from newapi.ncc_page import CatDepth
-from newapi import printe
+from api_bots import printe
 from mass.radio.jsons_bot import radio_jsons_dir
 
 

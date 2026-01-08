@@ -10,7 +10,7 @@ import tqdm
 from multiprocessing import Pool
 
 from fix_sets.ncc_api import ncc_MainPage
-from newapi import printe
+from api_bots import printe
 from fix_sets.ncc_api import CatDepth
 
 # [[Category:Sort studies fixed]]

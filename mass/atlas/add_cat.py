@@ -7,7 +7,7 @@ import os
 import json
 from pathlib import Path
 from tqdm import tqdm
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import MainPage as ncc_MainPage
 
 # Specify the root folder

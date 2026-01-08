@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from mass.radio.jsons_files import jsons, urls_to_ids
-from newapi import printe
+from api_bots import printe
 from ncc_jsons.dir_studies_bot import studies_dir
 
 

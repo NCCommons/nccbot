@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 from nccommons import api
 
-from newapi import printe
+from api_bots import printe
 from newapi.ncc_page import CatDepth
 
 from mass.usaid.bots.set_bot import create_set

@@ -13,7 +13,7 @@ from datetime import datetime
 
 from fix_mass.helps_bot.file_bot import from_cach, dumpit
 from fix_sets.ncc_api import CatDepth
-from newapi import printe
+from api_bots import printe
 
 no_match = []
 
