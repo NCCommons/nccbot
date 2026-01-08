@@ -10,13 +10,13 @@ import sys
 import os
 import psutil
 import ijson
-import json
+# import json
 import tqdm
 from pathlib import Path
 
 try:
     from db import insert_all_infos
-except Exception as e:
+except ImportError:
     from sets_dbs.sf_infos.db import insert_all_infos
 
 Dir = Path(__file__).parent

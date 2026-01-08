@@ -1,4 +1,8 @@
-from pytube import YouTube
+
+try:
+    from pytube import YouTube
+except ImportError:
+    YouTube = None
 from pathlib import Path
 
 videos_dir = Path(__file__).parent / "videos"
@@ -11,6 +15,9 @@ def download_youtube_video(video_url, save_path="."):
         video_url: The URL of the YouTube video.
         save_path: The directory to save the downloaded video.
     """
+    if not YouTube:
+        print("pytube library is not installed. Please install it to download YouTube videos.")
+        return
     yt = YouTube(video_url)
     # Create a YouTube object
 

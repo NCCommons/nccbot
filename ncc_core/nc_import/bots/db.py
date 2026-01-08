@@ -11,9 +11,8 @@ python3 core8/pwb.py nc_import/bots/db
 # ---
 
 import os
-import json
 import jsonlines
-from newapi.db_bot import LiteDB
+from .db_bot import LiteDB
 
 root_path = "I:" if os.path.exists("I:") else "/data/project/"
 
@@ -38,8 +37,7 @@ def add_to_txt(data):
 def add_to_jsonl(data):
     if not os.path.exists(jsonl_path):
         with open(jsonl_path, "w", encoding="utf-8") as f:
-            pass
-
+            f.write("")
     with jsonlines.open(jsonl_path, mode="a") as writer:
         writer.write(data)
 

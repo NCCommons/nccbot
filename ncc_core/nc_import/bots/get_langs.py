@@ -5,8 +5,10 @@ https://nccommons.org/wiki/User:Mr._Ibrahem/import_bot
 """
 # import re
 import wikitextparser as wtp
-from api_bots.ncc_page import ncc_MainPage
 from newapi import printe
+
+from .ncc_page import load_main_api
+main_api = load_main_api()
 
 
 def get_text():
@@ -14,7 +16,7 @@ def get_text():
     Retrieves text content from a specific page.
     """
     title = "User:Mr. Ibrahem/import bot"
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = main_api.MainPage(title)
     text = page.get_text()
     # match all langs like: * ar\n* fr
     # ---

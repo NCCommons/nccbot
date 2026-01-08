@@ -4,19 +4,16 @@ python3 core8/pwb.py import_to_ncc/bot
 
 """
 from newapi import printe
-from newapi.wiki_page import MainPage as wiki_MainPage, NEW_API as wiki_NEW_API
 from nccommons import api
-
+from newapi.wiki_page import MainPage as wiki_MainPage, NEW_API as wiki_NEW_API
 from newapi.ncc_page import NEW_API as ncc_NEW_API
-
 api_new = ncc_NEW_API("www", family="nccommons")
-
-# api_new.Login_to_wiki()
 
 imges_liist = [
     "File:Extracted image icon.svg",
     "File:CC BY-NC-ND.svg",
 ]
+
 
 def import_file(title):
     """
@@ -67,7 +64,7 @@ def start():
     # ---
     check_titles = api_new.Find_pages_exists_or_not(images)
     # ---
-    missing_images = [ x for x in images if not check_titles.get(x, False) ]
+    missing_images = [x for x in images if not check_titles.get(x, False)]
     # ---
     printe.output(f"<<yellow>> wanted images: {len(images)}, missing_images: {len(missing_images)}")
     # ---

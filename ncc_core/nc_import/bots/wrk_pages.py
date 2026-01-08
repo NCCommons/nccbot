@@ -1,7 +1,7 @@
 import wikitextparser as wtp
 from newapi import printe
-from api_bots.wiki_page import MainPage
-from nc_import.bots.import_files import import_file
+from .wiki_page import MainPage
+from .import_files import import_file
 
 """
 page      = MainPage(title, 'ar', family='wikipedia')

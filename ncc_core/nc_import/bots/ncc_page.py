@@ -1,6 +1,8 @@
 """
 
-from api_bots.ncc_page import ncc_MainPage, ncc_NEW_API
+from bots.ncc_page import load_main_api
+main_api = load_main_api()
+
 
 """
 # ---
@@ -25,6 +27,3 @@ def load_main_api() -> ALL_APIS[str, str, str, str]:
 
 
 main_api = load_main_api()
-
-ncc_NEW_API = main_api.NEW_API
-ncc_MainPage = main_api.MainPage

@@ -9,7 +9,7 @@ import tqdm
 import sys
 from pathlib import Path
 
-from newapi.db_bot import LiteDB
+from api_bots.db_bot import LiteDB
 
 Dir = Path(__file__).parent
 
@@ -70,7 +70,7 @@ def fix():
         # {'id': 684, 'url': '', 'urlid': '53564408', 'file': 'File:Colonic pseudo-obstruction (Radiopaedia 82485-96627 A 175).jpg'}
         # print(row)
         # ---
-        row_id = row["id"]
+        # row_id = row["id"]
         del row["id"]
         # ---
         url = row["url"] or ""

@@ -4,9 +4,22 @@ python3 core8/pwb.py nc_import/bot ask
 
 """
 import sys
-from nc_import.bots.gt_pages import get_pages
-from nc_import.bots.wrk_pages import work_on_pages
-from nc_import.bots.get_langs import get_langs_codes
+from bots.wrk_pages import work_on_pages
+from bots.get_langs import get_langs_codes
+from bots.wiki_page import NEW_API
+
+
+def get_pages(code):
+    """
+    Retrieves template pages related to a given language code.
+    """
+    api_new = NEW_API(code, family="wikipedia")
+
+    api_new.Login_to_wiki()
+
+    pages = api_new.Get_template_pages("Template:NC", namespace="*", Max=10000)
+
+    return pages
 
 
 def start():
