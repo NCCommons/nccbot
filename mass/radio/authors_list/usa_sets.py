@@ -31,7 +31,7 @@ with open(radio_jsons_dir / "all_ids.json", "r", encoding="utf-8") as f:
 with open(main_dir / "authors_list" / "authors_to_cases.json", "r", encoding="utf-8") as f:
     authors_to_cases = json.load(f)
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 
 
 def get_studies_of_cases(cases: list) -> list:

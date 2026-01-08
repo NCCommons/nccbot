@@ -6,7 +6,7 @@ import sys
 import tqdm
 from nccommons import api
 from api_bots import printe
-from api_bots.ncc_page import NEW_API, MainPage as ncc_MainPage
+from api_bots.ncc_page import NEW_API, ncc_MainPage
 
 from mass.st3.One_x_helps import CASE_HELPS
 from mass.radio.get_studies import get_stacks_fixed  # (study_id, case_id, get_cach=False)
@@ -17,7 +17,7 @@ from mass.radio.jsons_files import jsons
 from mass.st3.lists import authors_infos
 from sets_dbs.dp_infos.db_duplict_new import insert_url_file
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 # api_new.Login_to_wiki()
 # ---
 urls_done = []
@@ -85,7 +85,7 @@ class OneCase(CASE_HELPS):
         if self.title_exists(category):
             return
         # ---
-        cat = ncc_MainPage(category, "www", family="nccommons")
+        cat = ncc_MainPage(category)
         # ---
         if cat.exists():
             printt(f"<<lightyellow>> {category} already exists")

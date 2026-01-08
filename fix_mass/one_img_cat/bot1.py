@@ -30,7 +30,7 @@ def update_text(title, MAIN_CAT_ONE, files=0):
     # ---
     printe.output(f"<<yellow>> update_text: {files=}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     new_text = p_text

@@ -30,7 +30,7 @@ def update_text(title, study_id):
     # ---
     printe.output(f"<<yellow>> update_text: {title}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     new_text = p_text

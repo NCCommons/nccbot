@@ -9,7 +9,7 @@ from api_bots.ncc_page import NEW_API
 from api_bots.ncc_page import CatDepth
 from api_bots.ncc_page import ncc_MainPage
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 
 
 def post_ncc_params(params, **kwargs):

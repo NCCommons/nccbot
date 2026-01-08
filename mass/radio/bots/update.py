@@ -40,7 +40,7 @@ def update_text(title, text):
     if title in skips:
         return
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     # ---
@@ -88,7 +88,7 @@ def update_text_new(title):
     # ---
     pd_temp = "{{PD-medical}}"
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     p_text = page.get_text()
     # ---

@@ -1,5 +1,10 @@
 """
+from api_bots.wiki_page import load_main_api
+main_api = load_main_api("en", "wikipedia")
 
+wiki_NEW_API = NEW_API = main_api.NEW_API
+wiki_MainPage = MainPage = main_api.MainPage
+wiki_CatDepth = CatDepth = main_api.CatDepth
 
 """
 import functools
@@ -10,20 +15,10 @@ User_tables = {"username": user_account_new.bot_username, "password": user_accou
 
 
 @functools.lru_cache(maxsize=1)
-def load_main_api() -> ALL_APIS:
+def load_main_api(lang, family="wikipedia") -> ALL_APIS:
     return ALL_APIS(
-        lang='www',
-        family='nccommons',
+        lang=lang,
+        family=family,
         username=user_account_new.bot_username,
         password=user_account_new.bot_password,
     )
-
-
-main_api = load_main_api()
-
-wiki_NEW_API = main_api.NEW_API
-wiki_MainPage = main_api.MainPage
-
-NEW_API = main_api.NEW_API
-MainPage = main_api.MainPage
-CatDepth = main_api.CatDepth

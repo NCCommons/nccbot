@@ -42,7 +42,7 @@ def create_set(chapter_name, files) -> bool:
     # ---
     text = format_text(chapter_name, files)
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if not page.exists():
     # if title not in pages or not page.exists():

@@ -6,14 +6,15 @@ python3 core8/pwb.py nc_import/bot ask
 import sys
 from bots.wrk_pages import work_on_pages
 from bots.get_langs import get_langs_codes
-from bots.wiki_page import NEW_API
+from api_bots.wiki_page import load_main_api
 
 
 def get_pages(code):
     """
     Retrieves template pages related to a given language code.
     """
-    api_new = NEW_API(code, family="wikipedia")
+    main_api = load_main_api(code, "wikipedia")
+    api_new = main_api.NEW_API()
 
     api_new.Login_to_wiki()
 

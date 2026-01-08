@@ -17,7 +17,7 @@ from nccommons import fix_svg
 from api_bots import printe
 from api_bots.ncc_page import NEW_API
 
-api_new = NEW_API("www", family="nccommons")
+api_new = NEW_API()
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 upload_all = {1: False}
 

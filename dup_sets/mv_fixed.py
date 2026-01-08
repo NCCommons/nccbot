@@ -21,7 +21,7 @@ def rm_one(title):
     # ---
     old_cat = "[[Category:Image set]]"
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if not page.exists():
         return

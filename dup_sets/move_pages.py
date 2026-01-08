@@ -43,7 +43,7 @@ def move_one(taa):
     # ---
     new_cat = f"[[{new}]]"
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if not page.exists():
         return

@@ -42,7 +42,7 @@ def create_set(album_name, files) -> bool:
     # ---
     text = format_text(album_name, files)
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if not page.exists():
     # if title not in pages or not page.exists():

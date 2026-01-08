@@ -190,7 +190,7 @@ def create_sub_cat(study_id, case_id, case_cat, title):
     # ---
     printe.output(f"<<yellow>> create_sub_cat: {title}")
     # ---
-    page = ncc_MainPage(title, "www", family="nccommons")
+    page = ncc_MainPage(title)
     # ---
     if page.exists():
         return True

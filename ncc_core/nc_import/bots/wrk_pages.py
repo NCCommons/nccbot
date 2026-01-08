@@ -1,6 +1,6 @@
 import wikitextparser as wtp
 from api_bots import printe
-from .wiki_page import MainPage
+from api_bots.wiki_page import load_main_api
 from .import_files import import_file
 
 """
@@ -16,7 +16,8 @@ class PageWork:
         self.code = code
         self.title = title
         self.temps = []
-        self.page = MainPage(self.title, self.code, family="wikipedia")
+        login_bot = load_main_api(self.code)
+        self.page = login_bot.MainPage(self.title)
         self.text = self.page.get_text()
         self.new_text = self.text
 

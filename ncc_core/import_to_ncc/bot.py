@@ -7,7 +7,7 @@ from api_bots import printe
 from nccommons import api
 from api_bots.wiki_page import wiki_MainPage, wiki_NEW_API
 from api_bots.ncc_page import ncc_NEW_API
-api_new = ncc_NEW_API("www", family="nccommons")
+api_new = ncc_NEW_API()
 
 imges_liist = [
     "File:Extracted image icon.svg",
