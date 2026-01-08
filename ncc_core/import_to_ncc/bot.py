@@ -5,8 +5,9 @@ python3 core8/pwb.py import_to_ncc/bot
 """
 from api_bots import printe
 from nccommons import api
-from api_bots.wiki_page import wiki_MainPage, wiki_NEW_API
 from api_bots.ncc_page import ncc_NEW_API
+from api_bots.wiki_page import load_main_api
+
 api_new = ncc_NEW_API()
 
 imges_liist = [
@@ -24,7 +25,9 @@ def import_file(title):
     title_file = f"File:{title}" if not title.startswith("File:") else title
     printe.output(f"<<yellow>>get_file_text: {title} from commons.wikimedia.org:")
     # ---
-    page = wiki_MainPage(title_file, "commons", family="wikimedia")
+    main_api = load_main_api("commons", "wikimedia")
+    # ---
+    page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---
     if not page.exists() :
         printe.output(f"<<lightred>>{title} not exists on commons.wikimedia.org")
@@ -32,12 +35,12 @@ def import_file(title):
     # ---
     if page.isRedirect() :
         title_file = page.get_redirect_target()
-        page = wiki_MainPage(title_file, "commons", family="wikimedia")
+        page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---
     file_text = page.get_text()
     file_text = file_text.replace("{{PD-user|norro}}", "")
 
-    api_commons = wiki_NEW_API("commons", family="wikimedia")
+    api_commons = main_api.NEW_API()
     img_url = api_commons.Get_image_url(title_file)
     # ---
     summary = "Bot: import from commons.wikimedia.org"
