@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 from mass.radio.jsons_files import jsons, urls_to_ids
 from api_bots import printe
-from ncc_jsons.dir_studies_bot import studies_dir
+from fix_mass.dir_studies_bot import studies_dir
 
 
 def dump_it(study_id, data):

@@ -5,7 +5,7 @@ from mass.radio.bots.studies_utf import dump_studies_urls_to_files
 """
 import json
 
-from ncc_jsons.dir_studies_bot import studies_urls_to_files_dir
+from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 
 
 def dump_studies_urls_to_files(tab):
@@ -17,7 +17,7 @@ def dump_studies_urls_to_files(tab):
         if not files:
             print(f"no file to dump to {file}.")
             continue
-        # ---        
+        # ---
         try:
             with open(file, "w", encoding="utf-8") as f:
                 json.dump(files, f, ensure_ascii=False, indent=2)
