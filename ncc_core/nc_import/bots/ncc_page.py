@@ -22,7 +22,7 @@ password = config["DEFAULT"].get("password", "").strip()
 
 
 @functools.lru_cache(maxsize=1)
-def load_main_api() -> ALL_APIS[str, str, str, str]:
+def load_main_api() -> ALL_APIS:
     return ALL_APIS(lang='www', family='nccommons', username=username, password=password)
 
 

@@ -10,7 +10,7 @@ User_tables = {"username": user_account_new.bot_username, "password": user_accou
 
 
 @functools.lru_cache(maxsize=1)
-def load_main_api() -> ALL_APIS[str, str, str, str]:
+def load_main_api() -> ALL_APIS:
     return ALL_APIS(
         lang='www',
         family='nccommons',
