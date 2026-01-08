@@ -31,7 +31,7 @@ def work_one_study(study_id, study_title="", categories=[]):
     # ---
     printe.output(f"_____________\n {study_id=}, {study_title=}")
     # ---
-    page = ncc_MainPage(study_title, "www", family="nccommons")
+    page = ncc_MainPage(study_title)
     # ---
     p_text = page.get_text()
     # ---

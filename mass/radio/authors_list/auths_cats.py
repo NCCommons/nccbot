@@ -33,7 +33,7 @@ print(f"Length of authors_to_cases: {len(authors_to_cases)}")
 
 
 def create_cat(cat, text):
-    page = ncc_MainPage(cat, "www", family="nccommons")
+    page = ncc_MainPage(cat)
 
     if page.exists():
         pa_text = page.get_text()

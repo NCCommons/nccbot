@@ -115,7 +115,7 @@ class CASE_HELPS:
             done = True
         # ---
         if not done:
-            cat = ncc_MainPage(cat_title, "www", family="nccommons")
+            cat = ncc_MainPage(cat_title)
             # ---
             if cat.exists():
                 printt(f"<<lightyellow>> {cat_title} already exists")
@@ -158,7 +158,7 @@ class CASE_HELPS:
         text += "[[Category:Radiopaedia sets]]\n"
         # text += "[[Category:Sort studies fixed]]"
         # ---
-        page = ncc_MainPage(set_title, "www", family="nccommons")
+        page = ncc_MainPage(set_title)
         # ---
         if not page.exists():
             new = page.Create(text=text, summary="")
@@ -189,7 +189,7 @@ class CASE_HELPS:
         # ---
         file_title = f"File:{file_name}"
         # ---
-        page = ncc_MainPage(file_title, "www", family="nccommons")
+        page = ncc_MainPage(file_title)
         # ---
         p_text = page.get_text()
         # ---

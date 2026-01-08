@@ -21,8 +21,8 @@ for n, (idn, cats) in enumerate(jsons.cases_dup.items(), start=1):
     # ---
     printe.output(f"d:s{n}/{len(jsons.cases_dup)}<<lightyellow>> {idn} {cat1} {cat2}")
     # ---
-    cat1_page = ncc_MainPage(cat1, "www", family="nccommons")
-    cat2_page = ncc_MainPage(cat2, "www", family="nccommons")
+    cat1_page = ncc_MainPage(cat1)
+    cat2_page = ncc_MainPage(cat2)
     # ---
     main_cat = cat1_page
     other_cat = cat2_page
@@ -79,7 +79,7 @@ for n, (idn, cats) in enumerate(jsons.cases_dup.items(), start=1):
     cat_files = CatDepth(other_title, sitecode="www", family="nccommons", depth=0, ns="all")
     # ---
     for file in cat_files:
-        file_page = ncc_MainPage(file, "www", family="nccommons")
+        file_page = ncc_MainPage(file)
         file_text = file_page.get_text()
         # ---
         # replace old title by new

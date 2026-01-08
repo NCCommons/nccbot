@@ -47,7 +47,7 @@ cats = [x.strip() for x in cats.split("\n") if x.strip()]
 # ---
 for cat in cats:
     print(f"cat: {cat}")
-    page = ncc_MainPage(cat, "www", family="nccommons")
+    page = ncc_MainPage(cat)
 
     if not page.exists():
         continue

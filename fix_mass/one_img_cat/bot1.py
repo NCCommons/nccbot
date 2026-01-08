@@ -74,7 +74,7 @@ def mk_ids_titles():
 
 
 def check_cat_page(MAIN_COUNT, MAIN_CAT_ONE):
-    cat_page = ncc_MainPage(MAIN_CAT_ONE, "www", family="nccommons")
+    cat_page = ncc_MainPage(MAIN_CAT_ONE)
     # ---
     if not cat_page.exists():
         printe.output(f"<<red>> {MAIN_CAT_ONE} not exists")
