@@ -21,8 +21,9 @@ fetch("https://pageviews.wmcloud.org/pageviews/api.php?pages=Kat%7CHond&project=
     "credentials": "omit"
 });
 """
+
 import requests
-from nc_import.bots.get_langs import get_langs_codes
+from import_bots.get_langs import get_langs_codes
 
 
 def get_views(code):

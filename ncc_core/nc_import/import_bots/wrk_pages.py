@@ -1,7 +1,4 @@
-import wikitextparser as wtp
-from api_bots import printe
-from api_bots.wiki_page import load_main_api
-from .import_files import import_file
+
 
 """
 page      = MainPage(title, 'ar', family='wikipedia')
@@ -9,6 +6,10 @@ exists    = page.exists()
 text      = page.get_text()
 save_page = page.save(newtext='', summary='', nocreate=1, minor='')
 """
+import wikitextparser as wtp
+from ..utils import printe
+from .wiki_page import load_main_api
+from .import_files import import_file
 
 
 class PageWork:

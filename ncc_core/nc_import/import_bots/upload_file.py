@@ -9,8 +9,8 @@ from nc_import.bots import upload_file
 
 """
 import urllib.request
-from api_bots import printe
-from api_bots.wiki_page import load_main_api
+from ..utils import printe
+from .wiki_page import load_main_api
 
 
 def download_file(url):
@@ -33,7 +33,6 @@ def do_post(code, family, params, files=None):
     """
     main_api = load_main_api(code, family)
     api_new = main_api.NEW_API()
-    api_new.Login_to_wiki()
     # ---
     if files:
         result = api_new.post_params(params, addtoken=True, files=files)

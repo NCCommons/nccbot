@@ -1,12 +1,5 @@
 """
 
-Usage:
-from nc_import.bots.db import add_to_db, add_to_jsonl
-# add_to_db(title, code)
-# add_to_jsonl({"lang": code, "title": title})
-
-python3 core8/pwb.py nc_import/bots/db
-
 """
 # ---
 
@@ -18,8 +11,6 @@ root_path = "I:" if os.path.exists("I:") else "/data/project/"
 
 db_path = f"{root_path}/ncc/public_html/ncc2/lists/nc_files.db"
 jsonl_path = f"{root_path}/ncc/public_html/ncc2/lists/nc_files.jsonl"
-
-print(db_path)
 
 
 def add_to_txt(data):
