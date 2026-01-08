@@ -9,7 +9,6 @@ from . import upload_file
 from .db import add_to_db, add_to_jsonl
 from api_bots.ncc_page import load_main_api  # , NEW_API
 
-main_api = load_main_api()
 
 # add_to_db(title, code)
 # add_to_jsonl({"lang": code, "title": title})
@@ -23,6 +22,7 @@ def get_file_text(title):
     title = f"File:{title}" if not title.startswith("File:") else title
     printe.output(f"<<yellow>>get_file_text: {title} from nccommons:")
 
+    main_api = load_main_api()
     page = main_api.MainPage(title)
     text = page.get_text()
 
@@ -52,6 +52,8 @@ def import_file(title, code):
     # ---
     file_text = categories_work(file_text)
     # ---
+    main_api = load_main_api()
+
     api_new = main_api.NEW_API()
     # api_new.Login_to_wiki()
     img_url = api_new.Get_image_url(title)
