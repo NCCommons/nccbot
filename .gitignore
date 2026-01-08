@@ -40,5 +40,3 @@ ncc_core/nc_import/README.md
 /logs_fix/has_url
 /logs_fix/has_url
 requirements.in1
-/sets_dbs/dp_infos/copy
-fix_sets/name_bots/Copy of upload_to_api.py
