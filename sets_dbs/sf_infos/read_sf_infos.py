@@ -15,7 +15,9 @@ from pathlib import Path
 from api_bots import printe
 from fix_sets.jsons_dirs import jsons_dir
 
-Dir = Path(__file__).parent
+home_dir = os.getenv("HOME")
+project = home_dir if home_dir else "I:/ncc"
+Dir = Path(project) / "ncc_data/sets_dbs/sf_infos"
 # ---
 numbs = 1000 if "2" not in sys.argv else 2
 # ---

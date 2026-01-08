@@ -18,14 +18,11 @@ import time
 import json
 from tqdm import tqdm
 from api_bots import printe
-from pathlib import Path
 from nccommons import api
 from nccommons import mosab_api
 from api_bots.ncc_page import CatDepth
 
-# Specify the root folder
-main_dir = Path(__file__).parent
-root_folder = os.path.join(str(main_dir), 'images')
+from images_path import atlas_images_path
 
 # Base URL for nccommons.org API
 NCCOMMONS_API_BASE_URL = "https://nccommons.org/api/"
@@ -139,9 +136,9 @@ def process_folder(root):
     create_set(disease_name, images_info)
 
 
-def process_folders(root_folder):
+def process_folders(r_folder):
     global len_all_images
-    for root, dirs, files in os.walk(root_folder):
+    for root, dirs, files in os.walk(r_folder):
         # Check if there's an info.json file in the current folder
         if "info.json" not in files:
             print(f"No info.json file found in {root}")
@@ -156,4 +153,4 @@ def process_folders(root_folder):
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder
-    process_folders(root_folder)
+    process_folders(atlas_images_path)

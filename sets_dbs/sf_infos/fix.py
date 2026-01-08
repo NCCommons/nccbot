@@ -5,13 +5,16 @@ python3 core8/pwb.py sets_dbs/sf_infos/fix
 tfj run --mem 1Gi fix --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py sets_dbs/sf_infos/fix new"
 
 """
+import os
 import tqdm
 import sys
 from pathlib import Path
 
 from api_bots.db_bot import LiteDB
 
-Dir = Path(__file__).parent
+home_dir = os.getenv("HOME")
+project = home_dir if home_dir else "I:/ncc"
+Dir = Path(project) / "ncc_data/sets_dbs/sf_infos"
 
 db_path_value = "sf_infos.sqlite"
 
