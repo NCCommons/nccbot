@@ -11,8 +11,6 @@ home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"
 jsons_dir = Path(project) / "ncc_jsons_dump/fix_mass_jsons"
 
-# jsons_dir = Path(__file__).parent.parent / "ncc_jsons/fix_mass_jsons"
-
 if not jsons_dir.exists():
     jsons_dir.mkdir()
 
