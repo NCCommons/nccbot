@@ -12,7 +12,7 @@ import sys
 from datetime import datetime
 
 from mass.radio.get_studies import get_images, get_images_stacks
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots.ncc_page import ncc_MainPage
 
 from ncc_jsons.dir_studies_bot import studies_dir
 from mass.radio.jsons_bot import radio_jsons_dir

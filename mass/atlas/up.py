@@ -21,7 +21,7 @@ from api_bots import printe
 from pathlib import Path
 from nccommons import api
 from nccommons import mosab_api
-from newapi.ncc_page import CatDepth
+from api_bots.ncc_page import CatDepth
 
 # Specify the root folder
 main_dir = Path(__file__).parent

@@ -6,7 +6,7 @@ import sys
 import tqdm
 from nccommons import api
 from api_bots import printe
-from newapi.ncc_page import NEW_API, MainPage as ncc_MainPage
+from api_bots.ncc_page import NEW_API, MainPage as ncc_MainPage
 
 from mass.st3.One_x_helps import CASE_HELPS
 from mass.radio.get_studies import get_stacks_fixed  # (study_id, case_id, get_cach=False)

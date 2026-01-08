@@ -10,7 +10,7 @@ import sys
 import re
 
 # ---
-from newapi.ncc_page import NEW_API
+from api_bots.ncc_page import NEW_API
 from mass.st3.start import main_by_ids
 
 # ---

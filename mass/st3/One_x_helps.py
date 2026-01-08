@@ -8,7 +8,7 @@ import mimetypes
 import os
 
 from api_bots import printe
-from newapi.ncc_page import NEW_API, MainPage as ncc_MainPage
+from api_bots.ncc_page import NEW_API, MainPage as ncc_MainPage
 from mass.radio.bots.bmp import work_bmp
 from mass.radio.bots.add_cat import add_cat_to_images  # add_cat_to_images(sets, cat_title)
 from fix_sets.name_bots.files_names_bot import get_files_names

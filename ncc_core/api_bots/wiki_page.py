@@ -2,27 +2,28 @@
 
 
 """
-# import sys
-from newapi.super import super_login
-from newapi.super import bot_api
-from newapi.super import super_page
-from newapi.super import catdepth_new
+import functools
+from newapi import ALL_APIS
+
 from api_bots import user_account_new
-# ---
-# User_tables = {"username": user_account_new.my_username, "password": user_account_new.my_password}
-# ---
-# if "botuser" in sys.argv:
 User_tables = {"username": user_account_new.bot_username, "password": user_account_new.bot_password}
-# ---
-# super_login.User_tables["wikipedia"] = User_tables
-# ---
-Login = super_login.Login
-# ---
-bot_api.login_def = Login
-super_page.login_def = Login
-catdepth_new.login_def = Login
-# ---
-NEW_API = bot_api.NEW_API
-MainPage = super_page.MainPage
-change_codes = super_page.change_codes
-CatDepth = catdepth_new.subcatquery
+
+
+@functools.lru_cache(maxsize=1)
+def load_main_api() -> ALL_APIS[str, str, str, str]:
+    return ALL_APIS(
+        lang='www',
+        family='nccommons',
+        username=user_account_new.bot_username,
+        password=user_account_new.bot_password,
+    )
+
+
+main_api = load_main_api()
+
+wiki_NEW_API = main_api.NEW_API
+wiki_MainPage = main_api.MainPage
+
+NEW_API = main_api.NEW_API
+MainPage = main_api.MainPage
+CatDepth = main_api.CatDepth

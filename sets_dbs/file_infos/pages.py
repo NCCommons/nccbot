@@ -8,7 +8,7 @@ import sys
 import json
 from pathlib import Path
 from api_bots import printe
-from newapi.ncc_page import NEW_API
+from api_bots.ncc_page import NEW_API
 
 Dir = Path(__file__).parent
 

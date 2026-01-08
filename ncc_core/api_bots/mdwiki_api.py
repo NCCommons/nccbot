@@ -3,27 +3,17 @@
 
 """
 
-#
-# (C) Ibrahem Qasim, 2023
-#
-#
-# ---
-# import pywikibot
 import sys
 import json
 import time
 import pywikibot
 
-# ---
 from api_bots import printe
 
-# ---
-from newapi.mdwiki_page import NEW_API
+from api_bots.mdwiki_page import load_main_api
+main_api = load_main_api()
+api_new = main_api.NEW_API()
 
-api_new = NEW_API("www", family="mdwiki")
-# api_new.Login_to_wiki()
-# json1   = api_new.post_params(params, addtoken=False)
-# ---
 """
 # ---
 from mdpy.bots import mdwiki_api

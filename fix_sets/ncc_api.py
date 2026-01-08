@@ -5,9 +5,9 @@ from fix_sets.ncc_api import CatDepth
 from fix_sets.ncc_api import post_ncc_params
 
 """
-from newapi.ncc_page import NEW_API
-from newapi.ncc_page import CatDepth
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots.ncc_page import NEW_API
+from api_bots.ncc_page import CatDepth
+from api_bots.ncc_page import ncc_MainPage
 
 api_new = NEW_API("www", family="nccommons")
 

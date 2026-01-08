@@ -6,7 +6,7 @@ python3 core8/pwb.py mass/usask/all_cats ask
 import os
 import json
 from pathlib import Path
-from newapi.ncc_page import MainPage as ncc_MainPage
+from api_bots.ncc_page import ncc_MainPage
 
 # Specify the root folder
 main_dir = Path(__file__).parent

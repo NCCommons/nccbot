@@ -15,8 +15,8 @@ python3 core8/pwb.py fix_mass/one_img_cat/bot1 ask
 import sys
 from pathlib import Path
 from api_bots import printe
-from newapi.ncc_page import MainPage as ncc_MainPage
-from newapi.ncc_page import CatDepth
+from api_bots.ncc_page import ncc_MainPage
+from api_bots.ncc_page import CatDepth
 
 from fix_sets.bots2.filter_ids import filter_no_title
 

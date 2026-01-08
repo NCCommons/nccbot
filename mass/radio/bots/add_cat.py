@@ -7,7 +7,7 @@ from mass.radio.bots.add_cat import add_cat_to_images, add_cat_bot, add,
 import sys
 from multiprocessing import Pool
 from api_bots import printe
-from newapi.ncc_page import CatDepth, NEW_API, MainPage as ncc_MainPage
+from api_bots.ncc_page import CatDepth, NEW_API, MainPage as ncc_MainPage
 
 api_new = NEW_API("www", family="nccommons")
 # api_new.Login_to_wiki()

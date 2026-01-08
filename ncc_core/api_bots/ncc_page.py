@@ -28,3 +28,7 @@ main_api = load_main_api()
 
 ncc_NEW_API = main_api.NEW_API
 ncc_MainPage = main_api.MainPage
+
+NEW_API = main_api.NEW_API
+MainPage = main_api.MainPage
+CatDepth = main_api.CatDepth

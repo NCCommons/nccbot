@@ -15,7 +15,7 @@ import urllib.request
 from nccommons.ext import get_new_ext
 from nccommons import fix_svg
 from api_bots import printe
-from newapi.ncc_page import NEW_API
+from api_bots.ncc_page import NEW_API
 
 api_new = NEW_API("www", family="nccommons")
 yes_answer = ["y", "a", "", "Y", "A", "all"]

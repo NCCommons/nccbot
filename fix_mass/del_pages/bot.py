@@ -14,7 +14,7 @@ import tqdm
 import re
 from pathlib import Path
 from api_bots import printe
-from newapi.ncc_page import CatDepth
+from api_bots.ncc_page import CatDepth
 from fix_mass.helps_bot.file_bot import from_cach, dumpit
 
 Dir = Path(__file__).parent
