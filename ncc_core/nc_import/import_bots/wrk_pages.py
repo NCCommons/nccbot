@@ -7,7 +7,7 @@ text      = page.get_text()
 save_page = page.save(newtext='', summary='', nocreate=1, minor='')
 """
 import wikitextparser as wtp
-from ..utils import printe
+from . import printe
 from .wiki_page import load_main_api
 from .import_files import import_file
 

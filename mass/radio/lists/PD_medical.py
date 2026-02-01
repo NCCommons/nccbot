@@ -8,7 +8,7 @@ PD_medical_pages = PD_medical_pages_def()
 import json
 import os
 from datetime import datetime
-from api_bots.ncc_page import CatDepth
+from api_bots.page_ncc import CatDepth
 from api_bots import printe
 from mass.radio.jsons_bot import radio_jsons_dir
 

@@ -10,7 +10,7 @@ import pywikibot
 
 from api_bots import printe
 
-from api_bots.mdwiki_page import load_main_api
+from api_bots.page_md import load_main_api
 main_api = load_main_api()
 api_new = main_api.NEW_API()
 

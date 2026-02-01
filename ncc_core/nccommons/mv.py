@@ -11,7 +11,7 @@ import json
 
 # ---
 from api_bots import printe
-from api_bots.ncc_page import ncc_MainPage
+from api_bots.page_ncc import ncc_MainPage
 from nccommons import api
 from api_bots import mdwiki_api
 

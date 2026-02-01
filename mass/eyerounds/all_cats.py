@@ -6,7 +6,7 @@ python3 core8/pwb.py mass/eyerounds/all_cats ask
 import json
 from pathlib import Path
 from api_bots import printe
-from api_bots.ncc_page import ncc_MainPage
+from api_bots.page_ncc import ncc_MainPage
 
 from mass.eyerounds.bots.url_to_title import urls_to_title
 from mass.eyerounds.bots.catbot import category_name

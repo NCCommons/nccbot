@@ -4,10 +4,10 @@ bot for importing files from nccommons to wikipedia
 
 """
 import re
-from ..utils import printe
+from . import printe
 from . import upload_file
 from .db import add_to_db, add_to_jsonl
-from .ncc_page import load_main_api
+from .page_ncc import load_main_api
 
 
 def get_file_text(title):

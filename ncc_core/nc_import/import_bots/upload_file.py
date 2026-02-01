@@ -9,7 +9,7 @@ from nc_import.bots import upload_file
 
 """
 import urllib.request
-from ..utils import printe
+from . import printe
 from .wiki_page import load_main_api
 
 
