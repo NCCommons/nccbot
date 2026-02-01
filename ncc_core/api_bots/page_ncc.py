@@ -1,6 +1,6 @@
 """
 
-from api_bots.ncc_page import ncc_MainPage, ncc_NEW_API
+from api_bots.page_ncc import ncc_MainPage, ncc_NEW_API
 
 """
 # ---

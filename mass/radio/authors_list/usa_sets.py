@@ -16,7 +16,7 @@ from pathlib import Path
 from api_bots import printe
 from mass.radio.authors_list.auths_by_location import locations
 from mass.radio.jsons_bot import radio_jsons_dir
-from api_bots.ncc_page import NEW_API, CatDepth
+from api_bots.page_ncc import NEW_API, CatDepth
 from fix_mass.files import studies_titles, studies_titles2
 
 studies_titles.update(studies_titles2)

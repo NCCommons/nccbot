@@ -20,7 +20,7 @@ from tqdm import tqdm
 from api_bots import printe
 from nccommons import api
 from nccommons import mosab_api
-from api_bots.ncc_page import CatDepth
+from api_bots.page_ncc import CatDepth
 
 from images_path import atlas_images_path
 

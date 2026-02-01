@@ -6,7 +6,7 @@ https://nccommons.org/wiki/User:Mr._Ibrahem/import_bot
 # import re
 import wikitextparser as wtp
 from . import printe
-from .ncc_page import load_main_api
+from .page_ncc import load_main_api
 
 
 def get_text():

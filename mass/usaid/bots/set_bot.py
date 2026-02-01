@@ -5,8 +5,8 @@ from mass.eyerounds.bots.set_bot import create_set
 import re
 import sys
 from api_bots import printe
-# from api_bots.ncc_page import CatDepth
-from api_bots.ncc_page import ncc_MainPage
+# from api_bots.page_ncc import CatDepth
+from api_bots.page_ncc import ncc_MainPage
 
 # pages = CatDepth("Category:USAID sets", sitecode="www", family="nccommons", depth=2, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
 

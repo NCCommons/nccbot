@@ -5,7 +5,7 @@ python3 core8/pwb.py mass/radio/delc ask diff
 
 """
 import re
-from api_bots.ncc_page import ncc_MainPage
+from api_bots.page_ncc import ncc_MainPage
 
 cats = '''
     Category:Radiopaedia case 9951 Negative ulnar variance

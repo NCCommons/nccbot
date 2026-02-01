@@ -15,8 +15,8 @@ import sys
 import json
 from pathlib import Path
 from api_bots import printe
-from api_bots.ncc_page import CatDepth
-from api_bots.ncc_page import ncc_MainPage
+from api_bots.page_ncc import CatDepth
+from api_bots.page_ncc import ncc_MainPage
 from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
 from mass.radio.bots.add_cat import add_cat_bot
 
