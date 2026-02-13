@@ -17,17 +17,18 @@ Your current code works fine. We only need to fix:
 
 ```
 nc_commons_bot/
-├── config.yaml                 # Single config file
+├── config.yaml              # Single config file
 ├── requirements.txt
 ├── README.md
-├── bot.py                      # Main entry point (was: bot.py)
-├── src/                        # All logic in src/
-    ├── wiki_api.py             # mwclient wrapper (replaces: wiki_page.py, page_ncc.py)
-    ├── parsers.py              # wikitextparser helpers (replaces: get_langs.py + part of wrk_pages.py)
-    ├── uploader.py             # File upload logic (replaces: upload_file.py, import_files.py)
-    ├── processor.py            # Page processing (replaces: wrk_pages.py)
-    ├── database.py             # SQLite operations (replaces: db.py, db_bot.py)
-    └── reports.py              # Simple reporting (new)
+├── bot.py                   # Main entry point (was: bot.py)
+└── src/                     # All logic in src/
+    ├── __init__.py
+    ├── wiki_api.py          # mwclient wrapper (replaces: wiki_page.py, page_ncc.py)
+    ├── parsers.py           # wikitextparser helpers (replaces: get_langs.py + part of wrk_pages.py)
+    ├── uploader.py          # File upload logic (replaces: upload_file.py, import_files.py)
+    ├── processor.py         # Page processing (replaces: wrk_pages.py)
+    ├── database.py          # SQLite operations (replaces: db.py, db_bot.py)
+    └── reports.py           # Simple reporting (new)
 ```
 
 **Total: 8 files instead of 12!**
@@ -75,7 +76,7 @@ with open('config.yaml') as f:
 
 ---
 
-### 2. `wiki_api.py` - mwclient Wrapper (200 lines)
+### 2. `src/wiki_api.py` - mwclient Wrapper (200 lines)
 
 **Replaces:** `wiki_page.py`, `page_ncc.py`, and custom `newapi`
 
@@ -215,7 +216,7 @@ class WikipediaAPI(WikiAPI):
 
 ---
 
-### 3. `parsers.py` - Simple wikitextparser Helpers (100 lines)
+### 3. `src/parsers.py` - Simple wikitextparser Helpers (100 lines)
 
 **Replaces:** `get_langs.py` and template parsing from `wrk_pages.py`
 
@@ -294,7 +295,7 @@ def remove_categories(text: str) -> str:
 
 ---
 
-### 4. `database.py` - Simple SQLite Operations (150 lines)
+### 4. `src/database.py` - Simple SQLite Operations (150 lines)
 
 **Replaces:** `db.py`, `db_bot.py`
 
@@ -422,7 +423,7 @@ class Database:
 
 ---
 
-### 5. `uploader.py` - File Upload Logic (100 lines)
+### 5. `src/uploader.py` - File Upload Logic (100 lines)
 
 **Replaces:** `upload_file.py`, `import_files.py`
 
@@ -435,9 +436,9 @@ import tempfile
 import urllib.request
 from pathlib import Path
 
-from wiki_api import NCCommonsAPI, WikipediaAPI
-from database import Database
-from parsers import remove_categories
+from src.wiki_api import NCCommonsAPI, WikipediaAPI
+from src.database import Database
+from src.parsers import remove_categories
 
 logger = logging.getLogger(__name__)
 
@@ -521,7 +522,7 @@ class FileUploader:
 
 ---
 
-### 6. `processor.py` - Page Processing (100 lines)
+### 6. `src/processor.py` - Page Processing (100 lines)
 
 **Replaces:** `wrk_pages.py`
 
@@ -530,10 +531,10 @@ class FileUploader:
 Wikipedia page processing.
 """
 import logging
-from wiki_api import WikipediaAPI
-from database import Database
-from uploader import FileUploader
-from parsers import extract_nc_templates
+from src.wiki_api import WikipediaAPI
+from src.database import Database
+from src.uploader import FileUploader
+from src.parsers import extract_nc_templates
 
 logger = logging.getLogger(__name__)
 
@@ -628,11 +629,11 @@ import yaml
 import argparse
 from pathlib import Path
 
-from wiki_api import NCCommonsAPI, WikipediaAPI
-from database import Database
-from uploader import FileUploader
-from processor import PageProcessor
-from parsers import parse_language_list
+from src.wiki_api import NCCommonsAPI, WikipediaAPI
+from src.database import Database
+from src.uploader import FileUploader
+from src.processor import PageProcessor
+from src.parsers import parse_language_list
 
 # Setup logging
 def setup_logging(config: dict):
@@ -746,7 +747,7 @@ if __name__ == '__main__':
 
 ---
 
-### 8. `reports.py` - Simple Reporting (50 lines)
+### 8. `src/reports.py` - Simple Reporting (50 lines)
 
 **New feature - simple reports**
 
@@ -756,7 +757,7 @@ Simple reporting from database.
 """
 import json
 import logging
-from database import Database
+from src.database import Database
 
 logger = logging.getLogger(__name__)
 
@@ -910,12 +911,12 @@ python reports.py
 
 ### New Structure (8 files):
 - bot.py (main)
-- wiki_api.py (replaces 3 files)
-- parsers.py (replaces 1.5 files)
-- uploader.py (replaces 2 files)
-- processor.py (replaces 1 file)
-- database.py (replaces 2 files)
-- reports.py (new, simple)
+- src/wiki_api.py (replaces 3 files)
+- src/parsers.py (replaces 1.5 files)
+- src/uploader.py (replaces 2 files)
+- src/processor.py (replaces 1 file)
+- src/database.py (replaces 2 files)
+- src/reports.py (new, simple)
 - config.yaml (replaces hardcoded values)
 
 ### Lines of Code:

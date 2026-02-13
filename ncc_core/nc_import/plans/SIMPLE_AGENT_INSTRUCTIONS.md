@@ -7,6 +7,7 @@ Refactor the NC Commons Import Bot to use modern libraries (mwclient, wikitextpa
 ## Core Principle: KISS (Keep It Simple, Stupid)
 
 The current bot works fine. We're only fixing:
+
 1. Replace custom `newapi` → standard `mwclient`
 2. Replace 24KB `printe.py` → Python's `logging`
 3. Remove hardcoded paths → `config.yaml`
@@ -41,12 +42,14 @@ nc_commons_bot/
 ├── requirements.txt         # Dependencies
 ├── README.md               # Documentation
 ├── bot.py                  # Main entry (150 lines)
-├── wiki_api.py            # mwclient wrapper (200 lines)
-├── parsers.py             # wikitextparser helpers (100 lines)
-├── uploader.py            # Upload logic (100 lines)
-├── processor.py           # Page processing (100 lines)
-├── database.py            # SQLite operations (150 lines)
-└── reports.py             # Simple reporting (50 lines)
+└── src/                    # All logic in src/
+    ├── __init__.py
+    ├── wiki_api.py         # mwclient wrapper (200 lines)
+    ├── parsers.py          # wikitextparser helpers (100 lines)
+    ├── uploader.py         # Upload logic (100 lines)
+    ├── processor.py        # Page processing (100 lines)
+    ├── database.py         # SQLite operations (150 lines)
+    └── reports.py          # Simple reporting (50 lines)
 ```
 
 **Total: 8 files, ~900 lines**
@@ -60,6 +63,7 @@ nc_commons_bot/
 Create these immediately:
 
 **requirements.txt:**
+
 ```txt
 mwclient>=0.10.1
 wikitextparser>=0.55.0
@@ -67,29 +71,31 @@ PyYAML>=6.0
 ```
 
 **config.yaml:**
+
 ```yaml
 nc_commons:
-  site: "nccommons.org"
-  language_page: "User:Mr. Ibrahem/import bot"
+    site: "nccommons.org"
+    language_page: "User:Mr. Ibrahem/import bot"
 
 wikipedia:
-  upload_comment: "Bot: import from nccommons.org"
-  category: "Category:Contains images from NC Commons"
+    upload_comment: "Bot: import from nccommons.org"
+    category: "Category:Contains images from NC Commons"
 
 database:
-  path: "./data/nc_files.db"
+    path: "./data/nc_files.db"
 
 processing:
-  max_pages: 10000
-  max_retries: 3
-  retry_delay: 5
+    max_pages: 10000
+    max_retries: 3
+    retry_delay: 5
 
 logging:
-  level: "INFO"
-  file: "./logs/bot.log"
+    level: "INFO"
+    file: "./logs/bot.log"
 ```
 
 **credentials.ini.example:**
+
 ```ini
 [nccommons]
 username = YourUsername
@@ -100,17 +106,19 @@ username = YourBot@BotPassword
 password = YourToken
 ```
 
-### 3.2 Core Module: wiki_api.py
+### 3.2 Core Module: src/wiki_api.py
 
 This is the MOST IMPORTANT file. It replaces `wiki_page.py`, `page_ncc.py`, and custom `newapi`.
 
 **Requirements:**
-- Use `mwclient.Site()` for connections
-- Create base `WikiAPI` class with retry decorator
-- Create `NCCommonsAPI(WikiAPI)` for NC Commons operations
-- Create `WikipediaAPI(WikiAPI)` for Wikipedia operations
+
+-   Use `mwclient.Site()` for connections
+-   Create base `WikiAPI` class with retry decorator
+-   Create `NCCommonsAPI(WikiAPI)` for NC Commons operations
+-   Create `WikipediaAPI(WikiAPI)` for Wikipedia operations
 
 **Key methods:**
+
 ```python
 class WikiAPI:
     def __init__(site, username, password)
@@ -128,6 +136,7 @@ class WikipediaAPI(WikiAPI):
 ```
 
 **Add simple retry decorator:**
+
 ```python
 def retry(max_attempts=3, delay=5):
     def decorator(func):
@@ -146,32 +155,35 @@ def retry(max_attempts=3, delay=5):
     return decorator
 ```
 
-### 3.3 Simple Parsers: parsers.py
+### 3.3 Simple Parsers: src/parsers.py
 
 Replace `get_langs.py` and template parsing from `wrk_pages.py`.
 
 **Functions needed:**
+
 1. `parse_language_list(text) -> List[str]` - Extract language codes
 2. `extract_nc_templates(text) -> List[NCTemplate]` - Find {{NC}} templates
 3. `remove_categories(text) -> str` - Clean up file descriptions
 
 **Define simple dataclass:**
+
 ```python
 @dataclass
 class NCTemplate:
     original: str
     filename: str
     caption: str = ""
-    
+
     def to_file_syntax(self) -> str:
         return f"[[File:{self.filename}|thumb|{self.caption}]]"
 ```
 
-### 3.4 Database: database.py
+### 3.4 Database: src/database.py
 
 Replace `db.py` and `db_bot.py` with simpler version.
 
 **Schema:**
+
 ```sql
 -- Main uploads table
 CREATE TABLE uploads (
@@ -197,6 +209,7 @@ CREATE TABLE pages (
 ```
 
 **Methods:**
+
 ```python
 class Database:
     def __init__(db_path)
@@ -207,6 +220,7 @@ class Database:
 ```
 
 **Use context manager for connections:**
+
 ```python
 @contextmanager
 def _connection(self):
@@ -222,15 +236,16 @@ def _connection(self):
         conn.close()
 ```
 
-### 3.5 File Uploader: uploader.py
+### 3.5 File Uploader: src/uploader.py
 
 Replace `upload_file.py` and `import_files.py`.
 
 **Simple class:**
+
 ```python
 class FileUploader:
     def __init__(nc_api, wiki_api, db, config)
-    
+
     def upload_file(filename) -> bool:
         # 1. Check if already uploaded
         # 2. Get file URL from NC Commons
@@ -242,18 +257,20 @@ class FileUploader:
 ```
 
 **Handle two upload methods:**
+
 1. Direct URL upload (faster)
 2. Download then upload (fallback)
 
-### 3.6 Page Processor: processor.py
+### 3.6 Page Processor: src/processor.py
 
 Replace `wrk_pages.py`.
 
 **Simple class:**
+
 ```python
 class PageProcessor:
     def __init__(wiki_api, uploader, db, config)
-    
+
     def process_page(page_title) -> bool:
         # 1. Get page text
         # 2. Extract NC templates
@@ -269,6 +286,7 @@ class PageProcessor:
 Replace original `bot.py` with cleaner version.
 
 **Flow:**
+
 ```python
 def main():
     # 1. Parse arguments (--lang, --config)
@@ -286,13 +304,24 @@ def main():
     # 9. Show statistics
 ```
 
+**Note:** bot.py imports from src:
+
+```python
+from src.wiki_api import NCCommonsAPI, WikipediaAPI
+from src.database import Database
+from src.uploader import FileUploader
+from src.processor import PageProcessor
+from src.parsers import parse_language_list
+```
+
 **Logging setup:**
+
 ```python
 def setup_logging(config):
     level = getattr(logging, config.get('level', 'INFO'))
     log_file = Path(config.get('file', './logs/bot.log'))
     log_file.parent.mkdir(parents=True, exist_ok=True)
-    
+
     logging.basicConfig(
         level=level,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -303,20 +332,20 @@ def setup_logging(config):
     )
 ```
 
-### 3.8 Simple Reports: reports.py
+### 3.8 Simple Reports: src/reports.py
 
 New simple reporting feature.
 
 ```python
 class Reporter:
     def __init__(db)
-    
+
     def generate_summary() -> dict:
         # Query database for:
         # - Total uploads
         # - Per-language stats
         # - Recent errors
-        
+
     def save_report(output_file='report.json'):
         # Save to JSON file
 ```
@@ -328,12 +357,14 @@ class Reporter:
 Follow these SIMPLE rules:
 
 ### 1. Type Hints
+
 ```python
 def process_page(self, page_title: str) -> bool:
     ...
 ```
 
 ### 2. Docstrings (brief!)
+
 ```python
 def upload_file(self, filename: str) -> bool:
     """Upload file from NC Commons to Wikipedia."""
@@ -341,12 +372,14 @@ def upload_file(self, filename: str) -> bool:
 ```
 
 ### 3. Use logging, not print
+
 ```python
 logger.info(f"Processing: {page_title}")
 logger.error(f"Failed: {e}")
 ```
 
 ### 4. Simple error handling
+
 ```python
 try:
     result = self.wiki_api.get_page_text(title)
@@ -357,6 +390,7 @@ except Exception as e:
 ```
 
 ### 5. Context managers for resources
+
 ```python
 with self._connection() as conn:
     conn.execute(...)
@@ -369,31 +403,34 @@ with self._connection() as conn:
 Create simple manual tests:
 
 1. **Test configuration:**
-   ```python
-   python -c "import yaml; print(yaml.safe_load(open('config.yaml')))"
-   ```
+
+    ```python
+    python -c "import yaml; print(yaml.safe_load(open('config.yaml')))"
+    ```
 
 2. **Test API connection:**
-   ```python
-   from wiki_api import NCCommonsAPI
-   api = NCCommonsAPI('user', 'pass')
-   print(api.get_page_text('User:Mr. Ibrahem/import bot'))
-   ```
+
+    ```python
+    from src.wiki_api import NCCommonsAPI
+    api = NCCommonsAPI('user', 'pass')
+    print(api.get_page_text('User:Mr. Ibrahem/import bot'))
+    ```
 
 3. **Test parsing:**
-   ```python
-   from parsers import parse_language_list
-   text = "* {{User:Mr. Ibrahem/import bot/line|ar}}"
-   print(parse_language_list(text))
-   ```
+
+    ```python
+    from src.parsers import parse_language_list
+    text = "* {{User:Mr. Ibrahem/import bot/line|ar}}"
+    print(parse_language_list(text))
+    ```
 
 4. **Test database:**
-   ```python
-   from database import Database
-   db = Database('./test.db')
-   db.record_upload('test.jpg', 'en', 'success')
-   print(db.get_stats())
-   ```
+    ```python
+    from src.database import Database
+    db = Database('./test.db')
+    db.record_upload('test.jpg', 'en', 'success')
+    print(db.get_stats())
+    ```
 
 ---
 
@@ -401,29 +438,34 @@ Create simple manual tests:
 
 Create clear, simple documentation:
 
-```markdown
+````markdown
 # NC Commons Import Bot
 
 Imports files from NC Commons to Wikipedia.
 
 ## Setup
+
 1. `pip install -r requirements.txt`
 2. Copy `credentials.ini.example` to `credentials.ini`
 3. Edit credentials
 
 ## Usage
+
 ```bash
 python bot.py              # All languages
 python bot.py --lang ar    # Specific language
 python reports.py          # Generate reports
 ```
+````
 
 ## How It Works
+
 1. Reads language list from NC Commons
 2. Finds pages with {{NC}} templates
 3. Uploads files
 4. Replaces templates
 5. Records in database
+
 ```
 
 ---
@@ -472,3 +514,4 @@ Before finishing, verify:
 **New code:** 8 files, ~900 lines, standard libraries
 
 **Keep it simple!** The bot does 5 things - don't make it complicated.
+```
