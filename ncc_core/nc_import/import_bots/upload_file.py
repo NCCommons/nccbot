@@ -1,11 +1,6 @@
 #!/usr/bin/python3
 """
 
-Usage:
-# ---
-from nc_import.bots import upload_file
-# upload = upload_file.upload_by_url(file_name, text, url, comment='', code="en", family="wikipedia")
-# ---
 
 """
 import urllib.request
@@ -33,12 +28,12 @@ def do_post(code, family, params, files=None):
     """
     main_api = load_main_api(code, family)
     api_new = main_api.NEW_API()
-    # ---
+
     if files:
         result = api_new.post_params(params, addtoken=True, files=files)
     else:
         result = api_new.post_params(params, addtoken=True)
-    # ---
+
     return result
 
 
@@ -46,28 +41,24 @@ def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedi
     """
     Uploads a file to Wikipedia using a local file.
     """
-    # ---
+
     if file_name.startswith("File:"):
         file_name = file_name.replace("File:", "")
-    # ---
-    # get the file from url
+
     file_path = download_file(url)
-    # ---
+
     params = {"action": "upload", "format": "json", "filename": file_name, "comment": comment, "text": text, "utf8": 1}
-    # ---
+
     result = do_post(code, family, params, files={"file": open(file_path, "rb")})
-    # ---
+
     upload_result = result.get("upload", {})
-    # ---
+
     success = upload_result.get("result") == "Success"
     error = result.get("error", {})
     error_code = result.get("error", {}).get("code", "")
-    _error_info = result.get("error", {}).get("info", "")
-    # ---
-    # {'upload': {'result': 'Warning', 'warnings': {'duplicate': ['Buckle_fracture_of_distal_radius_(Radiopaedia_46707).jpg']}, 'filekey': '1amgwircbots.rdrfjg.13.', 'sessionkey': '1amgwircbots.rdrfjg.13.'}}
-    # ---
+
     duplicate = upload_result.get("warnings", {}).get("duplicate", [""])[0].replace("_", " ")
-    # ---
+
     if success:
         printe.output(f"<<lightgreen>> ** upload true .. [[File:{file_name}]] ")
         return True
@@ -76,10 +67,9 @@ def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedi
         printe.output(f"<<lightred>> ** duplicate file:  {duplicate}.")
 
     if error:
-        printe.output(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
+        printe.output(f"<<lightred>> error when upload_by_file, error_code:{error_code}")
         printe.output(error)
 
-    # ----
     return False
 
 
@@ -87,25 +77,25 @@ def upload_by_url(file_name, text, url, comment="", code="en", family="wikipedia
     """
     Uploads a file to Wikipedia using a URL.
     """
-    # ---
+
     if file_name.startswith("File:"):
         file_name = file_name.replace("File:", "")
-    # ---
+
     params = {"action": "upload", "format": "json", "filename": file_name, "url": url, "comment": comment, "text": text, "utf8": 1}
-    # ---
+
     result = do_post(code, family, params)
-    # ---
+
     upload_result = result.get("upload", {})
-    # ---
+
     success = upload_result.get("result") == "Success"
     error = result.get("error", {})
     error_code = result.get("error", {}).get("code", "")
     error_info = result.get("error", {}).get("info", "")
-    # ---
+
     # {'upload': {'result': 'Warning', 'warnings': {'duplicate': ['Buckle_fracture_of_distal_radius_(Radiopaedia_46707).jpg']}, 'filekey': '1amgwircbots.rdrfjg.13.', 'sessionkey': '1amgwircbots.rdrfjg.13.'}}
-    # ---
+
     duplicate = upload_result.get("warnings", {}).get("duplicate", [""])[0].replace("_", " ")
-    # ---
+
     if success:
         printe.output(f"<<lightgreen>> ** true .. [[File:{file_name}]] ")
         return True
@@ -119,5 +109,5 @@ def upload_by_url(file_name, text, url, comment="", code="en", family="wikipedia
     errors = ["copyuploadbaddomain", "copyuploaddisabled"]
     if error_code in errors or " url " in error_info.lower():
         return upload_by_file(file_name, text, url, comment=comment, code=code, family=family)
-    # ----
+
     return False

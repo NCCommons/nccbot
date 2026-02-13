@@ -13,7 +13,7 @@ from newapi import ALL_APIS
 def _load_credentials() -> tuple[str, str]:
     home_dir = os.getenv("HOME")
     project = home_dir if home_dir else "I:/ncc"
-    # ---
+
     config = configparser.ConfigParser()
     config.read(f"{project}/confs/user.ini")
 

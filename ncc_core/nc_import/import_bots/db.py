@@ -17,10 +17,10 @@ def add_to_txt(data):
     if not os.path.exists(jsonl_path):
         with open(jsonl_path, "w", encoding="utf-8") as f:
             f.write("")
-    # ---
+
     # with open(jsonl_path, "a", encoding="utf-8") as f:
     #     f.write(f"{json.dumps(data, ensure_ascii=False)}\n")
-    # ---
+
     with jsonlines.open(jsonl_path, mode="a") as writer:
         writer.write(data)
 

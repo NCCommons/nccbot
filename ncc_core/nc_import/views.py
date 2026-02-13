@@ -29,13 +29,13 @@ from import_bots.get_langs import get_langs_codes
 def get_views(code):
     endpoint = "https://pageviews.wmcloud.org/massviews/api.php"
     category = "Category:Files_imported_from_NC_Commons"
-    # ---
+
     # https://pageviews.wmcloud.org/massviews/api.php?project=af.wikipedia.org&category=Files_imported_from_NC_Commons&limit=20000
-    # ---
+
     params = {"project": f"{code}.wikipedia.org", "category": category}
-    # ---
+
     # result example: [{"title":"Chondrosarcoma_of_the_nasal_septum_(Radiopaedia_165701-135935_Sagittal_2).jpeg","ns":6}]
-    # ---
+
     response = requests.get("https://pageviews.wmcloud.org/massviews/api.php", params=params)
     return response.json()
 
@@ -45,7 +45,7 @@ def start():
     A function that starts the process by iterating over languages, getting pages for each language, and then working on those pages.
     """
     langs = get_langs_codes()
-    # ---
+
     for code in langs:
         pages = get_views(code)
 

@@ -290,7 +290,7 @@ def make_str(textm):
     for _, (text, next_color) in enu:
         # Get the current color from the color stack
         # print(f"i: {index}, text: {text}, next_color: {next_color}")
-        # ---
+
         current_color = color_stack[-1]
 
         # If the next color is 'previous', pop the color stack to get the previous color
@@ -731,6 +731,6 @@ if __name__ == "__main__":
             line += f" {co.ljust(15)} <<{co}>> test.<<default>>"
             line += "\n"
             # if numb % 5 == 0: line += "\n"
-    # ---
+
     output(line)
     showDiff(line, f"{line}3434s")

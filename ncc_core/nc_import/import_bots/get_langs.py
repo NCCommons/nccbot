@@ -18,7 +18,7 @@ def get_text():
     page = main_api.MainPage(title)
     text = page.get_text()
     # match all langs like: * ar\n* fr
-    # ---
+
     return text
 
 
@@ -29,27 +29,27 @@ def get_langs_codes():
     text = get_text()
     langs = []
     # * {{User:Mr. Ibrahem/import bot/line|ar}}
-    # ---
+
     tmp = "User:Mr. Ibrahem/import bot/line"
-    # ---
+
     prased = wtp.parse(text)
     temps = prased.templates
     for temp in temps:
-        # ---
+
         name = str(temp.normal_name()).strip().lower().replace("_", " ")
-        # ---
+
         printe.output(f"{temp.name=}, {name=}")
-        # ---
+
         if name == tmp.lower():
-            # ---
+
             # get first argument
-            # ---
+
             va = temp.get_arg("1")
             if va and va.value:
                 langs.append(va.value.strip())
-    # ---
+
     printe.output(f"langs: {langs}")
-    # ---
+
     return langs
 
 
