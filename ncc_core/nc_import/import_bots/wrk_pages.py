@@ -1,16 +1,12 @@
 
-
 """
-page      = MainPage(title, 'ar', family='wikipedia')
-exists    = page.exists()
-text      = page.get_text()
-save_page = page.save(newtext='', summary='', nocreate=1, minor='')
 """
 import wikitextparser as wtp
-from . import printe
 from .wiki_page import load_main_api
 from .import_files import import_file
 
+import logging
+logger = logging.getLogger(__name__)
 
 class PageWork:
     def __init__(self, code, title):
@@ -33,7 +29,7 @@ class PageWork:
         self.work_on_temps()
 
         if self.new_text == self.text:
-            printe.output("no changes")
+            logger.info("no changes")
             return
 
         self.add_category()
@@ -45,7 +41,7 @@ class PageWork:
 
         self.temps = [temp for temp in parsed.templates if str(temp.normal_name()).strip().lower().replace("_", " ") == "nc"]
 
-        printe.output(f"{len(self.temps)} temps")
+        logger.info(f"{len(self.temps)} temps")
 
     def work_one_temp(self, temp):
         # args = temp.arguments
@@ -61,8 +57,8 @@ class PageWork:
         if temp.get_arg("2"):
             caption = temp.get_arg("2").value
 
-        printe.output(f"<<purple>> File:<<default>> {file_name}")
-        printe.output(f"<<purple>> caption:<<default>> {caption}")
+        logger.info(f"<<purple>> File:<<default>> {file_name}")
+        logger.info(f"<<purple>> caption:<<default>> {caption}")
 
         done = import_file(file_name, self.code)
 
@@ -88,7 +84,7 @@ class PageWork:
 
         if self.new_text.find(cat) == -1:
             self.new_text += "\n[[Category:Contains images from NC Commons]]"
-            printe.output(f"Added category to {self.title}")
+            logger.info(f"Added category to {self.title}")
 
     def save(self):
         self.page.save(newtext=self.new_text, summary="bot: fix NC")

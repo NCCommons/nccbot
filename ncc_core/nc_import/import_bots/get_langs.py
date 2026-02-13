@@ -5,8 +5,9 @@ https://nccommons.org/wiki/User:Mr._Ibrahem/import_bot
 """
 # import re
 import wikitextparser as wtp
-from . import printe
 from .page_ncc import load_main_api
+import logging
+logger = logging.getLogger(__name__)
 
 
 def get_text():
@@ -38,7 +39,7 @@ def get_langs_codes():
 
         name = str(temp.normal_name()).strip().lower().replace("_", " ")
 
-        printe.output(f"{temp.name=}, {name=}")
+        logger.info(f"{temp.name=}, {name=}")
 
         if name == tmp.lower():
 
@@ -48,7 +49,7 @@ def get_langs_codes():
             if va and va.value:
                 langs.append(va.value.strip())
 
-    printe.output(f"langs: {langs}")
+    logger.info(f"langs: {langs}")
 
     return langs
 

@@ -4,10 +4,12 @@ bot for importing files from nccommons to wikipedia
 
 """
 import re
-from . import printe
 from . import upload_file
 from .db import add_to_db, add_to_jsonl
 from .page_ncc import load_main_api
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def get_file_text(title):
@@ -15,7 +17,7 @@ def get_file_text(title):
     Retrieves the text content of a file from NC Commons.
     """
     title = f"File:{title}" if not title.startswith("File:") else title
-    printe.output(f"<<yellow>>get_file_text: {title} from nccommons:")
+    logger.info(f"<<yellow>>get_file_text: {title} from nccommons:")
 
     main_api = load_main_api()
     page = main_api.MainPage(title)
@@ -41,7 +43,7 @@ def import_file(title, code):
     """
     Imports a file from NC Commons to Wikipedia.
     """
-    printe.output(f"<<yellow>>import_file: File:{title} to {code}wiki:")
+    logger.info(f"<<yellow>>import_file: File:{title} to {code}wiki:")
 
     file_text = get_file_text(title)
 
@@ -65,7 +67,7 @@ def import_file(title, code):
         )
 
     if upload:
-        printe.output(f"<<lightgreen>>File:{title} imported to {code}wiki.")
+        logger.info(f"<<lightgreen>>File:{title} imported to {code}wiki.")
         add_to_db(title, code)
         add_to_jsonl({"lang": code, "title": title})
 

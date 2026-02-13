@@ -4,8 +4,10 @@
 
 """
 import urllib.request
-from . import printe
 from .wiki_page import load_main_api
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def download_file(url):
@@ -60,15 +62,15 @@ def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedi
     duplicate = upload_result.get("warnings", {}).get("duplicate", [""])[0].replace("_", " ")
 
     if success:
-        printe.output(f"<<lightgreen>> ** upload true .. [[File:{file_name}]] ")
+        logger.info(f"<<lightgreen>> ** upload true .. [[File:{file_name}]] ")
         return True
 
     if duplicate:
-        printe.output(f"<<lightred>> ** duplicate file:  {duplicate}.")
+        logger.info(f"<<lightred>> ** duplicate file:  {duplicate}.")
 
     if error:
-        printe.output(f"<<lightred>> error when upload_by_file, error_code:{error_code}")
-        printe.output(error)
+        logger.info(f"<<lightred>> error when upload_by_file, error_code:{error_code}")
+        logger.info(error)
 
     return False
 
@@ -97,15 +99,15 @@ def upload_by_url(file_name, text, url, comment="", code="en", family="wikipedia
     duplicate = upload_result.get("warnings", {}).get("duplicate", [""])[0].replace("_", " ")
 
     if success:
-        printe.output(f"<<lightgreen>> ** true .. [[File:{file_name}]] ")
+        logger.info(f"<<lightgreen>> ** true .. [[File:{file_name}]] ")
         return True
 
     if duplicate:
-        printe.output(f"<<lightred>> ** duplicate file:  {duplicate}.")
+        logger.info(f"<<lightred>> ** duplicate file:  {duplicate}.")
 
     if error:
-        printe.output(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
-        printe.output(error_info)
+        logger.info(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
+        logger.info(error_info)
     errors = ["copyuploadbaddomain", "copyuploaddisabled"]
     if error_code in errors or " url " in error_info.lower():
         return upload_by_file(file_name, text, url, comment=comment, code=code, family=family)
