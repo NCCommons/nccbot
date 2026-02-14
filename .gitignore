@@ -25,7 +25,6 @@ tw/twet_config.py
 w.xml
 *.json1
 mass/radiox/**
-ncc_core/nc_import/long_bots.py
 /mass/eyerounds/htmls
 /fix_mass/fix_sets/studies_done
 /fix_mass/fix_sets/has_url
@@ -35,8 +34,6 @@ mass/usaid/.env
 /infos
 fix_mass/fix_sets/has_url
 mass/usask/usask.html
-ncc_core/nc_import/public_html‏‏-ncc-Tables.lnk
-ncc_core/nc_import/README.md
 /logs_fix/has_url
 /logs_fix/has_url
 requirements.in1
