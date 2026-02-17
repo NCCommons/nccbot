@@ -31,7 +31,6 @@ mass/radiox/**
 /tutorial
 mass/usaid/.env
 *.sqlite
-/infos
 fix_mass/fix_sets/has_url
 mass/usask/usask.html
 /logs_fix/has_url
