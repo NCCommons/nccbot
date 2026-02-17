@@ -1,12 +1,5 @@
 """
-This module provides functions for printing colored text and showing differences between two texts.
-The main functions are `output` and `showDiff`.
 
-Example usage:
-# To print colored text
-printe.output('<<red>>red')  # prints 'red' in red color
-# To show differences between two texts
-printe.showDiff('old text', 'new text')  # prints the differences between 'old text' and 'new text'
 """
 
 import difflib
@@ -661,18 +654,6 @@ class PatchManager:
         return OutPut
 
 
-def showDiff(text_a: str, text_b: str, context: int = 0) -> None:
-    """
-    Output a string showing the differences between text_a and text_b.
-
-    The differences are highlighted (only on compatible systems) to show which
-    changes were made.
-    """
-    if "nodiff" in sys.argv:
-        return
-    PatchManager(text_a, text_b, context=context).print_hunks()
-
-
 def output(textm, *uargs, **kwargs):
     """
     Prints the given text with color formatting.
@@ -719,7 +700,6 @@ def test_print(s):
 
 
 __all__ = [
-    "showDiff",
     "output",
     "debug",
     "warn",
@@ -727,16 +707,3 @@ __all__ = [
     "info",
     "test_print",
 ]
-
-if __name__ == "__main__":
-    line = ""
-    numb = 0
-    for co, cac in color_table.items():
-        if cac:
-            numb += 1
-            line += f" {co.ljust(15)} <<{co}>> test.<<default>>"
-            line += "\n"
-            # if numb % 5 == 0: line += "\n"
-    # ---
-    output(line)
-    showDiff(line, f"{line}3434s")

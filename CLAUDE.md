@@ -96,13 +96,6 @@ class MyDb(DbClass):
         super().__init__(self.table_name, self.create_table_query)
 ```
 
-**Colorized Output:**
-```python
-from api_bots import printe
-printe.output("<<red>>Error message<<default>>")
-printe.showDiff(old_text, new_text)  # Shows colored diff
-```
-
 ## Configuration
 
 - Credentials stored in INI files outside the repo at `../ncc/confs/`

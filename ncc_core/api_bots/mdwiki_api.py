@@ -280,7 +280,7 @@ def page_put(
             try:
                 pywikibot.showDiff(oldtext, newtext)
             except BaseException:
-                printe.output(" -mdwiki cant showDiff")
+                printe.output(" -mdwiki cant show Diff")
         printe.output(f" -Edit summary: {summary}:")
         sa = py_input(
             f"<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Do you want to accept these changes? ([y]es, [N]o, [a]ll): for page {lang}:{title}.org"
@@ -313,7 +313,6 @@ def page_put(
 def Add_To_Bottom2(aptext, summary, title, poss="", family="", minor=""):
     if title.strip() != "":
         printe.output(f"** Add_To_Bottom2 .. [[{title}]] ")
-        # pywikibot.showDiff("" , aptext)
         # ---
         Paramso = {
             "action": "edit",
@@ -349,7 +348,6 @@ def Add_To_Head(prependtext, summary, title, Ask, minor=""):
         # printe.output(prependtext)
         if Ask or "ask" in sys.argv and "save" not in sys.argv:
             # if Ask:
-            # pywikibot.showDiff( "" , prependtext )
             sa = py_input(f'<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Add_To_Head of page "{title}" ? ([y]es, [N]o):')
             if sa in yes_answer:
                 Add_To_Bottom2(prependtext, summary, title, poss="Head", minor=minor)
@@ -419,7 +417,6 @@ def create_Page(text, summary, title, ask, sleep=0, family="", duplicate4="", mi
     if not Save_2040[1] and (ask or "ask" in sys.argv and "save" not in sys.argv):
         # if ask or "ask" in sys.argv and "save" not in sys.argv:
         # if ask:
-        # pywikibot.showDiff("" , text)
         if printtext:
             printe.output(f"<<lightgreen>> {text}")
         printe.output(f" summary: {summary}")

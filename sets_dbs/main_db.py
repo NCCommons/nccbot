@@ -30,14 +30,15 @@ class MyDb(DbClass):
 
 """
 import configparser
+import logging
 import os
 import sys
 
 import pymysql
 import pymysql.cursors
-from api_bots import printe
 from pywikibot import config
 
+logger = logging.getLogger(__name__)
 # ---
 conversions = pymysql.converters.conversions
 conversions[pymysql.FIELD_TYPE.DATE] = lambda x: str(x)
@@ -106,7 +107,7 @@ class DbClass:
         try:
             self.connection = pymysql.connect(**args, **credentials)
         except Exception as e:
-            printe.warning(e)
+            logger.exception('Exception:', exc_info=True)
         # ---
         self.create_database_table()
 
@@ -123,7 +124,7 @@ class DbClass:
                     return True
 
             except Exception as e:
-                printe.warning(e)
+                logger.exception('Exception:', exc_info=True)
                 # ---
                 if get_data:
                     return []
@@ -133,7 +134,7 @@ class DbClass:
             try:
                 results = cursor.fetchall()
             except Exception as e:
-                printe.warning(e)
+                logger.exception('Exception:', exc_info=True)
                 return []
 
         return results
@@ -149,7 +150,7 @@ class DbClass:
                 return True
 
             except Exception as e:
-                printe.warning(e)
+                logger.exception('Exception:', exc_info=True)
                 return False
 
     def create_database_table(self):

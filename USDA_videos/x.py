@@ -1,5 +1,5 @@
 try:
-    from pytube import YouTube
+    from pytube import YouTube # type: ignore
 except ImportError:
     YouTube = None
 from pathlib import Path
