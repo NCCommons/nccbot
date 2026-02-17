@@ -13,14 +13,6 @@ from fix_mass.dir_studies_bot import studies_dir
 from mass.radio.bots.studies_utf import dump_studies_urls_to_files
 from mass.radio.get_studies import get_images, get_images_stacks
 
-# ---
-try:
-    import pywikibot
-    pywikibotoutput = pywikibot.output
-except ImportError:
-    pywikibotoutput = print
-
-
 import logging
 logger = logging.getLogger(__name__)
 

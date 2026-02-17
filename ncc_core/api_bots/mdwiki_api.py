@@ -55,7 +55,7 @@ def valid_title(title):
 
 
 def py_input(s):
-    return pywikibot.input(s)
+    return input(s)
 
 
 def post_s(params, addtoken=False, files=None):
@@ -86,24 +86,24 @@ def outbot(text2):
         Invalid = text.get("error", {}).get("info", "")
     # ---
     if Invalid == "Invalid CSRF token.":
-        pywikibot.output('<<lightred>> ** error "Invalid CSRF token.". ')
-        pywikibot.output(text)
+        logger.info('<<lightred>> ** error "Invalid CSRF token.". ')
+        logger.info(text)
         # ---
     elif "error" in text:
-        pywikibot.output("<<lightred>> ** error. ")
-        pywikibot.output(text)
+        logger.info("<<lightred>> ** error. ")
+        logger.info(text)
         # ---
         if "code" in text["error"]:
             if text["error"]["code"] == "articleexists":
-                pywikibot.output("<<lightred>> ** article already created. ")
+                logger.info("<<lightred>> ** article already created. ")
                 return "articleexists"
         else:
-            pywikibot.output(text)
+            logger.info(text)
         # ---
     elif "success" in text or "Success" in text:
-        pywikibot.output("<<lightgreen>> ** true. ")
+        logger.info("<<lightgreen>> ** true. ")
     else:
-        pywikibot.output(text2)
+        logger.info(text2)
 
 
 def import_history2(FILE_PATH, title):  # noqa: N803
