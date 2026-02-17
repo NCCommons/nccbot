@@ -2,16 +2,15 @@
 
 from fix_sets.by_count.lists import counts_from_files
 
-
 """
 
 import json
 from pathlib import Path
 
-from api_bots import printe
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
-
 
 def counts_from_files():
     # ---
@@ -24,7 +23,7 @@ def counts_from_files():
         with open(files_file, "r", encoding="utf-8") as f:
             lisst_of_s = json.load(f)
     except Exception as e:
-        printe.output(f"<<red>> Error reading {files_file}: {str(e)}")
+        logger.info(f"<<red>> Error reading {files_file}: {str(e)}")
         return False
     # ---
     return lisst_of_s

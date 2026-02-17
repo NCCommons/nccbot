@@ -12,11 +12,13 @@ import sys
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from fix_mass.files import studies_titles
 from fix_sets.bots.stacks import get_stacks  # get_stacks(study_id)
 from fix_sets.jsons_dirs import st_ref_infos
 from fix_sets.lists.studies_fixed import studies_fixed_done
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
 
@@ -28,12 +30,10 @@ if not files_file.exists():
 else:
     data = json.loads(files_file.read_text(encoding="utf-8"))
 
-
 data_keys = list(data.keys())
 data_keys.extend(studies_fixed_done)
 
 data_keys = list(set(data_keys))
-
 
 def count_files(x):
     file_js = st_ref_infos / x / "stacks.json"
@@ -55,7 +55,6 @@ def count_files(x):
 
     return all_files
 
-
 def get_and_log(ids):
     ids = [x for x in ids if x not in data]
 
@@ -65,13 +64,12 @@ def get_and_log(ids):
 
     with open(files_file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-        printe.output(f"<<green>> write {len(data)} to {files_file=}")
+        logger.info(f"<<green>> write {len(data)} to {files_file=}")
 
     return data
 
-
 def from_stacks_files():
-    printe.output("from_stacks_files:")
+    logger.info("from_stacks_files:")
 
     lala = []
 
@@ -90,20 +88,18 @@ def from_stacks_files():
 
     return lala
 
-
 def from_titles2():
     # ---
-    printe.output("from_titles2:")
+    logger.info("from_titles2:")
     # ---
     titles2 = [x for x in studies_titles.keys() if x not in data_keys]
     # ---
-    printe.output(f"from_titles2: {len(titles2):,}")
+    logger.info(f"from_titles2: {len(titles2):,}")
     # ---
     return titles2
 
-
 def from_files():
-    printe.output(f"co start: len data_keys: {len(data_keys)}")
+    logger.info(f"co start: len data_keys: {len(data_keys)}")
     # ---
     if "titles2" in sys.argv:
         lala = from_titles2()
@@ -122,7 +118,6 @@ def from_files():
     lisst_of_s = get_and_log(lal2)
 
     return lisst_of_s
-
 
 if __name__ == "__main__":
     from_files()

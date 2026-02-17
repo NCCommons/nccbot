@@ -8,8 +8,8 @@ import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
-
+import logging
+logger = logging.getLogger(__name__)
 
 def from_cach(file):
     if "nocach" in sys.argv:
@@ -19,9 +19,8 @@ def from_cach(file):
         try:
             return json.loads(file.read_text())
         except Exception as e:
-            printe.output(f"<<red>> from_cach: {file} error: {e}")
+            logger.info(f"<<red>> from_cach: {file} error: {e}")
     return {}
-
 
 def dumpit(data, file):
     file = Path(file)
@@ -29,13 +28,13 @@ def dumpit(data, file):
         return
     # ---
     if not data:
-        printe.output(f"<<yellow>> No data to dump to file: {file}")
+        logger.info(f"<<yellow>> No data to dump to file: {file}")
         return
     # ---
     try:
         with open(file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False)
-            printe.output(f"<<green>> Successfully write {len(data)} to file: {file}")
+            logger.info(f"<<green>> Successfully write {len(data)} to file: {file}")
 
     except Exception as e:
-        printe.output(f"<<red>> Error writing to file {file}: {str(e)}")
+        logger.info(f"<<red>> Error writing to file {file}: {str(e)}")

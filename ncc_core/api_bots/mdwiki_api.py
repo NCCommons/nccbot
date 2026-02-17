@@ -4,11 +4,11 @@
 import json
 import sys
 import time
-
 import pywikibot
-from api_bots import printe
+import logging
 from api_bots.page_md import load_main_api
 
+logger = logging.getLogger(__name__)
 main_api = load_main_api()
 api_new = main_api.NEW_API()
 
@@ -55,7 +55,7 @@ def valid_title(title):
 
 
 def py_input(s):
-    return pywikibot.input(s)
+    return input(s)
 
 
 def post_s(params, addtoken=False, files=None):
@@ -77,7 +77,7 @@ def outbot(text2):
         try:
             text = json.loads(text2)
         except BaseException:
-            printe.output("error when json loads text2")
+            logger.info("error when json loads text2")
     # ---{'error': {'*': 'See https://mdwiki.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce&gt; for notice of API deprecations and breaking changes.', 'info': 'Invalid CSRF token.', 'code': 'badtoken'}}
     # {'error': {'info': 'Invalid CSRF token.', '*': 'See https://mdwiki.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce&gt; for notice of API deprecations and breaking changes.', 'code': 'badtoken'}}
     # ---
@@ -86,29 +86,29 @@ def outbot(text2):
         Invalid = text.get("error", {}).get("info", "")
     # ---
     if Invalid == "Invalid CSRF token.":
-        pywikibot.output('<<lightred>> ** error "Invalid CSRF token.". ')
-        pywikibot.output(text)
+        logger.info('<<lightred>> ** error "Invalid CSRF token.". ')
+        logger.info(text)
         # ---
     elif "error" in text:
-        pywikibot.output("<<lightred>> ** error. ")
-        pywikibot.output(text)
+        logger.info("<<lightred>> ** error. ")
+        logger.info(text)
         # ---
         if "code" in text["error"]:
             if text["error"]["code"] == "articleexists":
-                pywikibot.output("<<lightred>> ** article already created. ")
+                logger.info("<<lightred>> ** article already created. ")
                 return "articleexists"
         else:
-            pywikibot.output(text)
+            logger.info(text)
         # ---
     elif "success" in text or "Success" in text:
-        pywikibot.output("<<lightgreen>> ** true. ")
+        logger.info("<<lightgreen>> ** true. ")
     else:
-        pywikibot.output(text2)
+        logger.info(text2)
 
 
-def import_history2(FILE_PATH, title):
+def import_history2(FILE_PATH, title):  # noqa: N803
     # ---
-    printe.output(f"<<lightpurple>> import_history for page:{title}:")
+    logger.info(f"<<lightpurple>> import_history for page:{title}:")
     # ---
     namespace = 2 if title.lower().startswith("user:") else 0
     # ---
@@ -131,7 +131,7 @@ def import_history2(FILE_PATH, title):
             NewList = FILE_PATH
     # ---
     for fff in NewList:
-        printe.output(f' file:"{fff}"')
+        logger.info(f' file:"{fff}"')
         with open(fff) as file:
             FILE = {"xml": ("file.xml", file)}
         # DATA = R.json()
@@ -139,17 +139,17 @@ def import_history2(FILE_PATH, title):
         r4 = post_s(pp, addtoken=True, files=FILE)
         # ---
         DATA = r4.json()
-        printe.output(DATA)
+        logger.info(DATA)
         # ---
         if "Success" in r4.text:
-            printe.output("<<lightgreen>> ** true .. . ")
+            logger.info("<<lightgreen>> ** true .. . ")
         # ---
         outbot(r4.text)
 
 
-def import_history(FILE_PATH, title):
+def import_history(FILE_PATH, title):  # noqa: N803
     # ---
-    printe.output(f"<<lightpurple>> import_history for page:{title}:")
+    logger.info(f"<<lightpurple>> import_history for page:{title}:")
     # ---
 
     namespace = 2 if title.lower().startswith("user:") else 0
@@ -172,7 +172,7 @@ def import_history(FILE_PATH, title):
             NewList = FILE_PATH
     # ---
     for fff in NewList:
-        printe.output(f' file:"{fff}"')
+        logger.info(f' file:"{fff}"')
         with open(fff) as file:
             FILE = {"xml": ("file.xml", file)}
         # DATA = R.json()
@@ -181,10 +181,10 @@ def import_history(FILE_PATH, title):
         r4 = post_s(pparams, addtoken=True, files=FILE)
         # ---
         if "Success" in r4.text:
-            printe.output("<<lightgreen>> ** true .. . ")
+            logger.info("<<lightgreen>> ** true .. . ")
         # ---
         DATA = r4
-        printe.output(DATA)
+        logger.info(DATA)
 
 
 def import_page(title):
@@ -206,7 +206,7 @@ def import_page(title):
 
 
 def page_put_new(
-    NewText,
+    NewText,  # noqa: N803
     summary,
     title,
     time_sleep="",
@@ -219,7 +219,7 @@ def page_put_new(
     return_table=False,
 ):
     # ---
-    printe.output(f" page_put {title}:")
+    logger.info(f" page_put {title}:")
     # ---
     pparams = {"action": "edit", "title": title, "text": NewText, "summary": summary, "nocreate": nocreate}
     # ---
@@ -240,8 +240,8 @@ def page_put_new(
     # Invalid = r4.get("error", {}).get("info", '')
     # ---
     if "Success" in str(r4):
-        printe.output(f"<<lightgreen>> ** true .. [[mdwiki:{title}]]   time.sleep({tts}) ")
-        printe.output(f"Save True.. time.sleep({tts}) ")
+        logger.info(f"<<lightgreen>> ** true .. [[mdwiki:{title}]]   time.sleep({tts}) ")
+        logger.info(f"Save True.. time.sleep({tts}) ")
         time.sleep(tts)
         if return_table:
             return r4
@@ -280,20 +280,20 @@ def page_put(
             try:
                 pywikibot.showDiff(oldtext, newtext)
             except BaseException:
-                printe.output(" -mdwiki cant show Diff")
-        printe.output(f" -Edit summary: {summary}:")
+                logger.info(" -mdwiki cant show Diff")
+        logger.info(f" -Edit summary: {summary}:")
         sa = py_input(
             f"<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Do you want to accept these changes? ([y]es, [N]o, [a]ll): for page {lang}:{title}.org"
         )
         # ---
         if sa == "a":
-            printe.output("<<lightgreen>> ---------------------------------")
-            printe.output("<<lightgreen>> mdwiki.py save all without asking.")
-            printe.output("<<lightgreen>> ---------------------------------")
+            logger.info("<<lightgreen>> ---------------------------------")
+            logger.info("<<lightgreen>> mdwiki.py save all without asking.")
+            logger.info("<<lightgreen>> ---------------------------------")
             Save_2020[1] = True
         # ---
         if sa not in yes_answer:
-            printe.output("wrong answer")
+            logger.info("wrong answer")
             return False
     # ---
     return page_put_new(
@@ -312,7 +312,7 @@ def page_put(
 
 def Add_To_Bottom2(aptext, summary, title, poss="", family="", minor=""):
     if title.strip() != "":
-        printe.output(f"** Add_To_Bottom2 .. [[{title}]] ")
+        logger.info(f"** Add_To_Bottom2 .. [[{title}]] ")
         # ---
         Paramso = {
             "action": "edit",
@@ -333,60 +333,60 @@ def Add_To_Bottom2(aptext, summary, title, poss="", family="", minor=""):
         r4 = post_s(Paramso, addtoken=True)
         # ---
         if "Success" in r4:
-            printe.output(f"<<lightgreen>>** true .. [[{title}]] ")
-            printe.output(f"Save True... time.sleep({timesleep}) ")
+            logger.info(f"<<lightgreen>>** true .. [[{title}]] ")
+            logger.info(f"Save True... time.sleep({timesleep}) ")
         else:
             outbot(r4)
     else:
-        printe.output('** Add_To_Bottom2 ..  title == ""')
+        logger.info('** Add_To_Bottom2 ..  title == ""')
 
 
-def Add_To_Head(prependtext, summary, title, Ask, minor=""):
+def Add_To_Head(prependtext, summary, title, Ask, minor=""):  # noqa: N803
     if title.strip() != "":
         # ---
-        printe.output(f" Add_To_Head for Page {title}:")
-        # printe.output(prependtext)
+        logger.info(f" Add_To_Head for Page {title}:")
+        # logger.info(prependtext)
         if Ask or "ask" in sys.argv and "save" not in sys.argv:
             # if Ask:
             sa = py_input(f'<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Add_To_Head of page "{title}" ? ([y]es, [N]o):')
             if sa in yes_answer:
                 Add_To_Bottom2(prependtext, summary, title, poss="Head", minor=minor)
             else:
-                printe.output("wrong answer")
+                logger.info("wrong answer")
             return sa
         else:
             Add_To_Bottom2(prependtext, summary, title, poss="Head", minor=minor)
         # ---
     else:
-        printe.output('** Add_To_Head ..  title == ""')
+        logger.info('** Add_To_Head ..  title == ""')
 
 
-def Add_To_Bottom(appendtext, summary, title, Ask, family="", minor=""):
+def Add_To_Bottom(appendtext, summary, title, Ask, family="", minor=""):  # noqa: N803
     if title.strip() != "":
         # ---
-        printe.output(f" Add_To_Bottom for Page {title}:")
-        printe.output(appendtext)
+        logger.info(f" Add_To_Bottom for Page {title}:")
+        logger.info(appendtext)
         if Ask or "ask" in sys.argv and "save" not in sys.argv:
             # if Ask:
             sa = py_input(f'<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Add_To_Bottom of page "{title}" ? ([y]es, [N]o):')
             if sa in yes_answer:
                 Add_To_Bottom2(appendtext, summary, title, family=family, minor=minor)
             else:
-                printe.output("wrong answer")
+                logger.info("wrong answer")
             return sa
         else:
             Add_To_Bottom2(appendtext, summary, title, family=family, minor=minor)
         # ---
     else:
-        printe.output('** Add_To_Bottom ..  title == ""')
+        logger.info('** Add_To_Bottom ..  title == ""')
 
 
 def create_Page(text, summary, title, ask, sleep=0, family="", duplicate4="", minor="", printtext=True):
-    printe.output(f" create Page {title}:")
+    logger.info(f" create Page {title}:")
     time_sleep = timesleep
     # ---
     if title.startswith("نقاش القالب:") and title.endswith("/ملعب"):
-        printe.output(" skip make talk to sandboxes..")
+        logger.info(" skip make talk to sandboxes..")
         return False
     # ---
     if sleep and sleep > 0:
@@ -418,21 +418,21 @@ def create_Page(text, summary, title, ask, sleep=0, family="", duplicate4="", mi
         # if ask or "ask" in sys.argv and "save" not in sys.argv:
         # if ask:
         if printtext:
-            printe.output(f"<<lightgreen>> {text}")
-        printe.output(f" summary: {summary}")
+            logger.info(f"<<lightgreen>> {text}")
+        logger.info(f" summary: {summary}")
         sa = py_input(f'<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: create {family}:"{title}" page ? ([y]es, [N]o)')
         if sa.strip() in yes_answer:
             # ---
             if sa.strip() == "a":
-                printe.output("<<lightgreen>> ---------------------------------------------")
-                printe.output("<<lightgreen>> mdwiki.py create_Page save all without asking.")
-                printe.output("<<lightgreen>> ---------------------------------------------")
+                logger.info("<<lightgreen>> ---------------------------------------------")
+                logger.info("<<lightgreen>> mdwiki.py create_Page save all without asking.")
+                logger.info("<<lightgreen>> ---------------------------------------------")
                 Save_2040[1] = True
             # ---
             r4 = post_s(params, addtoken=True)
             Faco = True
         else:
-            printe.output("wrong answer")
+            logger.info("wrong answer")
             return False
     else:
         r4 = post_s(params)
@@ -441,29 +441,29 @@ def create_Page(text, summary, title, ask, sleep=0, family="", duplicate4="", mi
     if Faco:
         # ---
         if "Success" in r4:
-            printe.output(f"<<lightgreen>>** true .. : [[{title}]] ")
-            printe.output(f"Save True... time.sleep({time_sleep}) ")
+            logger.info(f"<<lightgreen>>** true .. : [[{title}]] ")
+            logger.info(f"Save True... time.sleep({time_sleep}) ")
             time.sleep(time_sleep)
             return True
         elif "error" in r4:
             if "code" in r4["error"]:
                 if r4["error"]["code"] == "articleexists":
-                    printe.output("error when create_Page")
+                    logger.info("error when create_Page")
             outbot(r4)
         else:
-            printe.output("create_Page: outbot(r4.text)")
+            logger.info("create_Page: outbot(r4.text)")
             outbot(r4)
             return False
     # ---a
-    printe.output(f"<<lightred>> end of create_Page def return False title:({title})")
-    printe.output(r4)
+    logger.info(f"<<lightred>> end of create_Page def return False title:({title})")
+    logger.info(r4)
     # ---a
     return False
 
 
-def move(From, to, reason, lang="ar", nosleep=False, retry=True):
+def move(From, to, reason, lang="ar", nosleep=False, retry=True):  # noqa: N803
     # ---
-    printe.output(f"<<lightyellow>> ** move .. [[{lang}:{From}]] to [[{to}]] ")
+    logger.info(f"<<lightyellow>> ** move .. [[{lang}:{From}]] to [[{to}]] ")
     Params = {
         "action": "move",
         "from": From,
@@ -471,10 +471,10 @@ def move(From, to, reason, lang="ar", nosleep=False, retry=True):
         "movetalk": 1,
     }
     # ---
-    printe.output(f" -Edit reason: {reason}:")
+    logger.info(f" -Edit reason: {reason}:")
     # ---
     if From == to:
-        printe.output(f"<<lightred>>** From == to {to} ")
+        logger.info(f"<<lightred>>** From == to {to} ")
         return False
     # ---
     JustMove = True
@@ -485,37 +485,37 @@ def move(From, to, reason, lang="ar", nosleep=False, retry=True):
         )
         # ---
         if sa == "a":
-            printe.output("<<lightgreen>> ---------------------------------")
-            printe.output("<<lightgreen>> mdwiki.py move all without asking.")
-            printe.output("<<lightgreen>> ---------------------------------")
+            logger.info("<<lightgreen>> ---------------------------------")
+            logger.info("<<lightgreen>> mdwiki.py move all without asking.")
+            logger.info("<<lightgreen>> ---------------------------------")
             Save_2020[1] = True
         # ---
         if sa not in yes_answer:
             JustMove = False
-            printe.output(" mdwiki/mdpy/mdwiki_api.py: wrong answer")
+            logger.info(" mdwiki/mdpy/mdwiki_api.py: wrong answer")
         # return sa
     # ---
     if JustMove:
         r4 = post_s(Params, addtoken=True)
         # ---
         if "Success" in r4.text or "redirectcreated" in r4.text:
-            printe.output(f"<<lightgreen>>** true .. [[{to}]] ")
-            printe.output("Save True... time.sleep(%d) " % 7)
+            logger.info(f"<<lightgreen>>** true .. [[{to}]] ")
+            logger.info("Save True... time.sleep(7)")
             if nosleep:
                 time.sleep(7)
             return True
         elif "Please wait some time and try again" in r4.text or "ratelimited" in r4.text:
-            printe.output(r4.text)
+            logger.info(r4.text)
             if nosleep:
                 time.sleep(7)
             if retry:
                 return move(From, to, reason, lang=lang, retry=False)
         elif "Please choose another name." in r4.text:
-            printe.output(r4.text)
+            logger.info(r4.text)
             return "Please choose another name."
         else:
             return outbot(r4.text)
-            # printe.output(r4.text)
+            # logger.info(r4.text)
     return False
 
 
@@ -547,12 +547,14 @@ def wordcount(title, srlimit="30"):
     return words
 
 
-def Get_cat(enlink, ns, lllang="", tempyes=[], lang_no="", print_url=True):
+def Get_cat(enlink, ns, lllang="", tempyes=None, lang_no="", print_url=True):
     # ---
     # إيجاد categorymembers والتصانيف الفرعية لتصنيف
     # ---
-    # printe.output(' Get_cat for %s' % (enlink) )
+    # logger.info(' Get_cat for %s' % (enlink) )
     # ---
+    if tempyes is None:
+        tempyes = []
     if not enlink.startswith("Category:"):
         enlink = f"Category:{enlink}"
     # ---
@@ -591,12 +593,12 @@ def Get_cat(enlink, ns, lllang="", tempyes=[], lang_no="", print_url=True):
     elif ns == "all":
         params["gcmtype"] = "page|subcat"
     # ---
-    # printe.output('<<lightblue>> API_CALLS %d   for %s' % (API_CALLS[1],enlink) )
+    # logger.info('<<lightblue>> API_CALLS %d   for %s' % (API_CALLS[1],enlink) )
     # ---
     if print_url or "printurl" in sys.argv:
         lis = [f"{x}={y}" for x, y in params.items()]
         url = f"api.php?{'&'.join(lis)}"
-        printe.output(url)
+        logger.info(url)
     # ----
     continue_p = ""
     continue_v = "x"
@@ -633,11 +635,11 @@ def Get_cat(enlink, ns, lllang="", tempyes=[], lang_no="", print_url=True):
             # ---
             cate_title = caca["title"]
             tablese = {}
-            # printe.output("<<lightblue>> cate_title: %s" % cate_title )
+            # logger.info("<<lightblue>> cate_title: %s" % cate_title )
             # ---
             if "ns" in caca:
                 tablese["ns"] = caca["ns"]
-                # printe.output("<<lightblue>> ns: %s" %   caca['ns'])
+                # logger.info("<<lightblue>> ns: %s" %   caca['ns'])
             # ---
             if "templates" in caca:
                 tablese["templates"] = [x["title"] for x in caca["templates"]]
@@ -653,20 +655,22 @@ def Get_cat(enlink, ns, lllang="", tempyes=[], lang_no="", print_url=True):
     # ---
     subcats = [x for x in table if str(table[x]["ns"]) == "14"]
     # ---
-    printe.output(f"<<lightgreen>> Getcat: find {len(subcats)} subcat:{','.join(subcats)}")
+    logger.info(f"<<lightgreen>> Getcat: find {len(subcats)} subcat:{','.join(subcats)}")
     # ---
-    printe.output(f"<<lightyellow>> cat:{enlink} has:{len(table)} pages.")
+    logger.info(f"<<lightyellow>> cat:{enlink} has:{len(table)} pages.")
     # ---
     return table
 
 
-def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", with_lang="", tempyes=[]):
+def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", with_lang="", tempyes=None):
     # ---
     # ---
     # إيجاد categorymembers والتصانيف الفرعية لتصنيف
     # ---
-    # printe.output('<<lightyellow>> catdepth.py sub cat query for %s:%s,depth:%d,ns:%s.' % ('',title,depth,ns) )
+    # logger.info('<<lightyellow>> catdepth.py sub cat query for %s:%s,depth:%d,ns:%s.' % ('',title,depth,ns) )
     # ---
+    if tempyes is None:
+        tempyes = []
     start = time.time()
     final = time.time()
     # ---
@@ -705,7 +709,7 @@ def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", 
         try:
             depth = int(depth)
         except BaseException:
-            printe.output("<<lightblue>> type(depth) != int ")
+            logger.info("<<lightblue>> type(depth) != int ")
     # ---
     while depth > depth_done:  # and ( limit > 0 and len(result_table) < limit ):
         depth_done += 1
@@ -713,7 +717,7 @@ def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", 
         # ---
         for cat in new_list:
             # ---
-            printe.output(f"get pages from subcat:{cat}")
+            logger.info(f"get pages from subcat:{cat}")
             # ---
             if cat not in cat_done:
                 cat_done.append(cat)
@@ -743,9 +747,9 @@ def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", 
     final = time.time()
     delta = int(final - start)
     # ---
-    # if "printresult" in sys.argv: printe.output(result_table)
+    # if "printresult" in sys.argv: logger.info(result_table)
     # ---
-    printe.output(
+    logger.info(
         f"<<lightblue>>catdepth.py: find {len(result_table)} pages({str(ns)}) in :{title}, depth:{depth} in {delta} seconds"
     )
     # ---
@@ -758,7 +762,7 @@ def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", 
 
 
 def GetPageText(title, redirects=False):
-    # printe.output( '**GetarPageText: ')
+    # logger.info( '**GetarPageText: ')
     # ---
     params = {
         "action": "parse",
@@ -777,11 +781,11 @@ def GetPageText(title, redirects=False):
     if json1:
         text = json1.get("parse", {}).get("wikitext", {}).get("*", "")
     else:
-        printe.output("no parse in json1:")
-        printe.output(json1)
+        logger.info("no parse in json1:")
+        logger.info(json1)
     # ---
     if not text:
-        printe.output(f'page {title} text == "".')
+        logger.info(f'page {title} text == "".')
     # ---
     return text
 
@@ -815,7 +819,7 @@ def Get_Newpages(limit="max", namespace="0", rcstart="", user=""):
 
 def Get_page_links(title, namespace="0", limit="max"):
     # ---
-    printe.output(f'Get_page_links for title:"{title}", limit:"{limit}",namespace:"{namespace}"')
+    logger.info(f'Get_page_links for title:"{title}", limit:"{limit}",namespace:"{namespace}"')
     # ---
     params = {
         "action": "query",
@@ -849,9 +853,9 @@ def Get_page_links(title, namespace="0", limit="max"):
             for pa in tab.get("links", []):
                 Main_table["links"][pa["title"]] = {"ns": pa["ns"], "title": pa["title"]}
     else:
-        printe.output("mdwiki_api.py no json1")
+        logger.info("mdwiki_api.py no json1")
     # ---
-    printe.output(f"mdwiki_api.py Get_page_links : find {len(Main_table['links'])} pages.")
+    logger.info(f"mdwiki_api.py Get_page_links : find {len(Main_table['links'])} pages.")
     # ---
     return Main_table
 
@@ -863,7 +867,7 @@ def Get_page_links_2(title):
 
 def Get_template_pages(title, namespace="*", limit="max"):
     # ---
-    printe.output(f'Get_template_pages for template:"{title}", limit:"{limit}",namespace:"{namespace}"')
+    logger.info(f'Get_template_pages for template:"{title}", limit:"{limit}",namespace:"{namespace}"')
     # ---
     params = {
         "action": "query",
@@ -893,16 +897,16 @@ def Get_template_pages(title, namespace="*", limit="max"):
         # ---
         Main_table.extend(tab["title"] for _, tab in pages.items())
         # ---
-        printe.output(f"len of Main_table:{len(Main_table)}.")
+        logger.info(f"len of Main_table:{len(Main_table)}.")
     # ---
-    printe.output(f"mdwiki_api.py Get_template_pages : find {len(Main_table)} pages.")
+    logger.info(f"mdwiki_api.py Get_template_pages : find {len(Main_table)} pages.")
     # ---
     return Main_table
 
 
 def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all=0):
     # ---
-    printe.output(f"Get_All_pages for start:{start}, limit:{limit},namespace:{namespace},apfilterredir:{apfilterredir}")
+    logger.info(f"Get_All_pages for start:{start}, limit:{limit},namespace:{namespace},apfilterredir:{apfilterredir}")
     # ---
     numb = 0
     # ---
@@ -929,7 +933,7 @@ def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all
         # ---
         numb += 1
         # ---
-        printe.output(f"Get_All_pages {numb}, apcontinue:{apcontinue}..")
+        logger.info(f"Get_All_pages {numb}, apcontinue:{apcontinue}..")
         # ---
         if apcontinue != "x":
             params["apcontinue"] = apcontinue
@@ -942,30 +946,30 @@ def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all
         apcontinue = json1.get("continue", {}).get("apcontinue", "")
         # ---
         newp = json1.get("query", {}).get("allpages", [])
-        printe.output(f"<<lightpurple>> --- Get_All_pages : find {len(newp)} pages.")
+        logger.info(f"<<lightpurple>> --- Get_All_pages : find {len(newp)} pages.")
         # ---
         for x in newp:
             if x["title"] not in Main_table:
                 Main_table.append(x["title"])
         # ---
-        printe.output(f"len of Main_table {len(Main_table)}.")
+        logger.info(f"len of Main_table {len(Main_table)}.")
         # ---
         if limit_all > 0 and len(Main_table) >= limit_all:
             apcontinue = ""
-            printe.output("<<lightgreen>> limit_all >= len(Main_table) ")
+            logger.info("<<lightgreen>> limit_all >= len(Main_table) ")
             break
         # ---
     # ---
     if numb > 0 and apcontinue == "":
-        printe.output("<<lightgreen>> apcontinue == '' ")
+        logger.info("<<lightgreen>> apcontinue == '' ")
     # ---
-    printe.output(f"mdwiki_api.py Get_All_pages : find {len(Main_table)} pages.")
+    logger.info(f"mdwiki_api.py Get_All_pages : find {len(Main_table)} pages.")
     # ---
     return Main_table
 
 
 def get_section(title, level):
-    printe.output(f'get_section title:"{title}", level:"{level}"')
+    logger.info(f'get_section title:"{title}", level:"{level}"')
     # ---
     params = {"action": "parse", "page": title, "prop": "wikitext", "section": level}
     # ---
@@ -978,7 +982,7 @@ def get_section(title, level):
 
 def Get_UserContribs(user, limit="max", namespace="*", ucshow=""):
     # ---
-    printe.output(f'Get_UserContribs for user:"{user}", limit:"{limit}"')
+    logger.info(f'Get_UserContribs for user:"{user}", limit:"{limit}"')
     # ---
     params = {
         "action": "query",
@@ -1003,16 +1007,18 @@ def Get_UserContribs(user, limit="max", namespace="*", ucshow=""):
         # ---
         Main_table = [x["title"] for x in newp]
     # ---
-    printe.output(f"mdwiki_api.py Get_Newpages : find {len(Main_table)} pages.")
+    logger.info(f"mdwiki_api.py Get_Newpages : find {len(Main_table)} pages.")
     # ---
     return Main_table
 
 
-def Search(value="", lang="", family="", ns="", offset="", srlimit="max", RETURN_dict=False, addparams={}):
+def Search(value="", lang="", family="", ns="", offset="", srlimit="max", RETURN_dict=False, addparams=None):  # noqa: N803
     # ---
+    if addparams is None:
+        addparams = {}
     Lidy = []
     # ---
-    printe.output(f'mdwiki_api.Search for "{value}",ns:{ns}')
+    logger.info(f'mdwiki_api.Search for "{value}",ns:{ns}')
     # ---
     if not srlimit:
         srlimit = "max"
@@ -1055,7 +1061,7 @@ def Search(value="", lang="", family="", ns="", offset="", srlimit="max", RETURN
                 Lidy.append(tit)
     # ---
     # if not Lidy:
-    printe.output(f'mdwiki_api.Search find "{len(Lidy)}" result. s')
+    logger.info(f'mdwiki_api.Search find "{len(Lidy)}" result. s')
     # ---
     return Lidy
 

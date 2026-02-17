@@ -9,7 +9,6 @@ write python code to do:
 python3 I:/ncc/nccbot/mass/eyerounds/up.py
 python3 core8/pwb.py mass/eyerounds/up break ask
 
-
 tfj run eyeroundsx --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/eyerounds/up"
 
 """
@@ -22,7 +21,6 @@ import time
 # from tqdm import tqdm
 from pathlib import Path
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth
 from mass.eyerounds.bots.catbot import category_name
 from mass.eyerounds.bots.category_bot import create_category  # create_category(chapter_name, pages)
@@ -30,6 +28,8 @@ from mass.eyerounds.bots.names import make_files_names
 from mass.eyerounds.bots.set_bot import create_set
 from mass.eyerounds.bots.url_to_title import urls_to_title
 from nccommons import api
+import logging
+logger = logging.getLogger(__name__)
 
 # Specify the root folder
 main_dir = Path(__file__).parent
@@ -59,7 +59,6 @@ pages = CatDepth(
 time.sleep(1)
 print("time.sleep(1)")
 
-
 def get_data() -> dict:
     with open(main_dir / "jsons/images.json", "r", encoding="utf-8") as f:
         dataimages = json.load(f)
@@ -75,19 +74,18 @@ def get_data() -> dict:
     data = dict(sorted(data.items(), key=lambda item: len(item[1]["images"]), reverse=True))
 
     # print how many has images and how many has no images
-    printe.output(
+    logger.info(
         f"<<green>> Number of sections with images: {len([k for k, v in data.items() if len(v['images']) > 0])}"
     )
 
-    printe.output(
+    logger.info(
         f"<<green>> Number of sections with no images: {len([k for k, v in data.items() if len(v['images']) == 0])}"
     )
 
     # print len of all images
-    printe.output(f"<<green>> Number of images: {sum(len(v['images']) for k, v in data.items())}")
+    logger.info(f"<<green>> Number of images: {sum(len(v['images']) for k, v in data.items())}")
 
     return data
-
 
 def make_image_text(category, image_url, chapter_url):
     # ---
@@ -115,7 +113,6 @@ def make_image_text(category, image_url, chapter_url):
 
     return image_text
 
-
 def upload_image(category, image_url, image_name, chapter_url) -> bool:
     # ---
     image_text = make_image_text(category, image_url, chapter_url)
@@ -127,7 +124,6 @@ def upload_image(category, image_url, image_name, chapter_url) -> bool:
     print(f"upload result: {upload}")
 
     return upload
-
 
 def process_images(images_info, category, numb, chapter_url) -> dict:
     files = {}
@@ -154,7 +150,6 @@ def process_images(images_info, category, numb, chapter_url) -> dict:
 
     return files
 
-
 def process_folder() -> None:
     data = get_data()
     # ---
@@ -168,7 +163,7 @@ def process_folder() -> None:
         images_info = info_data.get("images", {})
 
         if not images_info:
-            printe.output(f"<<lightyellow>> No images found for {chapter_url}")
+            logger.info(f"<<lightyellow>> No images found for {chapter_url}")
             continue
 
         _title = info_data.get("title")
@@ -192,7 +187,6 @@ def process_folder() -> None:
 
         if "break" in sys.argv:
             break
-
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

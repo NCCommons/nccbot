@@ -22,13 +22,14 @@ from multiprocessing import Pool
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from fix_mass.count_files.Case_co import CaseDo
 from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 from mass.radio.jsons_bot import radio_jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent.parent.parent
-
 
 def do_it(va):
     # ---
@@ -39,9 +40,8 @@ def do_it(va):
     bot = CaseDo(caseId, title, studies)
     bot.start()
 
-
 def main(ids_tab):
-    printe.output(f"<<purple>> start.py all: {len(ids_tab)}:")
+    logger.info(f"<<purple>> start.py all: {len(ids_tab)}:")
     # ---
     tab = []
     # ---
@@ -54,7 +54,7 @@ def main(ids_tab):
         studies = [study.split("/")[-1] for study in va["studies"]]
         # ---
         if not studies:
-            printe.output(f"!!! studies not found: {caseId=}.")
+            logger.info(f"!!! studies not found: {caseId=}.")
             continue
         # ---
         tab.append({"caseId": caseId, "title": title, "studies": studies})
@@ -63,7 +63,6 @@ def main(ids_tab):
     pool.map(do_it, tab)
     pool.close()
     pool.terminate()
-
 
 def start():
     with open(radio_jsons_dir / "all_ids.json", encoding="utf-8") as f:
@@ -103,7 +102,6 @@ def start():
     time.sleep(3)
     # ---
     main(ids_tab)
-
 
 if __name__ == "__main__":
     start()

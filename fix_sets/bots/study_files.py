@@ -8,17 +8,17 @@ import re
 
 # import sys
 # from pathlib import Path
-from api_bots import printe
+
 from fix_mass.files import study_to_case_cats
 from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
 from fix_sets.ncc_api import CatDepth
+import logging
+logger = logging.getLogger(__name__)
 
 # import json
 
-
 # st_dit = jsons_dir / "studies_files"
-
 
 def dump_it(data):
     for s_id, files in data.items():
@@ -30,7 +30,6 @@ def dump_it(data):
         # ---
         dumpit(files, file)
 
-
 def get_from_cach(study_id):
     # ---
     # file = st_dit / f"{study_id}.json"
@@ -41,7 +40,6 @@ def get_from_cach(study_id):
     # ---
     return from_cach(file)
 
-
 def filter_members(cat_members):
     data = {}
     # ---
@@ -50,14 +48,14 @@ def filter_members(cat_members):
     for x in cat_members:
         # ---
         if not x.startswith("File:"):
-            printe.output(f"!{x}")
+            logger.info(f"!{x}")
             continue
         # ---
         # search for (Radiopaedia \d+-\d+
         se = re.match(r".*?\(Radiopaedia \d+-(\d+)", x)
         # ---
         if not se:
-            printe.output(f"!{x}")
+            logger.info(f"!{x}")
             not_match += 1
             continue
         # ---
@@ -68,10 +66,9 @@ def filter_members(cat_members):
         # ---
         data[study_id].append(x)
     # ---
-    printe.output(f"len {not_match=}")
+    logger.info(f"len {not_match=}")
     # ---
     return data
-
 
 def get_study_files(study_id):
     # ---
@@ -82,7 +79,7 @@ def get_study_files(study_id):
     cat = study_to_case_cats.get(study_id)
     # ---
     if not cat:
-        printe.output(f"!cat for {study_id} not found")
+        logger.info(f"!cat for {study_id} not found")
         return []
     # ---
     cat_members = CatDepth(cat, sitecode="www", family="nccommons", depth=1)
@@ -94,7 +91,7 @@ def get_study_files(study_id):
     result = filterd.get(study_id)
     # ---
     if not result:
-        printe.output(f"!{study_id} not found")
+        logger.info(f"!{study_id} not found")
         return []
     # ---
     return result

@@ -9,9 +9,10 @@ import os
 import sys
 
 import requests
-from api_bots import printe
-from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 
+from fix_mass.dir_studies_bot import studies_urls_to_files_dir
+import logging
+logger = logging.getLogger(__name__)
 
 def get_stcks(study_id):
     new_url = f"https://radiopaedia.org/studies/{study_id}/stacks"
@@ -37,7 +38,6 @@ def get_stcks(study_id):
 
     return json_data
 
-
 def make_text(modality, files, set_title):
     # ---
     text = f"== {modality} ==\n"
@@ -54,7 +54,6 @@ def make_text(modality, files, set_title):
     text += "\n}}\n\n"
     # ---
     return text
-
 
 def one_study(json_data, url_to_file, study_id):
     # ---
@@ -95,7 +94,6 @@ def one_study(json_data, url_to_file, study_id):
     # ---
     print(text)
 
-
 def main(ids):
     # ---
     for study_id in ids:
@@ -103,7 +101,7 @@ def main(ids):
         json_file = studies_urls_to_files_dir / f"{study_id}.json"
         # ---
         if not os.path.exists(json_file):
-            printe.output(f"<<red>> {json_file} not found")
+            logger.info(f"<<red>> {json_file} not found")
             continue
         # ---
         with open(json_file, encoding="utf-8") as f:
@@ -114,12 +112,11 @@ def main(ids):
         json_data = get_stcks(study_id)
         # ---
         if not json_data:
-            printe.output(f"<<red>> {json_file} not found")
+            logger.info(f"<<red>> {json_file} not found")
             continue
         # ---
         one_study(json_data, url_to_file, study_id)
         # ---
-
 
 if __name__ == "__main__":
     ids = [arg for arg in sys.argv[1:] if arg.isdigit()]

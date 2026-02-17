@@ -25,7 +25,9 @@ from pathlib import Path
 import requests
 
 # ---
-from api_bots import printe
+
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = str(Path(__file__).parents[0])
 # print(f'Dir : {Dir}')
@@ -39,7 +41,7 @@ config.read(dir2 + "/confs/nccommons_user.ini")
 username = config["MOSSAB"]["username"].strip()
 password = config["MOSSAB"]["password"].strip()
 # ---
-printe.output(f"username: {username}")
+logger.info(f"username: {username}")
 # ---
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 # ---
@@ -53,19 +55,17 @@ SS = {}
 SS["ss"] = requests.Session()
 SS["login_not_done"] = True
 
-
 def py_input(s):
-    printe.output(s)
+    logger.info(s)
     sa = input()
     # ---
     return sa
-
 
 def Log_to_wiki(family="nccommons", lang="www"):
     # ---
     user = r2_params["lgname"]
     # ---
-    printe.output(f"nccommons.py: log to {lang}.{family}.org user:{user}")
+    logger.info(f"nccommons.py: log to {lang}.{family}.org user:{user}")
     # ---
     SS["family"] = family
     SS["lang"] = lang
@@ -79,18 +79,17 @@ def Log_to_wiki(family="nccommons", lang="www"):
     r22 = SS["ss"].post(SS["url"], data=r2_params)
     # ---
     if r22.json()["login"]["result"] != "Success":
-        printe.output(f"nccommons.py: login failed, reason: {r22.json()['login']['reason']}")
+        logger.info(f"nccommons.py: login failed, reason: {r22.json()['login']['reason']}")
         # sys.exit(1)
         SS["login_not_done"] = True
         return False
     else:
-        printe.output("com.py login Success")
+        logger.info("com.py login Success")
     # ---
     SS["r33"] = SS["ss"].get(SS["url"], params={"format": "json", "action": "query", "meta": "tokens"})
     # ---
     SS["r3_token"] = SS["r33"].json()["query"]["tokens"]["csrftoken"]
     SS["login_not_done"] = False
-
 
 def post_s(params, addtoken=False):
     # ---
@@ -108,12 +107,12 @@ def post_s(params, addtoken=False):
     url = SS["url"] + "?" + urllib.parse.urlencode(params)
     # ---
     if "printurl" in sys.argv:
-        printe.output(url.replace("&format=json", ""))
+        logger.info(url.replace("&format=json", ""))
     # ---
     try:
         r4 = SS["ss"].post(SS["url"], data=params)
     except Exception as e:
-        printe.output(f"nccommons.py: {e}")
+        logger.info(f"nccommons.py: {e}")
         SS["login_not_done"] = True
         return {}
     # ---
@@ -125,16 +124,15 @@ def post_s(params, addtoken=False):
         if text.find("<!DOCTYPE html>") != -1:
             text = "<!DOCTYPE html>"
         # ---
-        printe.output("error r4.json()")
-        printe.output(f"r4.text: {text}")
+        logger.info("error r4.json()")
+        logger.info(f"r4.text: {text}")
         SS["login_not_done"] = True
     # ---
     return jj
 
-
 def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all=0):
     # ---
-    printe.output(f"Get_All_pages for start:{start}, limit:{limit},namespace:{namespace},apfilterredir:{apfilterredir}")
+    logger.info(f"Get_All_pages for start:{start}, limit:{limit},namespace:{namespace},apfilterredir:{apfilterredir}")
     # ---
     numb = 0
     # ---
@@ -161,7 +159,7 @@ def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all
         # ---
         numb += 1
         # ---
-        printe.output(f"Get_All_pages {numb}, apcontinue:{apcontinue}..")
+        logger.info(f"Get_All_pages {numb}, apcontinue:{apcontinue}..")
         # ---
         if apcontinue != "x":
             params["apcontinue"] = apcontinue
@@ -174,27 +172,26 @@ def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all
         apcontinue = json1.get("continue", {}).get("apcontinue", "")
         # ---
         newp = json1.get("query", {}).get("allpages", [])
-        printe.output(f"<<lightpurple>> --- Get_All_pages : find {len(newp)} pages.")
+        logger.info(f"<<lightpurple>> --- Get_All_pages : find {len(newp)} pages.")
         # ---
         for x in newp:
             if x["title"] not in Main_table:
                 Main_table.append(x["title"])
         # ---
-        printe.output(f"len of Main_table {len(Main_table)}.")
+        logger.info(f"len of Main_table {len(Main_table)}.")
         # ---
         if limit_all > 0 and len(Main_table) > limit_all:
             apcontinue = ""
-            printe.output("<<lightgreen>> limit_all > len(Main_table) ")
+            logger.info("<<lightgreen>> limit_all > len(Main_table) ")
             break
         # ---
     # ---
     if numb > 0 and apcontinue == "":
-        printe.output("<<lightgreen>> apcontinue == '' ")
+        logger.info("<<lightgreen>> apcontinue == '' ")
     # ---
-    printe.output(f"_api.py Get_All_pages : find {len(Main_table)} pages.")
+    logger.info(f"_api.py Get_All_pages : find {len(Main_table)} pages.")
     # ---
     return Main_table
-
 
 def upload_by_url(file_name, text, url, comment=""):
     # ---
@@ -205,19 +202,19 @@ def upload_by_url(file_name, text, url, comment=""):
     # ---
     if not upload_all[1] and "ask" in sys.argv:
         if "nodiff" not in sys.argv:
-            printe.output(text)
+            logger.info(text)
         sa = py_input(
             f"<<lightyellow>> nccommons.py: upload file:'{file_name}' ? ([y]es, [N]o):user:{r2_params['lgname']}"
         )
         # ---
         if sa.strip() not in yes_answer:
-            printe.output("<<lightred>> wrong answer")
+            logger.info("<<lightred>> wrong answer")
             return False
         # ---
         if sa.strip() == "a":
-            printe.output("---------------------------------------------")
-            printe.output("nccommons.py upload_by_url save all without asking.")
-            printe.output("---------------------------------------------")
+            logger.info("---------------------------------------------")
+            logger.info("nccommons.py upload_by_url save all without asking.")
+            logger.info("---------------------------------------------")
             upload_all[1] = True
         # ---
     # ---
@@ -233,39 +230,38 @@ def upload_by_url(file_name, text, url, comment=""):
     error_code = result.get("error", {}).get("code", "")
     # ---
     if success:
-        printe.output(f"<<lightgreen>> ** true ..  {SS['family']} : [[File:{file_name}]] ")
+        logger.info(f"<<lightgreen>> ** true ..  {SS['family']} : [[File:{file_name}]] ")
         return True
     elif error != {}:
-        printe.output(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
-        printe.output(error)
+        logger.info(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
+        logger.info(error)
     else:
-        printe.output(result)
+        logger.info(result)
         return False
     # ---
     return False
 
-
 def create_Page(text, title, summary="create page"):
-    printe.output(f" create Page {title}:")
+    logger.info(f" create Page {title}:")
     time_sleep = 0
     # ---
     params = {"action": "edit", "title": title, "text": text, "summary": summary, "notminor": 1, "createonly": 1}
     # ---
     if not Save_all[1] and ("ask" in sys.argv and "save" not in sys.argv):
         if "nodiff" not in sys.argv:
-            printe.output(text)
+            logger.info(text)
         sa = py_input(
             f"<<lightyellow>> nccommons.py: create:\"{title}\" page ? ([y]es, [N]o):user:{r2_params['lgname']}"
         )
         # ---
         if sa.strip() not in yes_answer:
-            printe.output("<<lightred>> wrong answer")
+            logger.info("<<lightred>> wrong answer")
             return False
         # ---
         if sa.strip() == "a":
-            printe.output("---------------------------------------------")
-            printe.output("nccommons.py create_Page save all without asking.")
-            printe.output("---------------------------------------------")
+            logger.info("---------------------------------------------")
+            logger.info("nccommons.py create_Page save all without asking.")
+            logger.info("---------------------------------------------")
             Save_all[1] = True
         # ---
     # ---
@@ -278,21 +274,20 @@ def create_Page(text, title, summary="create page"):
     error_code = result.get("error", {}).get("code", "")
     # ---
     if success:
-        printe.output(f"** true ..  {SS['family']} : [[{title}]] ")
-        printe.output(f"Done True... time.sleep({time_sleep}) ")
+        logger.info(f"** true ..  {SS['family']} : [[{title}]] ")
+        logger.info(f"Done True... time.sleep({time_sleep}) ")
         time.sleep(time_sleep)
         return True
     elif error != {}:
-        printe.output(f"<<lightred>> error when create_Page, error_code:{error_code}")
-        printe.output(error)
+        logger.info(f"<<lightred>> error when create_Page, error_code:{error_code}")
+        logger.info(error)
     else:
-        printe.output(result)
+        logger.info(result)
         return False
     # ---
-    # printe.output("end of create_Page def return False title:(%s)" % title)
+    # logger.info("end of create_Page def return False title:(%s)" % title)
     # ---
     return False
-
 
 def Find_pages_exists_or_not(liste):
     # ---
@@ -309,7 +304,7 @@ def Find_pages_exists_or_not(liste):
         # ---
         done += len(titles)
         # ---
-        printe.output(f"Find_pages_exists_or_not : {done}/{len(liste)}")
+        logger.info(f"Find_pages_exists_or_not : {done}/{len(liste)}")
         # ---
         params = {
             "action": "query",
@@ -321,7 +316,7 @@ def Find_pages_exists_or_not(liste):
         json1 = post_s(params)
         # ---
         if not json1:
-            printe.output("<<lightred>> error when Find_pages_exists_or_not")
+            logger.info("<<lightred>> error when Find_pages_exists_or_not")
             return table
         # ---
         query = json1.get("query", {})
@@ -345,10 +340,9 @@ def Find_pages_exists_or_not(liste):
                 else:
                     exists += 1
     # ---
-    printe.output(f"Find_pages_exists_or_not : missing:{missing}, exists: {exists}")
+    logger.info(f"Find_pages_exists_or_not : missing:{missing}, exists: {exists}")
     # ---
     return table
-
 
 if __name__ == "__main__":
     Get_All_pages("")

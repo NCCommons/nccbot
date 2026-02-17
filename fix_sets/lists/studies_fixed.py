@@ -12,14 +12,15 @@ from datetime import datetime
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.ncc_api import CatDepth
+import logging
+logger = logging.getLogger(__name__)
 
 no_match = []
 
 dd_file = Path(__file__).parent / "already_done.json"
-
 
 def new_data():
     uu = []
@@ -45,7 +46,6 @@ def new_data():
     # ---
     return uu
 
-
 def get_data(mknew=False):
     # ---
     uu = from_cach(dd_file)
@@ -58,11 +58,10 @@ def get_data(mknew=False):
     today = datetime.today().strftime("%Y-%m-%d")
     # ---
     if date != today or not uu or mknew:
-        printe.output(f"<<purple>> last modified: {date} , today: {today}, len: {len(uu)} ")
+        logger.info(f"<<purple>> last modified: {date} , today: {today}, len: {len(uu)} ")
         uu = new_data()
     # ---
     return uu
-
 
 studies_fixed_done = get_data()
 

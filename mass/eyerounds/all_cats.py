@@ -6,14 +6,14 @@ python3 core8/pwb.py mass/eyerounds/all_cats ask
 import json
 from pathlib import Path
 
-from api_bots import printe
 from api_bots.page_ncc import ncc_MainPage
 from mass.eyerounds.bots.catbot import category_name
 from mass.eyerounds.bots.url_to_title import urls_to_title
+import logging
+logger = logging.getLogger(__name__)
 
 # Specify the root folder
 main_dir = Path(__file__).parent
-
 
 def doo():
     with open(main_dir / "jsons/images.json", "r", encoding="utf-8") as f:
@@ -99,7 +99,7 @@ def doo():
     if old_text != text:
         page.save(newtext=text, summary="update", nocreate=0, minor="")
     else:
-        printe.output("<<lightyellow>> No changes")
+        logger.info("<<lightyellow>> No changes")
 
     # sort names by count
     done = dict(sorted(done.items(), key=lambda x: x[1], reverse=True))
@@ -108,7 +108,6 @@ def doo():
     for naa, count in done.items():
         if count > 1:
             print(f"{count}\t\t{naa}")
-
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

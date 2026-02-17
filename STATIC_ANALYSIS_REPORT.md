@@ -91,7 +91,6 @@ temp_file_path, _ = urllib.request.urlretrieve(url)
 ```python
 se = re.match(r".*?\(Radiopaedia \d+-(\d+)", x)
 if not se:
-    printe.output(f"!{x}")
     not_match += 1
     continue
 study_id = se.group(1)
@@ -184,7 +183,7 @@ return [r for r in self.db.execute(sql).fetchall()]
 - `fix_sets/ncc_api.py` imports from `api_bots.page_ncc`
 - Multiple modules import from `fix_sets.ncc_api`
 
-**Recommendation:** 
+**Recommendation:**
 - Use dependency injection
 - Create an interface layer for shared components
 - Consider using a proper package structure with `__init__.py` exports
@@ -217,7 +216,7 @@ return [r for r in self.db.execute(sql).fetchall()]
 
 **Issue:** Hard-coded dependencies make testing difficult.
 
-**Recommendation:** 
+**Recommendation:**
 - Use dependency injection for external services
 - Create interfaces/protocols for testability
 - Consider using a lightweight DI framework

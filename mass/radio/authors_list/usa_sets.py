@@ -14,11 +14,13 @@ from multiprocessing import Pool
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from api_bots.page_ncc import NEW_API, CatDepth
 from fix_mass.files import studies_titles, studies_titles2
 from mass.radio.authors_list.auths_by_location import locations
 from mass.radio.jsons_bot import radio_jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 studies_titles.update(studies_titles2)
 
@@ -33,7 +35,6 @@ with open(main_dir / "authors_list" / "authors_to_cases.json", "r", encoding="ut
     authors_to_cases = json.load(f)
 
 api_new = NEW_API()
-
 
 def get_studies_of_cases(cases: list) -> list:
     """
@@ -53,12 +54,10 @@ def get_studies_of_cases(cases: list) -> list:
     # ---
     return sets
 
-
 def add_it(title):
     text = "\n[[Category:Radiopaedia studies by United States authors]]"
     # ---
     api_new.Add_To_Bottom(text, "Added category", title, poss="Bottom")
-
 
 def add_cat_to_all_studies(titles: list) -> None:
     # ---
@@ -71,7 +70,6 @@ def add_cat_to_all_studies(titles: list) -> None:
     else:
         for title in tqdm.tqdm(titles):
             add_it(title)
-
 
 def get_auth_to_studies() -> None:
     # ---
@@ -95,7 +93,6 @@ def get_auth_to_studies() -> None:
     # ---
     return tab
 
-
 def get_titles(tab):
     all_studies = []
     # ---
@@ -107,16 +104,15 @@ def get_titles(tab):
     # ---
     all_studies = list(set(all_studies))
     # ---
-    printe.output(f"all_studies: {len(all_studies)}")
+    logger.info(f"all_studies: {len(all_studies)}")
     # ---
     titles = [studies_titles.get(study) for study in all_studies if studies_titles.get(study)]
     # ---
     studies_no_titles = [x for x in all_studies if not studies_titles.get(x)]
     # ---
-    printe.output(f"titles: {len(titles)}, studies_no_titles: {len(studies_no_titles)}")
+    logger.info(f"titles: {len(titles)}, studies_no_titles: {len(studies_no_titles)}")
     # ---
     return titles
-
 
 def start() -> None:
     # ---
@@ -130,10 +126,9 @@ def start() -> None:
     # ---
     new_titles = [x for x in titles if x not in done]
     # ---
-    printe.output(f"titles done: {len(done):,}\t new_titles: {len(new_titles):,}")
+    logger.info(f"titles done: {len(done):,}\t new_titles: {len(new_titles):,}")
     # ---
     add_cat_to_all_studies(new_titles)
-
 
 if __name__ == "__main__":
     start()

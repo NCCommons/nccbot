@@ -5,11 +5,13 @@ python3 core8/pwb.py mass/radio/geturlsnew
 """
 
 import requests
-from api_bots import printe
+
 from bs4 import BeautifulSoup
 
 # ---
 from mass.radio.jsons_files import dump_json_file, jsons  # , ids_to_urls, urls_to_ids
+import logging
+logger = logging.getLogger(__name__)
 
 # dumps_jsons(infos=0, urls=0, cases_in_ids=0, cases_dup=0, authors=0, to_work=0, all_ids=0, urls_to_get_info=0, systems=0)
 # ---
@@ -59,7 +61,6 @@ length_of_systems = {
     "Not Applicable": 7,
 }
 # ---
-
 
 def get_urls_system(system, only_one=False, return_tab=False, len_all=0):
     print(f"get_urls system:{system}::")
@@ -146,7 +147,6 @@ def get_urls_system(system, only_one=False, return_tab=False, len_all=0):
 
     return tat
 
-
 def main():
     # ---
     jsons.systems.update({x: False for x in systems if x not in jsons.systems})
@@ -154,7 +154,7 @@ def main():
     for numb, system in enumerate(systems, start=1):
         # ---
         if jsons.systems[system]:
-            printe.output(f"<<green>> system:{system} already in jsons.systems. Skipping.")
+            logger.info(f"<<green>> system:{system} already in jsons.systems. Skipping.")
             continue
         # ---
         urls_data = get_urls_system(system)
@@ -179,7 +179,6 @@ def main():
     dump_json_file("jsons/urls.json", jsons.urls, False)
     dump_json_file("jsons/infos.json", jsons.infos, False)
     # ---
-
 
 if __name__ == "__main__":
     main()

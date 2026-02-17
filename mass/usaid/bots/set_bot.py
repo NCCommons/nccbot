@@ -5,13 +5,12 @@ from mass.eyerounds.bots.set_bot import create_set
 import re
 import sys
 
-from api_bots import printe
-
 # from api_bots.page_ncc import CatDepth
 from api_bots.page_ncc import ncc_MainPage
+import logging
+logger = logging.getLogger(__name__)
 
 # pages = CatDepth("Category:USAID sets", sitecode="www", family="nccommons", depth=2, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
-
 
 def format_text(album_name, files) -> str:
     # files_sorted = sorted(files.items(), key=lambda item: item[1], reverse=True)
@@ -33,7 +32,6 @@ def format_text(album_name, files) -> str:
     # ---
     return text
 
-
 def create_set(album_name, files) -> bool:
     title = album_name
     # ---
@@ -51,7 +49,7 @@ def create_set(album_name, files) -> bool:
         ca = page.Create(text=text, summary="Create new set")
         return ca
 
-    printe.output(f"<<lightyellow>>{title} already exists")
+    logger.info(f"<<lightyellow>>{title} already exists")
     ca = page.save(newtext=text, summary="Update", nocreate=0, minor="")
 
     return ca

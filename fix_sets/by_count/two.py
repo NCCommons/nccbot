@@ -7,7 +7,6 @@ python3 core8/pwb.py fix_sets/by_count/two ask
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from fix_sets.by_count.bot import get_ids_o
 from fix_sets.new import work_one_study
 

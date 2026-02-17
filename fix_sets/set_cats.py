@@ -14,12 +14,13 @@ import re
 import sys
 
 import tqdm
-from api_bots import printe
+
 from fix_mass.files import studies_titles, studies_titles2
 from fix_sets.bots2.filter_ids import filter_no_title
 from fix_sets.bots2.text_cat_bot import add_cat_to_set
 from fix_sets.ncc_api import CatDepth, ncc_MainPage
-
+import logging
+logger = logging.getLogger(__name__)
 
 def work_one_study(study_id, study_title="", categories=[]):
     # ---
@@ -27,10 +28,10 @@ def work_one_study(study_id, study_title="", categories=[]):
         study_title = studies_titles.get(study_id) or studies_titles2.get(study_id)
     # ---
     if not study_title:
-        printe.output(f"<<red>> study_title is empty... study_id: {study_id}")
+        logger.info(f"<<red>> study_title is empty... study_id: {study_id}")
         return
     # ---
-    printe.output(f"_____________\n {study_id=}, {study_title=}")
+    logger.info(f"_____________\n {study_id=}, {study_title=}")
     # ---
     page = ncc_MainPage(study_title)
     # ---
@@ -39,11 +40,11 @@ def work_one_study(study_id, study_title="", categories=[]):
     if categories:
         for cat in categories:
             if cat.find("Category:Radiopaedia case ") != -1:
-                printe.output(f"page has cat. {cat}")
+                logger.info(f"page has cat. {cat}")
                 return
     else:
         if p_text.find("[[Category:Radiopaedia case ") != -1:
-            printe.output("page has cat.")
+            logger.info("page has cat.")
             return
     # ---
     n_text = p_text
@@ -51,11 +52,10 @@ def work_one_study(study_id, study_title="", categories=[]):
     n_text = add_cat_to_set(n_text, study_id, study_title)
     # ---
     if n_text == p_text:
-        printe.output("no changes..")
+        logger.info("no changes..")
         return
     # ---
     page.save(newtext=n_text, summary="Add cat.")
-
 
 def cat_pages():
     cat1 = CatDepth("Category:Image set", sitecode="www", family="nccommons", depth=0, props="categories")
@@ -65,7 +65,7 @@ def cat_pages():
     new_list = list(set(cat1.keys()) - set(cat2.keys()))
     # ---
     # new_list: 8280, Category:Image set:66627, Category:Radiopaedia sets:58348
-    printe.output(f"new_list: {len(new_list)}, Category:Image set:{len(cat1)}, Category:Radiopaedia sets:{len(cat2)}")
+    logger.info(f"new_list: {len(new_list)}, Category:Image set:{len(cat1)}, Category:Radiopaedia sets:{len(cat2)}")
     # ---
     for title in tqdm.tqdm(new_list):
         # ---
@@ -78,7 +78,6 @@ def cat_pages():
             # ---
             work_one_study(study_id, title, categories=categories)
 
-
 def main(ids):
     # ---
     if not ids:
@@ -87,15 +86,14 @@ def main(ids):
         if "studies_titles2" in sys.argv:
             ids = list(studies_titles2.keys())
     # ---
-    printe.output(f"<<purple>> len of ids: {len(ids)}")
-    printe.output(f"<<purple>> len of ids: {len(ids)}")
-    printe.output(f"<<purple>> len of ids: {len(ids)}")
+    logger.info(f"<<purple>> len of ids: {len(ids)}")
+    logger.info(f"<<purple>> len of ids: {len(ids)}")
+    logger.info(f"<<purple>> len of ids: {len(ids)}")
     # ---
     ids_to_titles = filter_no_title(ids)
     # ---
     for study_id, study_title in ids_to_titles.items():
         work_one_study(study_id, study_title)
-
 
 if __name__ == "__main__":
     ids = [arg.strip() for arg in sys.argv if arg.strip().isdigit()]

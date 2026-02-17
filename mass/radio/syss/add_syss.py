@@ -2,7 +2,6 @@
 
 python3 core8/pwb.py mass/radio/syss/add_syss nodump
 
-
 """
 
 import json
@@ -11,9 +10,10 @@ import json
 import os
 from pathlib import Path
 
-from api_bots import printe
 from mass.radio.geturlsnew import length_of_systems
 from mass.radio.jsons_files import dump_json_file, jsons
+import logging
+logger = logging.getLogger(__name__)
 
 # dumps_jsons(infos=0, urls=0, cases_in_ids=0, cases_dup=0, authors=0, to_work=0, all_ids=0, urls_to_get_info=0)
 # ---
@@ -28,16 +28,14 @@ urls_files = [f for f in os.listdir(files_path) if not f.endswith("_infos.json")
 # ---
 sys_urls = {}
 # ---
-printe.output(f"<<green>> urls_files: {len(urls_files)}")
+logger.info(f"<<green>> urls_files: {len(urls_files)}")
 # ---
-
 
 def po(file, data, lnn):
     if len(data) < lnn and (lnn - len(data)) > 10:
         da = f"{len(data):,},".ljust(10)
         la = f"{lnn:,},".ljust(10)
         print(f"len: {da} lnn: {la} file: {file}")
-
 
 # ---
 for file in urls_files:
@@ -63,7 +61,7 @@ dump_json_file("jsons/urls.json", jsons.urls, False)
 # ---
 
 # ---
-printe.output(f"<<green>> infos_files: {len(infos_files)}")
+logger.info(f"<<green>> infos_files: {len(infos_files)}")
 get_infos = {}
 # ---
 for file in infos_files:

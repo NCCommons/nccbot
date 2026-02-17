@@ -14,12 +14,13 @@ import time
 # from tqdm import tqdm
 from pathlib import Path
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth
 from mass.usaid.bots.category_bot import create_category  # create_category(album_name, pages)
 from mass.usaid.bots.names import make_files_names
 from mass.usaid.bots.set_bot import create_set
 from nccommons import api
+import logging
+logger = logging.getLogger(__name__)
 
 # Specify the root folder
 main_dir = Path(__file__).parent
@@ -48,7 +49,6 @@ pages = CatDepth(
 )
 time.sleep(1)
 print("time.sleep(1)")
-
 
 def make_image_text(category, image, album_url, album_id) -> str:
     # ---
@@ -81,7 +81,6 @@ def make_image_text(category, image, album_url, album_id) -> str:
 
     return image_text
 
-
 def upload_image(category, image, image_name, album_url, album_id) -> bool:
     # ---
     image_url = image["url_o"]
@@ -95,7 +94,6 @@ def upload_image(category, image, image_name, album_url, album_id) -> bool:
     print(f"upload result: {upload}")
 
     return upload
-
 
 def process_images(images_info, category, album_url, album_id, title) -> dict:
     files = {}
@@ -135,7 +133,6 @@ def process_images(images_info, category, album_url, album_id, title) -> dict:
 
     return files
 
-
 def process_folder() -> None:
     # ---
     with open(main_dir / "jsons/all_data.json", "r", encoding="utf-8") as f:
@@ -173,7 +170,7 @@ def process_folder() -> None:
         album_url = album_info["url"]
         # ---
         if not images_info:
-            printe.output(f"<<lightyellow>> No images found for {album_url}")
+            logger.info(f"<<lightyellow>> No images found for {album_url}")
             continue
         # ---
         cat = f"USAID Album: {title}"
@@ -193,7 +190,6 @@ def process_folder() -> None:
         # ---
         if "break" in sys.argv:
             break
-
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

@@ -4,9 +4,10 @@ tfj run fixdup1 --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.p
 
 """
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth, ncc_MainPage
 from mass.radio.jsons_files import jsons
+import logging
+logger = logging.getLogger(__name__)
 
 # dumps_jsons(infos=0, urls=0, cases_in_ids=0, cases_dup=0, authors=0, to_work=0, all_ids=0, urls_to_get_info=0)
 # ---
@@ -20,7 +21,7 @@ for n, (idn, cats) in enumerate(jsons.cases_dup.items(), start=1):
     if cat1 == cat2:
         continue
     # ---
-    printe.output(f"d:s{n}/{len(jsons.cases_dup)}<<lightyellow>> {idn} {cat1} {cat2}")
+    logger.info(f"d:s{n}/{len(jsons.cases_dup)}<<lightyellow>> {idn} {cat1} {cat2}")
     # ---
     cat1_page = ncc_MainPage(cat1)
     cat2_page = ncc_MainPage(cat2)
@@ -95,5 +96,5 @@ for n, (idn, cats) in enumerate(jsons.cases_dup.items(), start=1):
     # ---
     if other_cat.exists():
         if len(cat_files2) == 0:
-            printe.output(f"<<green>> cat {other_title} is empty.. done..")
+            logger.info(f"<<green>> cat {other_title} is empty.. done..")
             other_cat.save(newtext="[[Category:cats to delete]]", summary="empty cat")

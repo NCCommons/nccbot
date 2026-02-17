@@ -9,9 +9,9 @@ import json
 import re
 from pathlib import Path
 
-from api_bots import printe
 from fix_sets.ncc_api import CatDepth
-
+import logging
+logger = logging.getLogger(__name__)
 
 def get_members_ids(title):
     # ---
@@ -37,12 +37,11 @@ def get_members_ids(title):
         # ---
         title_to_id[x] = set_id
     # ---
-    printe.output(f"title: {title}")
-    printe.output(f"\t title_to_id: {len(title_to_id):,}")
-    printe.output(f"\t not_match: {not_match:,}")
+    logger.info(f"title: {title}")
+    logger.info(f"\t title_to_id: {len(title_to_id):,}")
+    logger.info(f"\t not_match: {not_match:,}")
     # ---
     return title_to_id
-
 
 def dumpit(file, data):
     # ---
@@ -51,8 +50,7 @@ def dumpit(file, data):
     # ---
     with open(file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-        printe.output(f"<<green>> write {len(data)} to file: {str(file)}")
-
+        logger.info(f"<<green>> write {len(data)} to file: {str(file)}")
 
 def new_get_all_titles():
     # ---
@@ -71,7 +69,6 @@ def new_get_all_titles():
             data_all[x_id].append(title)
     # ---
     return data_all
-
 
 def get_all_titles(cache=False):
     file = Path(__file__).parent / "all_members.json"

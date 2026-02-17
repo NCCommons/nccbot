@@ -7,7 +7,6 @@ python3 core8/pwb.py fix_mass/del_pages/bot ask nocach
 
 حذف صفحات الدراسات المكررة
 
-
 """
 
 import re
@@ -15,33 +14,33 @@ import sys
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from api_bots.page_ncc import CatDepth
 from fix_mass.helps_bot.file_bot import dumpit, from_cach
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
 
 categories_by_title = {}
 
-
 def one_study_titles(study_id, titles):
     # ---
-    printe.output(f"<<yellow>> _____________\n {study_id=}, {len(titles)=}")
+    logger.info(f"<<yellow>> _____________\n {study_id=}, {len(titles)=}")
     # ---
     main_title = []
     # ---
     for x in titles:
-        printe.output(f"# [[{x}]]")
+        logger.info(f"# [[{x}]]")
         # ---
         categories = categories_by_title.get(x)
         # ---
         if "Category:Sort studies fixed" in categories:
             main_title.append(x)
     # ---
-    printe.output(f"main_title: {main_title}")
+    logger.info(f"main_title: {main_title}")
     # ---
     return
-
 
 def get_img_sets():
     cat1_file = Dir / "Category_Image_set.json"
@@ -54,7 +53,6 @@ def get_img_sets():
         dumpit(cat1, cat1_file)
     # ---
     return cat1
-
 
 def from_cat(cat1):
     # ---
@@ -82,10 +80,9 @@ def from_cat(cat1):
         if title not in tab[study_id]:
             tab[study_id].append(title)
     # ---
-    printe.output(f"no_match: {len(no_match)}, match: {len(tab)}")
+    logger.info(f"no_match: {len(no_match)}, match: {len(tab)}")
     # ---
     return tab
-
 
 def main():
     # ---
@@ -97,14 +94,13 @@ def main():
     # ---
     many_pages = {k: v for k, v in pages.items() if len(v) > max}
     # ---
-    printe.output(f"All pages: {len(pages)}, study_id with many pages: {len(many_pages)}")
+    logger.info(f"All pages: {len(pages)}, study_id with many pages: {len(many_pages)}")
     # ---
     # sort many_pages by len of titles
     many_pages = {k: v for k, v in sorted(many_pages.items(), key=lambda item: len(item[1]), reverse=True)}
     # ---
     for study_id, titles in many_pages.items():
         one_study_titles(study_id, titles)
-
 
 if __name__ == "__main__":
     main()

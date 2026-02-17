@@ -10,9 +10,10 @@ import os
 import re
 from datetime import datetime
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth
 from mass.radio.jsons_bot import radio_jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 cases_cats_file = radio_jsons_dir / "cases_cats.json"
 # ---
@@ -25,7 +26,6 @@ if not os.path.exists(cases_cats_file):
 with open(cases_cats_file, "r", encoding="utf-8") as f:
     cases_cats_list = json.load(f)
 # ---
-
 
 def new_list():
     members = CatDepth("Category:Radiopaedia images by case", sitecode="www", family="nccommons", depth=0, ns="14")
@@ -47,7 +47,6 @@ def new_list():
     # ---
     return id2cat
 
-
 def cases_cats():
     global cases_cats_list
 
@@ -59,13 +58,12 @@ def cases_cats():
     today = datetime.today().strftime("%Y-%m-%d")
     # ---
     if date != today or not cases_cats_list:
-        printe.output(
+        logger.info(
             f"<<purple>> Cases to categories last modified: {date}, today: {today}, current length: {len(cases_cats_list)}"
         )
         cases_cats_list = new_list()
     # ---
     return cases_cats_list
-
 
 if "__main__" == __name__:
     cases_cats()

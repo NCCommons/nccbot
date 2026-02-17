@@ -8,8 +8,7 @@ python3 core8/pwb.py fix_sets/name_bots/db_duplict_bot
 
 import re
 import sys
-
-from api_bots import printe
+import logging
 from fix_sets.name_bots.upload_to_api import get_from_api
 from sets_dbs.dp_infos.db_duplict_new import (  # ,find_from_data_db as find_from_db_dp # insert_url_file(url, file)
     find_data,
@@ -17,6 +16,7 @@ from sets_dbs.dp_infos.db_duplict_new import (  # ,find_from_data_db as find_fro
     insert_url_file,
 )
 
+logger = logging.getLogger(__name__)
 data_maain = {}
 
 # db_data = get_all_key_url_urlid()
@@ -27,7 +27,7 @@ def insert_infos_all(data):
     try:
         return insert_all_infos(data)
     except Exception as e:
-        printe.output(f"<<red>> Error insert_all_infos: {str(e)}")
+        logger.info(f"<<red>> Error insert_all_infos: {str(e)}")
 
 
 def match_urlid(url):
@@ -47,7 +47,7 @@ def append_data(url, file_name):
     # ---
     result = insert_url_file(url, file_name)
     # ---
-    printe.output(f"<<green>> append_data: {url} -> {file_name} -> {result}")
+    logger.info(f"<<green>> append_data: {url} -> {file_name} -> {result}")
 
 
 def from_cach_or_db(url, url_id=""):
@@ -55,7 +55,7 @@ def from_cach_or_db(url, url_id=""):
     if url in data_maain:
         da = data_maain[url]
         if da.find("https") == -1:
-            # printe.output(f"find url_file_upload: {data_maain[url]}")
+            # logger.info(f"find url_file_upload: {data_maain[url]}")
             return da
     # ---
     # file_name = find_from_db_dp(url, "")
@@ -66,7 +66,7 @@ def from_cach_or_db(url, url_id=""):
     file_name = find_data(url=url, urlid=url_id)
     # ---
     if file_name:
-        printe.output(f"<<green>> find_from_data_db: {url} -> {file_name}")
+        logger.info(f"<<green>> find_from_data_db: {url} -> {file_name}")
     # ---
     return file_name
 
@@ -78,7 +78,7 @@ def find_url_file_upload(url, file_name_to_upload, do_api, file_text, noapi=Fals
     in_cach = from_cach_or_db(url, url_id)
     # ---
     if in_cach and in_cach.find("https") == -1:
-        # printe.output(f"find url_file_upload, from_cach_or_db: {in_cach}")
+        # logger.info(f"find url_file_upload, from_cach_or_db: {in_cach}")
         return in_cach
     # ---
     na = ""

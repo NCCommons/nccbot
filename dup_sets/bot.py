@@ -17,15 +17,16 @@ Category:To delete
 import json
 
 import tqdm
-from api_bots import printe
+
 from dup_sets.del_it import to_del_it
 from dup_sets.get_mem import get_all_titles
 from dup_sets.move_pages import move_titles
 from fix_sets.jsons_dirs import jsons_dir
 from fix_sets.ncc_api import CatDepth
+import logging
+logger = logging.getLogger(__name__)
 
 fixed = CatDepth("Category:Sort studies fixed", sitecode="www", family="nccommons", depth=0, ns=0, onlyns=0)
-
 
 def dumpit(file, data):
     file = jsons_dir / file
@@ -35,8 +36,7 @@ def dumpit(file, data):
     # ---
     with open(file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-        printe.output(f"<<green>> write {len(data)} to file: {str(file)}")
-
+        logger.info(f"<<green>> write {len(data)} to file: {str(file)}")
 
 def read_files():
     # ---
@@ -57,7 +57,6 @@ def read_files():
     # ---
     return all_data
 
-
 def move_them(to_move, old="", new=""):
     # ---
     if len(to_move) == 0:
@@ -67,10 +66,9 @@ def move_them(to_move, old="", new=""):
     # ---
     new_to_move = [x for x in to_move if x not in done]
     # ---
-    printe.output(f" len(to_move): {len(to_move):,}, after done : {len(new_to_move):,}")
+    logger.info(f" len(to_move): {len(to_move):,}, after done : {len(new_to_move):,}")
     # ---
     move_titles(new_to_move, old, new)
-
 
 def main():
     # ---
@@ -78,16 +76,16 @@ def main():
     # ---
     ids_to_title = get_all_titles(cache=True)
     # ---
-    printe.output(f"len(all_data_valid): {len(all_data_valid):,}")
+    logger.info(f"len(all_data_valid): {len(all_data_valid):,}")
     # ---
-    printe.output(f"len(ids_to_title): {len(ids_to_title):,}")
+    logger.info(f"len(ids_to_title): {len(ids_to_title):,}")
     # ---
     # filter only x_id with 2 or more titles
     more_one = {k: v for k, v in ids_to_title.items() if len(v) > 1}
     # ---
     more_one = {k: v for k, v in sorted(more_one.items(), key=lambda item: len(item[1]), reverse=True)}
     # ---
-    printe.output(f" len(more_one): {len(more_one)}")
+    logger.info(f" len(more_one): {len(more_one)}")
     to_del = []
     to_del_pp = {}
     to_move = []
@@ -108,17 +106,16 @@ def main():
         elif main_title in titles:
             to_move.extend(titles2)
     # ---
-    printe.output(f" len(to_del): {len(to_del)}")
-    printe.output(f" len(to_move): {len(to_move)}")
+    logger.info(f" len(to_del): {len(to_del)}")
+    logger.info(f" len(to_move): {len(to_move)}")
     # ---
     move_them(to_move, old="Category:Image set", new="Category:Duplicate Radiopaedia sets")
     # ---
-    printe.output(f" len main_title in fixed: {len(to_del_pp)}")
+    logger.info(f" len main_title in fixed: {len(to_del_pp)}")
     # ---
     move_them(to_del, old="Category:Duplicate Radiopaedia sets", new="Category:To delete")
     # ---
     to_del_it(to_del_pp)
-
 
 if __name__ == "__main__":
     main()

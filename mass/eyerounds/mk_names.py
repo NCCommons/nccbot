@@ -7,14 +7,14 @@ import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from mass.eyerounds.bots.catbot import category_name
 from mass.eyerounds.bots.names import make_files_names
 from mass.eyerounds.bots.url_to_title import urls_to_title
+import logging
+logger = logging.getLogger(__name__)
 
 # Specify the root folder
 main_dir = Path(__file__).parent
-
 
 def get_data() -> dict:
     with open(main_dir / "jsons/images.json", "r", encoding="utf-8") as f:
@@ -30,7 +30,6 @@ def get_data() -> dict:
 
     return data
 
-
 def process_folder(data) -> None:
     # ---
     new_data = {}
@@ -39,7 +38,7 @@ def process_folder(data) -> None:
         images_info = info_data.get("images", {})
 
         if not images_info:
-            printe.output(f"<<lightyellow>> No images found for {chapter_url}")
+            logger.info(f"<<lightyellow>> No images found for {chapter_url}")
             continue
 
         _cat, numb = category_name(chapter_url)
@@ -50,7 +49,6 @@ def process_folder(data) -> None:
         # ---
         print(json.dumps(new_data, indent=2))
     # ---
-
 
 def start() -> None:
     data = get_data()
@@ -69,7 +67,6 @@ def start() -> None:
         data = new_data
     # ---
     process_folder(data)
-
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

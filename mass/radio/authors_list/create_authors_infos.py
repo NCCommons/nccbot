@@ -11,9 +11,10 @@ import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from mass.radio.authors_list.auths_infos import get_author_infos
 from mass.radio.jsons_bot import radio_jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent.parent
 # ---
@@ -30,7 +31,6 @@ print(f"Length of all_ids: {len(all_ids)}")
 print(f"Length of authors_to_cases: {len(authors_to_cases)}")
 print(f"Length of authors_infos: {len(authors_infos)}")
 
-
 def make_authors_infos():
     # ---
     auths_infos = authors_infos.copy()
@@ -40,7 +40,7 @@ def make_authors_infos():
         done = auths_infos[x]["url"] and auths_infos[x]["location"]
         # ---
         if done:
-            printe.output(f"Skip {x} done..")
+            logger.info(f"Skip {x} done..")
             continue
         # ---
         first_case = authors_to_cases[x][0]
@@ -56,10 +56,8 @@ def make_authors_infos():
         with open(main_dir / "authors_list/authors_infos.json", "w", encoding="utf-8") as f:
             json.dump(auths_infos, f, ensure_ascii=False, indent=2)
 
-
 def start():
     make_authors_infos()
-
 
 if __name__ == "__main__":
     start()

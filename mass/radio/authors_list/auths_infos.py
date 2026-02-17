@@ -8,9 +8,10 @@ from mass.radio.authors_list.auths_infos import get_author_infos
 import sys
 
 import requests
-from api_bots import printe
-from bs4 import BeautifulSoup
 
+from bs4 import BeautifulSoup
+import logging
+logger = logging.getLogger(__name__)
 
 def get_soup(url):
     # ---
@@ -33,7 +34,6 @@ def get_soup(url):
         return
     # ---
     return soup
-
 
 def get_user_infos(url):
     """Retrieve user information from a given URL."""
@@ -75,10 +75,9 @@ def get_user_infos(url):
     user_info["location"] = location
     user_info["url"] = user_url
     # ---
-    printe.output(f" {location=}, {user_url=}")
+    logger.info(f" {location=}, {user_url=}")
     # ---
     return user_info
-
 
 def get_author_infos(auth, first_case_url):
     """Retrieve author information for a given author and first case URL."""
@@ -88,7 +87,7 @@ def get_author_infos(auth, first_case_url):
     """Return:
         - info: A dictionary containing the author's URL and location."""
     # ---
-    printe.output(f"<<yellow>> get_author_infos:{auth=}, {first_case_url=}")
+    logger.info(f"<<yellow>> get_author_infos:{auth=}, {first_case_url=}")
     # ---
     info = {"url": "", "location": "", "cases": 0}
     # ---

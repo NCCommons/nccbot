@@ -20,10 +20,11 @@ from collections import namedtuple
 from pathlib import Path
 
 import psutil
-from api_bots import printe
+
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent
-
 
 def load_json_file(file_path):
     if not os.path.exists(file_path):
@@ -32,11 +33,10 @@ def load_json_file(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         return json.loads(f.read())
 
-
 def dump_json_file(file_path, data, Sort):
-    printe.output(f"<<lightyellow>> dumps_jsons: {file_path}")
+    logger.info(f"<<lightyellow>> dumps_jsons: {file_path}")
     if not data:
-        printe.output("<<red>> data is empty")
+        logger.info("<<red>> data is empty")
         return
     if "nodump" in sys.argv:
         return
@@ -46,7 +46,6 @@ def dump_json_file(file_path, data, Sort):
 
     with open(main_dir / file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-
 
 files = {
     "url_to_sys": "jsons/url_to_sys.json",
@@ -71,7 +70,6 @@ jsons = jsons(**{key: value.copy() for key, value in datas.items()})
 ids_to_urls = {str(v["caseId"]): v["url"] for k, v in jsons.all_ids.items()}
 urls_to_ids = {v["url"]: str(v["caseId"]) for k, v in jsons.all_ids.items()}
 
-
 def dumps_jsons(**kwargs):
     # ---
     Sort = kwargs.get("sort")
@@ -82,8 +80,7 @@ def dumps_jsons(**kwargs):
             value = getattr(jsons, key)
             dump_json_file(main_dir / file_path, value, Sort)
         else:
-            printe.output(f"<<red>> key {key} not in files")
-
+            logger.info(f"<<red>> key {key} not in files")
 
 if __name__ == "__main__":
     # print length of all jsons
@@ -94,6 +91,6 @@ if __name__ == "__main__":
     print(f"file: ids_to_urls     len: {len(ids_to_urls):,}")
 
     usage = psutil.Process(os.getpid()).memory_info().rss
-    printe.output(f"<<red>> memory usage: psutil {usage / 1024 / 1024} MB")
+    logger.info(f"<<red>> memory usage: psutil {usage / 1024 / 1024} MB")
 else:
     del datas

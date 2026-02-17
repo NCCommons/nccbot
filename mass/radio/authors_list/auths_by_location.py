@@ -8,7 +8,9 @@ import json
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent
 # ---
@@ -33,13 +35,11 @@ for x, v in tqdm.tqdm(authors_infos.items()):
 # ---
 locations = dict(sorted(locations.items(), key=lambda x: len(x[1]), reverse=False))
 
-
 def start() -> None:
     # ---
     for x, v in locations.items():
         x = x.title()
-        printe.output(f"{x}: {len(v)}")
-
+        logger.info(f"{x}: {len(v)}")
 
 if __name__ == "__main__":
     start()
