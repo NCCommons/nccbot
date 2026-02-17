@@ -19,9 +19,10 @@ import re
 
 import requests
 import tqdm
-from api_bots import printe
-from bs4 import BeautifulSoup
 
+from bs4 import BeautifulSoup
+import logging
+logger = logging.getLogger(__name__)
 
 def extract_images_from_tag(soup):
     # match all <table width="100%" class="figure">
@@ -37,14 +38,14 @@ def extract_images_from_tag(soup):
     # ---
     imgs_done = []
     # ---
-    printe.output(f"new_urls: {len(new_urls)=}, new_imgs: {len(new_imgs)=}, urls: {len(urls)}")
+    logger.info(f"new_urls: {len(new_urls)=}, new_imgs: {len(new_imgs)=}, urls: {len(urls)}")
     if not new_urls and not new_imgs:
         return {}
     # Iterate over each 'figure' tag
 
     for url in tqdm.tqdm(new_urls):
-        # printe.output(f'<<purple>> >> url {n}/{len(new_urls)}')
-        # printe.output(f'\t<<yellow>>{url}')
+        # logger.info(f'<<purple>> >> url {n}/{len(new_urls)}')
+        # logger.info(f'\t<<yellow>>{url}')
         # <a href="../cases-i/case254/Fig1-LRG.jpg"><img alt="Figure 1: Slit lamp photograph showing 6mm cilium with overlying pigment on the iris at 6 o'clock just nasal to an area of iris atrophy. The cilium extends towards the pupil." class="figure" src="../cases-i/case254/Fig1.jpg" width="100%"/></a>
 
         img_url = url.get("href")
@@ -59,7 +60,7 @@ def extract_images_from_tag(soup):
             img_alt = img_tag.get("alt", "")
             img_alt = re.sub(r"\(please see: .*?\)", "", img_alt)
 
-        # printe.output(f'\t\t <<yellow>> img_url: {img_url}')
+        # logger.info(f'\t\t <<yellow>> img_url: {img_url}')
 
         if img_url:
             if img_url.startswith("../cases-i/"):
@@ -81,17 +82,15 @@ def extract_images_from_tag(soup):
 
     return images_info
 
-
 def fix_auth(x):
     x = x.replace("\n", "")
     x = re.sub(r"\s+", " ", x)
     x = x.strip()
     return x
 
-
 def extract_infos_from_url(url):
     # Print the URL being processed
-    printe.output(f"\t Processing URL: {url}")
+    logger.info(f"\t Processing URL: {url}")
 
     # Send a GET request to the URL and get the response
     response = requests.get(url)
@@ -100,7 +99,7 @@ def extract_infos_from_url(url):
     # Check if the response status code is 200 (OK)
     if response.status_code != 200:
         # Print an error message if the request failed
-        printe.output(f"\t\t Failed to fetch content from {url}")
+        logger.info(f"\t\t Failed to fetch content from {url}")
 
         # Return an empty dictionary
         return data
@@ -162,10 +161,9 @@ def extract_infos_from_url(url):
     # ---
     return data
 
-
 if __name__ == "__main__":
     # python3 core8/pwb.py mass/eyerounds/bots/get_case_info
     # url = "https://eyerounds.org/cases/239-post-vit-cataract-surgery.htm"
     url = "https://eyerounds.org/cases/41-Herpes-Zoster-Post-Herpetic-Neuralgia.htm"
     data = extract_infos_from_url(url)
-    printe.output(json.dumps(data, indent=2))
+    logger.info(json.dumps(data, indent=2))

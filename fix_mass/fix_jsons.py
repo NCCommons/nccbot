@@ -9,8 +9,10 @@ tfj run --mem 1Gi fixjsosns --image python3.9 --command "$HOME/local/bin/python3
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from fix_sets.jsons_dirs import get_study_dir
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
 
@@ -33,13 +35,13 @@ for dir_name, file_name in dir_to_name.items():
     # ---
     list_of_files = list(dire.glob("*"))
     # ---
-    printe.output("<<red>> ==============")
+    logger.info("<<red>> ==============")
     # ---
-    printe.output(f"fix_jsons: {dir_name}, list_of_files: {len(list_of_files)}")
+    logger.info(f"fix_jsons: {dir_name}, list_of_files: {len(list_of_files)}")
     # ---
     for file in tqdm.tqdm(list_of_files):
         # ---
-        # printe.output(f"{dir_name}/{file.name}")
+        # logger.info(f"{dir_name}/{file.name}")
         # ---
         study_id = str(file.stem).replace("_s_id", "")
         # ---
@@ -51,4 +53,4 @@ for dir_name, file_name in dir_to_name.items():
         # ---
         new_file.write_text(file.read_text(encoding="utf-8"))
         # ---
-        # printe.output(f"<<green>> copy data from [{dir_name}/{file.name}] to \t[{study_id}/{new_file.name}]")
+        # logger.info(f"<<green>> copy data from [{dir_name}/{file.name}] to \t[{study_id}/{new_file.name}]")

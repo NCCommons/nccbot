@@ -7,8 +7,8 @@ from mass.eyerounds.bots.names import make_files_names
 import os
 import sys
 
-from api_bots import printe
-
+import logging
+logger = logging.getLogger(__name__)
 
 def get_image_extension(image_url) -> tuple:
     # Split the URL to get the filename and extension
@@ -19,7 +19,6 @@ def get_image_extension(image_url) -> tuple:
 
     # Return the extension (without the dot)
     return name, extension[1:]
-
 
 def make_file(image_name, image_url) -> str:
     # base_name = os.path.basename(image_url)
@@ -36,11 +35,10 @@ def make_file(image_name, image_url) -> str:
     image_name = image_name.replace("..", ".")
     return image_name
 
-
 def make_files_names(img_infos, album_id, title) -> dict:
     names = {}
     # ---
-    printe.output(f"___________\nMaking names for {album_id}:")
+    logger.info(f"___________\nMaking names for {album_id}:")
     # ---
     used_names = {}
     # ---
@@ -60,7 +58,7 @@ def make_files_names(img_infos, album_id, title) -> dict:
         # ---
         # check if extension is valid media type
         if extension.lower() not in ["jpg", "jpeg", "png", "gif", "svg"]:
-            printe.output(f"Invalid extension: {extension}")
+            logger.info(f"Invalid extension: {extension}")
             continue
         # ---
         numb += 1
@@ -76,6 +74,6 @@ def make_files_names(img_infos, album_id, title) -> dict:
         names[image_url] = image_name
     # ---
     if len(list(set(names.values()))) == len(names):
-        printe.output("<<green>> All image names are unique")
+        logger.info("<<green>> All image names are unique")
     # ---
     return names

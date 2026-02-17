@@ -11,13 +11,13 @@ tfj run usaimages1 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python
 
 import sys
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth, ncc_MainPage
 from mass.radio.authors_list.usa import get_usa_auths
+import logging
+logger = logging.getLogger(__name__)
 
 # from mass.radio.lists.cases_to_cats import cases_cats# cases_cats()
 # from mass.radio.authors_list import auths_cats
-
 
 # from mass.radio.lists.PD_medical import PD_medical_pages_def
 # PD_medical_pages = PD_medical_pages_def()
@@ -27,9 +27,8 @@ from mass.radio.authors_list.usa import get_usa_auths
 
 PD_medical_pages = []
 
-
 def add_pd_to_images(not_in_pd: list) -> None:
-    printe.output(f"\t\tadd_pd_to_images: {len(not_in_pd)}")
+    logger.info(f"\t\tadd_pd_to_images: {len(not_in_pd)}")
     # ---
     pd_temp = "{{PD-medical}}"
     # ---
@@ -44,7 +43,7 @@ def add_pd_to_images(not_in_pd: list) -> None:
         new_text = text
         # ---
         if pd_temp in text:
-            printe.output(f"\t\t\tno need to add {pd_temp} to {image}")
+            logger.info(f"\t\t\tno need to add {pd_temp} to {image}")
             continue
         # ---
         add_after = ["{{CC-BY-NC-SA-3.0}}", "== {{int:license}} =="]
@@ -63,9 +62,8 @@ def add_pd_to_images(not_in_pd: list) -> None:
         if new_text != text:
             page.save(newtext=new_text, summary=f"Bot: add {pd_temp}")
 
-
 def get_cats_images(cats: list) -> list:
-    printe.output(f"\tget_cats_images: {len(cats)}")
+    logger.info(f"\tget_cats_images: {len(cats)}")
     # ---
     result = {}
     # ---
@@ -76,32 +74,30 @@ def get_cats_images(cats: list) -> list:
         # ---
         result.update(cat_members)
     # ---
-    printe.output(f"\t{len(result)=}")
+    logger.info(f"\t{len(result)=}")
     # ---
     return result
-
 
 def one_auth_wrk(auth: str, auth_cats: list) -> None:
     """
     work on one author cats
     """
-    printe.output(f"\tProcessing author {auth} with categories {auth_cats}")
+    logger.info(f"\tProcessing author {auth} with categories {auth_cats}")
 
     all_auth_images = get_cats_images(auth_cats)
-    printe.output(f"\tall_auth_images: {len(all_auth_images)}")
+    logger.info(f"\tall_auth_images: {len(all_auth_images)}")
     # print(all_auth_images)
 
     # images has "Template:PD-medical" in thir "templates"
     in_pd = {image: va for image, va in all_auth_images.items() if "Template:PD-medical" in va["templates"]}
-    printe.output(f"\tin_pd: {len(in_pd)}")
+    logger.info(f"\tin_pd: {len(in_pd)}")
 
     # images not in in_pd
     not_in_pd = set(all_auth_images) - set(in_pd)
-    printe.output(f"\tnot_in_pd: {len(not_in_pd)}")
+    logger.info(f"\tnot_in_pd: {len(not_in_pd)}")
 
     # add {{PD-medical}} to all images
     add_pd_to_images(not_in_pd)
-
 
 def start(usa_auths: list = []) -> None:
     # id2cat = cases_cats()
@@ -113,14 +109,12 @@ def start(usa_auths: list = []) -> None:
         # auth_cats = auths_cats.get_auth_cats(id2cat, auth)
         auth_cats = [f"Category:Radiopaedia cases by {auth}"]
         # ---
-        printe.output(f"<<green>>usa_images: {n}/{len(usa_auths)}: {auth=}, length: {len(auth_cats)}")
+        logger.info(f"<<green>>usa_images: {n}/{len(usa_auths)}: {auth=}, length: {len(auth_cats)}")
         one_auth_wrk(auth, auth_cats)
-
 
 def test() -> None:
     usa_auths = ["Jonathan Minkin"]
     start(usa_auths)
-
 
 if __name__ == "__main__":
     if "test" in sys.argv:

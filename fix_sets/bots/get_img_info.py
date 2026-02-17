@@ -11,14 +11,15 @@ import re
 import sys
 
 # import os
-from api_bots import printe
+
 from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.bots2.match_helps import match_id, match_urlid
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
 from fix_sets.ncc_api import post_ncc_params
+import logging
+logger = logging.getLogger(__name__)
 
 # st_dic_infos = jsons_dir / "studies_files_infos"
-
 
 def dump_st(data, study_id):
     # ---
@@ -28,7 +29,6 @@ def dump_st(data, study_id):
     # ---
     dumpit(data, file)
 
-
 def get_cach_img_info(study_id):
     # ---
     study_id_dir = get_study_dir(study_id)
@@ -36,7 +36,6 @@ def get_cach_img_info(study_id):
     file = study_id_dir / "img_info.json"
     # ---
     return from_cach(file)
-
 
 def match_them(extlinks, revisions, title, id_to_url):
     data = {"img_url": "", "img_id": ""}
@@ -62,7 +61,6 @@ def match_them(extlinks, revisions, title, id_to_url):
     # ---
     return data
 
-
 def gt_img_info(titles, id_to_url=None):
     # ---
     if not id_to_url:
@@ -71,7 +69,7 @@ def gt_img_info(titles, id_to_url=None):
     # titles = [x for x in titles if x]
     # ---
     info = {}
-    printe.output(f"one_img_info: {len(titles)=}")
+    logger.info(f"one_img_info: {len(titles)=}")
     # ---
     params = {
         "action": "query",
@@ -96,7 +94,7 @@ def gt_img_info(titles, id_to_url=None):
         # ---
         error = data.get("error", {})
         if error:
-            printe.output(json.dumps(error, indent=2))
+            logger.info(json.dumps(error, indent=2))
         # ---
         pages = data.get("query", {}).get("pages", [])
         # ---
@@ -107,10 +105,9 @@ def gt_img_info(titles, id_to_url=None):
             # ---
             info[title] = match_them(extlinks, revisions, title, id_to_url)
     # ---
-    printe.output(json.dumps(info, indent=2))
+    logger.info(json.dumps(info, indent=2))
     # ---
     return info
-
 
 def one_img_info(files, study_id, json_data):
     # ---
@@ -133,7 +130,6 @@ def one_img_info(files, study_id, json_data):
     # ---
     return info
 
-
 def test():
     title = [
         "File:1st metatarsal head fracture (Radiopaedia 99187-120594 Frontal 1).png",
@@ -142,7 +138,6 @@ def test():
     info = gt_img_info(title)
     # ---
     print(json.dumps(info, indent=2))
-
 
 if __name__ == "__main__":
     test()

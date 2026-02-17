@@ -17,11 +17,12 @@ import os
 import sys
 import time
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth
 from images_path import atlas_images_path
 from nccommons import api, mosab_api
 from tqdm import tqdm
+import logging
+logger = logging.getLogger(__name__)
 
 # Base URL for nccommons.org API
 NCCOMMONS_API_BASE_URL = "https://nccommons.org/api/"
@@ -42,7 +43,6 @@ time.sleep(5)
 print("time.sleep(5)")
 len_all_images = []
 
-
 def create_set(disease_name, image_infos):
     title = disease_name
     # ---
@@ -51,7 +51,7 @@ def create_set(disease_name, image_infos):
     # ---
     title = title.replace("_", " ").replace("  ", " ")
     if title in pages:
-        printe.output(f"<<lightyellow>>{title} already exists")
+        logger.info(f"<<lightyellow>>{title} already exists")
         return
     text = "" + "{{Imagestack\n|width=850\n"
     text += f"|title={disease_name}\n|align=centre\n|loop=no\n"
@@ -65,7 +65,6 @@ def create_set(disease_name, image_infos):
     text += f"[[Category:{disease_name}|*]]"
     return api.create_Page(text, title)
 
-
 def create_category(disease_name):
     cat_text = f"* Image set: [[{disease_name}]]\n[[Category:Atlasdermatologico]]"
     cat_title = f"Category:{disease_name}"
@@ -75,13 +74,12 @@ def create_category(disease_name):
     # ---
     disease_name = disease_name.replace("_", " ").replace("  ", " ")
     if cat_title in pages:
-        printe.output(f"<<lightyellow>>{cat_title} already exists")
+        logger.info(f"<<lightyellow>>{cat_title} already exists")
         return
     # ---
     mosab_api.create_Page(cat_text, cat_title)
     # ---
     return cat_title
-
 
 def upload_image(category_name, image_path, image_url, image_name, disease_url):
     global len_all_images
@@ -89,7 +87,7 @@ def upload_image(category_name, image_path, image_url, image_name, disease_url):
     image_name = image_name.replace("_", " ").replace("  ", " ")
     len_all_images.append(image_name)
     if f"File:{image_name}" in pages:
-        printe.output(f"<<lightyellow>> File:{image_name} already exists")
+        logger.info(f"<<lightyellow>> File:{image_name} already exists")
         return
     # ---
     diseaseid = disease_url.split("=")[-1]
@@ -115,7 +113,6 @@ def upload_image(category_name, image_path, image_url, image_name, disease_url):
 
     print(f"upload result: {upload}")
 
-
 def get_info(root):
     info_file_path = os.path.join(root, "info.json")
 
@@ -124,7 +121,6 @@ def get_info(root):
         info_data = json.load(info_file)
 
     return info_data
-
 
 def process_folder(root):
     info_data = get_info(root)
@@ -156,7 +152,6 @@ def process_folder(root):
 
     create_set(disease_name, images_info)
 
-
 def process_folders(r_folder):
     global len_all_images
     for root, dirs, files in os.walk(r_folder):
@@ -170,7 +165,6 @@ def process_folders(r_folder):
     len_all_images = list(set(len_all_images))
     # ---
     print(f"len_all_images: {len(len_all_images)}")
-
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

@@ -9,11 +9,12 @@ import sys
 from multiprocessing import Pool
 
 import tqdm
-from api_bots import printe
+
 from fix_sets.ncc_api import CatDepth, ncc_MainPage
+import logging
+logger = logging.getLogger(__name__)
 
 len_all = {1: 0}
-
 
 def del_cat(newtext, old):
     # ---
@@ -33,7 +34,6 @@ def del_cat(newtext, old):
         return newtext
     # ---
     return newtext
-
 
 def move_one(taa):
     # ---
@@ -62,7 +62,7 @@ def move_one(taa):
         has_new = True
         # ---
         if "del2" not in sys.argv:
-            printe.output(f"[[{new}]] already in {title}")
+            logger.info(f"[[{new}]] already in {title}")
             return
     # ---
     newtext = text
@@ -70,7 +70,7 @@ def move_one(taa):
     newtext = del_cat(newtext, old)
     # ---
     if has_new and text == newtext:
-        printe.output(f"page ({title}) has_new and hasn't old ")
+        logger.info(f"page ({title}) has_new and hasn't old ")
         return
     # ---
     if not has_new:
@@ -80,7 +80,7 @@ def move_one(taa):
         summary = f"Remove category [[:{old}]]"
     # ---
     if newtext.strip() == text.strip():
-        printe.output("no changes..")
+        logger.info("no changes..")
         return
     # ---
     nm = 100
@@ -90,10 +90,9 @@ def move_one(taa):
         nm = 10
     # ---
     if number % nm == 0 or number < 10:
-        printe.output(f"<<yellow>> {number}/{len_all[1]:,} DONE....")
+        logger.info(f"<<yellow>> {number}/{len_all[1]:,} DONE....")
     # ---
     page.save(newtext=newtext, summary=summary)
-
 
 def move_titles(titles, old, new):
     # ---
@@ -104,7 +103,7 @@ def move_titles(titles, old, new):
     if "reverse" in sys.argv:
         titles = list(reversed(titles))
     # ---
-    printe.output(f"len(titles): {len(titles):,}")
+    logger.info(f"len(titles): {len(titles):,}")
     # ---
     if "multi" in sys.argv and "ask" not in sys.argv:
         titles = [[x, old, new, number] for number, x in enumerate(titles)]
@@ -115,7 +114,6 @@ def move_titles(titles, old, new):
     else:
         for number, title in tqdm.tqdm(enumerate(titles)):
             move_one([title, old, new, number])
-
 
 def move_them(to_move, old="", new=""):
     # ---
@@ -129,6 +127,6 @@ def move_them(to_move, old="", new=""):
     # ---
     new_to_move = [x for x in to_move if x not in done]
     # ---
-    printe.output(f" len(to_move): {len(to_move):,}, after done : {len(new_to_move):,}")
+    logger.info(f" len(to_move): {len(to_move):,}, after done : {len(new_to_move):,}")
     # ---
     move_titles(new_to_move, old, new)

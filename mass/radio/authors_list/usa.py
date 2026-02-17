@@ -16,8 +16,10 @@ import sys
 from pathlib import Path
 
 # ---
-from api_bots import printe
+
 from mass.st3.start import main_by_ids
+import logging
+logger = logging.getLogger(__name__)
 
 # ---
 main_dir = Path(__file__).parent
@@ -29,12 +31,11 @@ with open(main_dir / "authors_to_cases.json", "r", encoding="utf-8") as f:
     authors_to_cases = json.load(f)
 # ---
 
-
 def work(tab):
     for numb, (author, ids) in enumerate(tab.items(), 1):
         ids = authors_to_cases.get(author, [])
-        printe.output("<<yellow>>=========================")
-        printe.output(f"<<yellow>> {numb}: {author=}: {len(ids)=}")
+        logger.info("<<yellow>>=========================")
+        logger.info(f"<<yellow>> {numb}: {author=}: {len(ids)=}")
 
         if "up" not in sys.argv:
             continue
@@ -42,13 +43,11 @@ def work(tab):
         if ids:
             main_by_ids(ids)
 
-
 def get_usa_auths():
     usa_auths = [k for k, v in authors_infos.items() if "united states" in v["location"].lower()]
     print(f"len usa_auths: {len(usa_auths)}")
     # ---
     return usa_auths
-
 
 def sa():
     print(f"len all authors: {len(authors_infos)}")
@@ -72,7 +71,6 @@ def sa():
         work(tab2)
     else:
         work(tab)
-
 
 if __name__ == "__main__":
     sa()

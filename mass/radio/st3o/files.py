@@ -8,11 +8,11 @@ tfj run files --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py 
 
 import re
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth
 from mass.radio.bots.add_cat import add
 from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
-
+import logging
+logger = logging.getLogger(__name__)
 
 def images_to_cats():
     members = CatDepth("Category:Radiopaedia_images_by_system", sitecode="www", family="nccommons", depth=1, ns="10")
@@ -32,7 +32,6 @@ def images_to_cats():
 
     return tab
 
-
 def start():
     # ---
     cats = cases_cats()
@@ -43,10 +42,9 @@ def start():
     print(f"{len(new)=}")
     for numb, (file, cat) in enumerate(new.items(), start=1):
         # ---
-        printe.output(f"{file=}: {cat=}")
+        logger.info(f"{file=}: {cat=}")
         # ---
         add(title=file, cat=cat)
-
 
 if __name__ == "__main__":
     start()

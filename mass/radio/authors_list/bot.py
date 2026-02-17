@@ -11,8 +11,9 @@ import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from mass.radio.jsons_bot import radio_jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent.parent
 # ---
@@ -27,9 +28,8 @@ with open(radio_jsons_dir / "all_ids.json", "r", encoding="utf-8") as f:
 # ---
 print(f"Length of all_ids: {len(all_ids)}")
 
-
 def get_missing_authors():
-    printe.output("<<yellow>> get_missing_authors:")
+    logger.info("<<yellow>> get_missing_authors:")
     # ---
     updated_authors = authors.copy()
     # ---
@@ -73,9 +73,8 @@ def get_missing_authors():
     # ---
     return updated_authors
 
-
 def make_authors_list(authors_n):
-    printe.output("<<yellow>> make_authors_list:")
+    logger.info("<<yellow>> make_authors_list:")
     # ---
     # list of authors by length
     new_authors = {}
@@ -91,7 +90,7 @@ def make_authors_list(authors_n):
     # sort
     new_authors = dict(sorted(new_authors.items(), key=lambda x: len(x[1]), reverse=True))
     # ---
-    printe.output("<<yellow>> new_authors:")
+    logger.info("<<yellow>> new_authors:")
     # ---
     for num, (x, v) in enumerate(new_authors.items(), 1):
         print(f"author({num}/{len(new_authors)}): {x}: cases: {len(v)}")
@@ -107,12 +106,10 @@ def make_authors_list(authors_n):
     # ---
     return new_authors
 
-
 def start():
     authors_n = get_missing_authors()
 
     new = make_authors_list(authors_n)
-
 
 if __name__ == "__main__":
     start()

@@ -14,14 +14,14 @@ Category:Image set
 
 Category:Image stacks
 
-
 """
 
 import sys
 
-from api_bots import printe
 from dup_sets.move_pages import move_them
 from fix_sets.ncc_api import CatDepth
+import logging
+logger = logging.getLogger(__name__)
 
 lal = [
     "GovernmentZA",
@@ -37,7 +37,6 @@ for x in lal[:]:
         lal = [x]
         break
 
-
 def in_both():
     # ---
     Image_set = CatDepth("Category:Image set", sitecode="www", family="nccommons", depth=0, ns=0, onlyns=0)
@@ -51,10 +50,9 @@ def in_both():
         # ---
         in_both_list = [x for x in sets_o if x in Image_set]
         # ---
-        printe.output(f" len(in_both_list): {len(in_both_list):,}.")
+        logger.info(f" len(in_both_list): {len(in_both_list):,}.")
         # ---
         move_them(in_both_list, old="Category:Image set", new=cat2)
-
 
 def to_do():
     # ---
@@ -67,10 +65,9 @@ def to_do():
         # ---
         to_do_list = [x for x in Image_set if x.lower().find(cat.lower()) != -1]
         # ---
-        printe.output(f" len(to_do_list): {len(to_do_list):,}.")
+        logger.info(f" len(to_do_list): {len(to_do_list):,}.")
         # ---
         move_them(to_do_list, old="Category:Image set", new=cat2)
-
 
 def main():
     # ---
@@ -87,14 +84,13 @@ def main():
         if f"{cat} sets" in ssets:
             ssets.remove(f"{cat} sets")
         # ---
-        printe.output(f" len(ssets): {len(ssets):,}.")
+        logger.info(f" len(ssets): {len(ssets):,}.")
         # ---
         if "fi" in sys.argv:
             ssets = [x for x in ssets if x in Image_set]
-            printe.output(f" filter only page in Category:Image set: {len(ssets):,}.")
+            logger.info(f" filter only page in Category:Image set: {len(ssets):,}.")
         # ---
         move_them(ssets, old="Category:Image set", new=f"Category:{cat} sets")
-
 
 if __name__ == "__main__":
     if "in_both" in sys.argv:

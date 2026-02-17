@@ -8,19 +8,18 @@ import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from mass.eyerounds.bots.get_case_info import extract_infos_from_url
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent
 jsonfile = main_dir / "jsons/urls.json"
 jsonimages = main_dir / "jsons/images.json"
 
-
 def read_json_file(file_path):
     with open(file_path, "r") as file:
         data = json.load(file)
     return data
-
 
 def dump_data(json_data):
     # sort json_data by len of images
@@ -31,7 +30,6 @@ def dump_data(json_data):
         with open(jsonimages, "w", encoding="utf-8") as file:
             json.dump(json_data, file, indent=2)
 
-
 def get_images(json_data):
     # ---
     json_data = read_json_file(jsonimages)
@@ -40,27 +38,27 @@ def get_images(json_data):
     # ---
     if "onlyempty" in sys.argv:
         data = {k: v for k, v in data.items() if len(v.get("images", [])) == 0}
-        printe.output(f"<<green>> Only {len(data)} urls have no images, from {len(data)} ")
+        logger.info(f"<<green>> Only {len(data)} urls have no images, from {len(data)} ")
     # ---
     # [ { "title": "Cataract", "url": "https://eyerounds.org/cataract_cases.htm", "cases": [ { "url": "https://eyerounds.org/cases/254-anterior-chamber-cilium.htm", ... } ] }, ... ]
     # ---
     # Iterate over each section and its corresponding data
     for n, (url, _tab) in enumerate(data.items(), 1):
-        printe.output(f"<<yellow>> Processing section {n}/{len(data)}: {url}")
+        logger.info(f"<<yellow>> Processing section {n}/{len(data)}: {url}")
 
         d_in = json_data.get(url, {}).get("images", {})
         if d_in and "donew" not in sys.argv:
-            printe.output(f"<<green>> Found {len(d_in)} images in json")
+            logger.info(f"<<green>> Found {len(d_in)} images in json")
             continue
 
         # Extract images from the URL
         # { "authors": {}, "date": "", "images": {} }
         if not url.startswith("https://eyerounds.org/cases/"):
-            printe.output(f"<<red>> Skip url {url}")
+            logger.info(f"<<red>> Skip url {url}")
             continue
         case_info = extract_infos_from_url(url)
 
-        printe.output(f"<<green>> Found {len(case_info['images'])} images in url {url}")
+        logger.info(f"<<green>> Found {len(case_info['images'])} images in url {url}")
 
         json_data[url] = case_info
 
@@ -74,7 +72,6 @@ def get_images(json_data):
     dump_data(json_data)
     # ---
     return json_data
-
 
 def main():
     # Read the JSON file
@@ -91,15 +88,14 @@ def main():
     # ---
     # print how many has images and how many has no images
     d_with = [k for k, v in url_by_images.items() if len(v["images"]) > 0]
-    printe.output(f"<<green>> Number of sections with images: {len(d_with)}")
+    logger.info(f"<<green>> Number of sections with images: {len(d_with)}")
 
     d_no = [k for k, v in url_by_images.items() if len(v["images"]) == 0]
-    printe.output(f"<<green>> Number of sections with no images: {len(d_no)}")
+    logger.info(f"<<green>> Number of sections with no images: {len(d_no)}")
 
     # print len of all images
     d_all = sum(len(v["images"]) for k, v in url_by_images.items())
-    printe.output(f"<<green>> Number of images: {d_all}")
-
+    logger.info(f"<<green>> Number of images: {d_all}")
 
 if __name__ == "__main__":
     main()

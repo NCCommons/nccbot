@@ -8,16 +8,17 @@ import json
 from pathlib import Path
 
 import tqdm
-from api_bots import printe
+
 from fix_mass.one_img_cat.lists import args_na_more
 from fix_sets.bots.stacks import get_stacks
 from fix_sets.by_count.lists import counts_from_files
 from fix_sets.jsons_dirs import st_ref_infos
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
 
 count_cach = {}
-
 
 def count_files(study_id):
     # ---
@@ -39,7 +40,6 @@ def count_files(study_id):
     # ---
     return len(all_files)
 
-
 def count_files_true(k, main_number, counts=False):
     # ---
     if not counts:
@@ -54,7 +54,6 @@ def count_files_true(k, main_number, counts=False):
     # ---
     return False
 
-
 def from_files_g():
     # ---
     files_file = Dir / "studies_one_file.json"
@@ -66,7 +65,7 @@ def from_files_g():
         with open(files_file, "r", encoding="utf-8") as f:
             lisst_of_s = json.load(f)
     except Exception as e:
-        printe.output(f"<<red>> Error reading {files_file}: {str(e)}")
+        logger.info(f"<<red>> Error reading {files_file}: {str(e)}")
         return False
     # ---
     # counts_from_files
@@ -80,7 +79,6 @@ def from_files_g():
     lisst_of_s = list(lisst_of_s.keys())
     # ---
     return lisst_of_s
-
 
 def work_get_files_data():
     # ---
@@ -109,7 +107,6 @@ def work_get_files_data():
         json.dump(lisst_of_s, f, ensure_ascii=False, indent=2)
     # ---
     return lisst_of_s
-
 
 if __name__ == "__main__":
     # python3 core8/pwb.py fix_mass/one_img_cat/gt_files

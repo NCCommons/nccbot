@@ -7,10 +7,11 @@ from fix_sets.bots.stacks import get_stacks# get_stacks(study_id)
 import json
 
 import requests
-from api_bots import printe
+
 from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.jsons_dirs import get_study_dir
-
+import logging
+logger = logging.getLogger(__name__)
 
 def dump_it(data, study_id):
     # ---
@@ -20,7 +21,6 @@ def dump_it(data, study_id):
     # ---
     dumpit(data, file)
 
-
 def stacks_from_cach(study_id):
     # ---
     study_id_dir = get_study_dir(study_id)
@@ -29,10 +29,9 @@ def stacks_from_cach(study_id):
     # ---
     data = from_cach(file)
     # ---
-    # if not data: printe.output(f"stacks_from_cach: file not found: {file}")
+    # if not data: logger.info(f"stacks_from_cach: file not found: {file}")
     # ---
     return data
-
 
 def get_stacks_o(study_id):
     new_url = f"https://radiopaedia.org/studies/{study_id}/stacks"
@@ -57,7 +56,6 @@ def get_stacks_o(study_id):
     json_data = json.loads(text)
 
     return json_data
-
 
 def get_stacks(study_id, only_cached=False):
     # ---

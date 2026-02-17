@@ -13,14 +13,14 @@ $HOME/local/bin/python3 core8/pwb.py fix_sets/by_count/bot hasskip 8 ask
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from fix_sets.bots.ddo_bot import ddo, studies_fixed_done
 from fix_sets.by_count.co import from_files
 from fix_sets.by_count.lists import counts_from_files
 from fix_sets.new import work_one_study
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
-
 
 def from_files_get():
     # ---
@@ -30,7 +30,6 @@ def from_files_get():
         da = from_files()
     # ---
     return da
-
 
 def doda(ids_by_count, numbs=None):
     # ---
@@ -50,12 +49,12 @@ def doda(ids_by_count, numbs=None):
         # ---
         for counts, ids in by_coun.items():
             if len(ids) > 100 or "pp" in sys.argv:
-                printe.output(f"<<purple>> {counts=:,}: {len(ids)=:,}")
+                logger.info(f"<<purple>> {counts=:,}: {len(ids)=:,}")
             # ---
             to_ge = numbs == counts or str(counts) in sys_ids
             # ---
             if to_ge:
-                printe.output(f"<<green>> USE {counts}...")
+                logger.info(f"<<green>> USE {counts}...")
                 new.extend(ids)
     # ---
     if new:
@@ -65,17 +64,15 @@ def doda(ids_by_count, numbs=None):
     # ---
     return ids_by_count
 
-
 def remove_done(iui):
     # ---
     print(f"remove_done.  done:{len(studies_fixed_done):,}\t ids:{len(iui):,}")
     # ---
     iui_no_done = {x: v for x, v in iui.items() if x not in studies_fixed_done}
     # ---
-    printe.output(f"\t remove_done:\t ids:{len(iui):,} after_done: <<yellow>>{len(iui_no_done):,}")
+    logger.info(f"\t remove_done:\t ids:{len(iui):,} after_done: <<yellow>>{len(iui_no_done):,}")
     # ---
     return iui_no_done
-
 
 def get_ids_o(numbs=None):
     # ---
@@ -94,14 +91,13 @@ def get_ids_o(numbs=None):
     # ---
     ids_by_count = {x: iui[x] for x in ids}
     # ---
-    printe.output(f"<<purple>> len of ids: {len(ids_by_count)}")
-    printe.output(f"<<purple>> len of ids: {len(ids_by_count)}")
-    printe.output(f"<<purple>> len of ids: {len(ids_by_count)}")
+    logger.info(f"<<purple>> len of ids: {len(ids_by_count)}")
+    logger.info(f"<<purple>> len of ids: {len(ids_by_count)}")
+    logger.info(f"<<purple>> len of ids: {len(ids_by_count)}")
     # ---
     ids_by_count2 = dict(sorted(ids_by_count.items(), key=lambda x: x[1], reverse=False))
     # ---
     return ids_by_count2
-
 
 def main():
     # ---
@@ -110,7 +106,6 @@ def main():
     for n, (study_id, counts) in enumerate(ids_by_count2.items()):
         print(f"_____________\n {n=}/{len(ids_by_count2)}: {counts=}")
         work_one_study(study_id)
-
 
 if __name__ == "__main__":
     main()

@@ -12,7 +12,7 @@ import re
 import sys
 
 import tqdm
-from api_bots import printe
+
 from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.bots2.match_helps import match_id  # match_id(content, title)
 
@@ -20,16 +20,15 @@ from fix_sets.bots2.match_helps import match_id  # match_id(content, title)
 from fix_sets.bots.study_files import get_study_files
 from fix_sets.jsons_dirs import get_study_dir
 from fix_sets.ncc_api import post_ncc_params
+import logging
+logger = logging.getLogger(__name__)
 
 # from pathlib import Path
-
 
 images_to_ids = {}
 ids_to_images = {}
 
-
 # studies_rev_dir = jsons_dir / "studies_rev"
-
 
 def dump_st(data, study_id):
     # ---
@@ -40,7 +39,6 @@ def dump_st(data, study_id):
     file = study_id_dir / "rev.json"
     # ---
     dumpit(data, file)
-
 
 def get_cach_one_study(study_id):
     # ---
@@ -53,7 +51,6 @@ def get_cach_one_study(study_id):
     # ---
     return from_cach(file)
 
-
 def match_img_url_from_content(content):
     # find urls
     urls = re.findall(r"(?P<url>https?://[^\s]+)", content)
@@ -63,7 +60,6 @@ def match_img_url_from_content(content):
             return url
     # ---
     return ""
-
 
 def get_images_ids(title="", img_id=""):
     if "noid" in sys.argv:
@@ -75,7 +71,6 @@ def get_images_ids(title="", img_id=""):
         return ids_to_images.get(img_id)
 
     return ""
-
 
 def get_file_rev(title):
     # ---
@@ -95,7 +90,7 @@ def get_file_rev(title):
     # ---
     error = data.get("error", {})
     if error:
-        printe.output(json.dumps(error, indent=2))
+        logger.info(json.dumps(error, indent=2))
     # ---
     pages = data.get("query", {}).get("pages", [])
     # ---
@@ -133,13 +128,12 @@ def get_file_rev(title):
     # ---
     return data
 
-
 def get_rev_infos(files):
     # ---
     if "norevip" in sys.argv:
         return {}
     # ---
-    printe.output(f"get_rev_infos: {len(files)=}")
+    logger.info(f"get_rev_infos: {len(files)=}")
     # ---
     info = {}
     # ---
@@ -147,7 +141,6 @@ def get_rev_infos(files):
         info[file] = get_file_rev(file)
     # ---
     return info
-
 
 def get_file_urls_rev(study_id, files=None, only_cach=False):
     na = {}
@@ -163,7 +156,7 @@ def get_file_urls_rev(study_id, files=None, only_cach=False):
         files2 = [x for x in files if not cach.get(x) or not (cach.get(x, {}).get("url") and cach.get(x, {}).get("id"))]
         # ---
         if files2:
-            printe.output(f"get_file_urls_rev: files2: {len(files2)=}")
+            logger.info(f"get_file_urls_rev: files2: {len(files2)=}")
     else:
         print(f"no rev cach for: {study_id}")
     # ---
@@ -171,7 +164,7 @@ def get_file_urls_rev(study_id, files=None, only_cach=False):
         return cach
     # ---
     if not files:
-        printe.output(f"Files not found for: {study_id}")
+        logger.info(f"Files not found for: {study_id}")
         return na
     # ---
     if files2:
@@ -194,14 +187,13 @@ def get_file_urls_rev(study_id, files=None, only_cach=False):
     # ---
     return na
 
-
 if __name__ == "__main__":
     ids = [arg.strip() for arg in sys.argv if arg.strip().isdigit()]
     # ---
     for x in ids:
         ii = get_file_urls_rev(x)
         # ---
-        printe.output(json.dumps(ii, indent=2))
+        logger.info(json.dumps(ii, indent=2))
     # ---
     filett = [
         "File:Angiodysplasia - cecal active bleed (Radiopaedia 168775-136954 Coronal 91).jpeg",

@@ -4,10 +4,11 @@ python3 core8/pwb.py import_to_ncc/bot
 
 """
 
-from api_bots import printe
 from api_bots.page_ncc import ncc_NEW_API
 from api_bots.wiki_page import load_main_api
 from nccommons import api
+import logging
+logger = logging.getLogger(__name__)
 
 api_new = ncc_NEW_API()
 
@@ -16,22 +17,21 @@ imges_liist = [
     "File:CC BY-NC-ND.svg",
 ]
 
-
 def import_file(title):
     """
     Imports a file from Wikimedia Commons to NC Commons.
     """
-    printe.output(f"<<yellow>>import_file: File:{title} to nccommons:")
+    logger.info(f"<<yellow>>import_file: File:{title} to nccommons:")
     # ---
     title_file = f"File:{title}" if not title.startswith("File:") else title
-    printe.output(f"<<yellow>>get_file_text: {title} from commons.wikimedia.org:")
+    logger.info(f"<<yellow>>get_file_text: {title} from commons.wikimedia.org:")
     # ---
     main_api = load_main_api("commons", "wikimedia")
     # ---
     page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---
     if not page.exists():
-        printe.output(f"<<lightred>>{title} not exists on commons.wikimedia.org")
+        logger.info(f"<<lightred>>{title} not exists on commons.wikimedia.org")
         return False
     # ---
     if page.isRedirect():
@@ -51,7 +51,6 @@ def import_file(title):
     # ---
     return upload
 
-
 def get_wanted_images():
     pages = api_new.querypage_list(qppage="Wantedfiles", qplimit="100", Max=100)
     # "results": [ { "value": "32", "ns": 6, "title": "File:Pictogram voting info.svg" }, {}, ... ]
@@ -61,7 +60,6 @@ def get_wanted_images():
 
     return pages
 
-
 def start():
     # images = get_wanted_images()
     images = imges_liist
@@ -70,12 +68,11 @@ def start():
     # ---
     missing_images = [x for x in images if not check_titles.get(x, False)]
     # ---
-    printe.output(f"<<yellow>> wanted images: {len(images)}, missing_images: {len(missing_images)}")
+    logger.info(f"<<yellow>> wanted images: {len(images)}, missing_images: {len(missing_images)}")
     # ---
     for n, image in enumerate(missing_images, 1):
-        printe.output(f"<<yellow>> file: {n}/{len(missing_images)} - {image}")
+        logger.info(f"<<yellow>> file: {n}/{len(missing_images)} - {image}")
         import_file(image)
-
 
 if __name__ == "__main__":
     start()

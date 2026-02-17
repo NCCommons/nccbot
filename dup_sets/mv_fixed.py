@@ -10,12 +10,13 @@ import sys
 from multiprocessing import Pool
 
 import tqdm
-from api_bots import printe
+
 from fix_sets.ncc_api import CatDepth, ncc_MainPage
+import logging
+logger = logging.getLogger(__name__)
 
 # [[Category:Sort studies fixed]]
 # [[Category:Image set]]
-
 
 def rm_one(title):
     # ---
@@ -31,7 +32,7 @@ def rm_one(title):
     newtext = text
     # ---
     if newtext.find("Category:Sort studies fixed") == -1:
-        printe.output("page is not fixed..")
+        logger.info("page is not fixed..")
         return
     # ---
     if newtext.find("Category:Image set") != -1:
@@ -41,17 +42,16 @@ def rm_one(title):
         newtext += "\n[[Category:Radiopaedia sets]]"
     # ---
     if newtext.strip() == text.strip():
-        printe.output("no changes..")
+        logger.info("no changes..")
         return
     # ---
     page.save(newtext=newtext, summary="Remove category")
-
 
 def rm_titles(titles):
     # ---
     # move all titles from [[Category:Image set]] to [[Category:Duplicate Radiopaedia sets]]
     # ---
-    printe.output(f"len(titles): {len(titles):,}")
+    logger.info(f"len(titles): {len(titles):,}")
     # ---
     if "multi" in sys.argv and "ask" not in sys.argv:
         pool = Pool(processes=4)
@@ -62,7 +62,6 @@ def rm_titles(titles):
         for title in tqdm.tqdm(titles):
             rm_one(title)
 
-
 def main():
     # ---
     done1 = CatDepth("Category:Sort studies fixed", sitecode="www", family="nccommons", depth=0, ns=0, onlyns=0)
@@ -70,10 +69,9 @@ def main():
     # ---
     in_both = [title for title in done1 if title in done2]
     # ---
-    printe.output(f" len(in_both): {len(in_both):,}.")
+    logger.info(f" len(in_both): {len(in_both):,}.")
     # ---
     rm_titles(in_both)
-
 
 if __name__ == "__main__":
     main()

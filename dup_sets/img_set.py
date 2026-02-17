@@ -13,10 +13,10 @@ Category:Image set
 
 """
 
-from api_bots import printe
 from dup_sets.move_pages import move_them
 from fix_sets.ncc_api import CatDepth
-
+import logging
+logger = logging.getLogger(__name__)
 
 def maa():
     # ---
@@ -30,10 +30,9 @@ def maa():
     # ---
     in_both_list = [x for x in sets_o if x in Image_set]
     # ---
-    printe.output(f" len(in_both_list): {len(in_both_list):,}.")
+    logger.info(f" len(in_both_list): {len(in_both_list):,}.")
     # ---
     move_them(in_both_list, old="Category:Image set", new=cat2)
-
 
 if __name__ == "__main__":
     maa()

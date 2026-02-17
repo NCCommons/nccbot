@@ -16,10 +16,11 @@ import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth, ncc_MainPage
 from mass.radio.bots.add_cat import add_cat_bot
 from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent.parent
 # ---
@@ -30,7 +31,6 @@ with open(main_dir / "authors_list/authors_infos.json", "r", encoding="utf-8") a
     authors_infos = json.load(f)
 # ---
 print(f"Length of authors_to_cases: {len(authors_to_cases)}")
-
 
 def create_cat(cat, text):
     page = ncc_MainPage(cat)
@@ -44,9 +44,8 @@ def create_cat(cat, text):
     else:
         page.Create(text=text, summary="create")
 
-
 def one_auth(auth, cat_list):
-    printe.output(f"Author: {auth}, {len(cat_list)=}")
+    logger.info(f"Author: {auth}, {len(cat_list)=}")
     # ---
     cat = f"Category:Radiopaedia cases by {auth}"
     text = ""
@@ -67,19 +66,17 @@ def one_auth(auth, cat_list):
     # ---
     new_cat_list = [x for x in cat_list if x not in done]
     # ---
-    printe.output(f"{len(done)=}, {len(new_cat_list)=}")
+    logger.info(f"{len(done)=}, {len(new_cat_list)=}")
     # ---
     if "noadd" not in sys.argv:
         add_cat_bot(new_cat_list, cat)
 
-
 def get_auth_cats(cats, auth):
     cat_list = [cats[c] for c in authors_to_cases.get(auth, []) if c in cats]
     # ---
-    printe.output(f"get_auth_cats: {auth=}, {len(cat_list)=}")
+    logger.info(f"get_auth_cats: {auth=}, {len(cat_list)=}")
     # ---
     return cat_list
-
 
 def start():
     # ---
@@ -90,18 +87,17 @@ def start():
     # ---
     for numb, (x, x_cases) in enumerate(authors_cases.items(), start=1):
         # ---
-        printe.output(f"{x=}, cases: {len(x_cases)=}")
+        logger.info(f"{x=}, cases: {len(x_cases)=}")
         # ---
         cat_list = [cats[c] for c in x_cases if c in cats]
         cat_no_list = [c for c in x_cases if c not in cats]
         # ---
-        printe.output(f"<<red>> {len(cat_no_list)=}")
+        logger.info(f"<<red>> {len(cat_no_list)=}")
         # ---
         one_auth(x, cat_list)
         # ---
         if "break" in sys.argv and numb % 10 == 0:
             break
-
 
 if __name__ == "__main__":
     start()

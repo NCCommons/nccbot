@@ -4,8 +4,9 @@ python3 core8/pwb.py mass/radio/bots/fix ask
 
 """
 
-from api_bots import printe
 from mass.st3.start import ids_by_caseId, main
+import logging
+logger = logging.getLogger(__name__)
 
 to_fix = [
     "180217",
@@ -175,7 +176,7 @@ new_ids = {}
 
 for caseId in to_fix:
     if caseId not in ids_by_caseId:
-        printe.output(f"caseId {caseId} not found in ids_by_caseId")
+        logger.info(f"caseId {caseId} not found in ids_by_caseId")
         continue
     new_ids[caseId] = ids_by_caseId[caseId]
 

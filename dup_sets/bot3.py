@@ -15,10 +15,10 @@ Category:Image stacks
 
 import sys
 
-from api_bots import printe
 from dup_sets.move_pages import move_them
 from fix_sets.ncc_api import CatDepth
-
+import logging
+logger = logging.getLogger(__name__)
 
 def main():
     # ---
@@ -26,10 +26,9 @@ def main():
     # ---
     sets = [x for x in sets_o if x.lower().find("radiopaedia") == -1]
     # ---
-    printe.output(f"sets_o:{len(sets_o):,} \t sets without Radiopaedia: {len(sets):,}")
+    logger.info(f"sets_o:{len(sets_o):,} \t sets without Radiopaedia: {len(sets):,}")
     # ---
     move_them(sets, old="Category:Image set", new="Category:Image stacks")
-
 
 if __name__ == "__main__":
     main()

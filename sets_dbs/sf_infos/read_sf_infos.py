@@ -14,8 +14,10 @@ from pathlib import Path
 
 import psutil
 import tqdm
-from api_bots import printe
+
 from fix_sets.jsons_dirs import jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"
@@ -35,7 +37,6 @@ sf_infos_dir = Dir / "sf_infos_json"
 if not sf_infos_dir.exists():
     sf_infos_dir.mkdir()
 
-
 def print_memory():
     yellow, purple = "\033[93m%s\033[00m", "\033[95m%s\033[00m"
 
@@ -44,14 +45,13 @@ def print_memory():
 
     print(yellow % "Memory usage:", purple % f"{usage} MB")
 
-
 def dump_them():
     # ---
     jo_dir = jsons_dir / "studies_files_infos"
     # ---
     list_files = list(jo_dir.glob("*.json"))
     # ---
-    printe.output(f"list_files: {len(list_files)}")
+    logger.info(f"list_files: {len(list_files)}")
     # ---
     for i in range(0, len(list_files), numbs):
         group = list_files[i : i + numbs]
@@ -59,7 +59,7 @@ def dump_them():
         infos_file = sf_infos_dir / f"{i}.json"
         # ---
         if infos_file.exists():
-            printe.output(f"exists: {infos_file}")
+            logger.info(f"exists: {infos_file}")
             continue
         # ---
         infos = {}
@@ -83,7 +83,7 @@ def dump_them():
             # ---
             del data
         # ---
-        printe.output(f"<<green>> write {len(infos)} to file: {infos_file}")
+        logger.info(f"<<green>> write {len(infos)} to file: {infos_file}")
         # ---
         with open(infos_file, "w", encoding="utf-8") as f:
             json.dump(infos, f, ensure_ascii=False)
@@ -92,7 +92,6 @@ def dump_them():
         # ---
         print_memory()
 
-
 def read_all():
     all_data = {}
     # ---
@@ -100,7 +99,7 @@ def read_all():
     # ---
     list_files = list(sf_infos_dir.glob("*.json"))
     # ---
-    printe.output(f"list_files: {len(list_files)}")
+    logger.info(f"list_files: {len(list_files)}")
     # ---
     for f in tqdm.tqdm(list_files, total=len(list_files)):
         # ---
@@ -121,7 +120,7 @@ def read_all():
     with open(all_data_file, "w", encoding="utf-8") as f:
         json.dump(all_data, f, ensure_ascii=False)
     # ---
-    printe.output(f"<<green>> write all_data: {len(all_data)} to file: {all_data_file}")
+    logger.info(f"<<green>> write all_data: {len(all_data)} to file: {all_data_file}")
     # ---
     all_data_file_more = Dir_json / "sf_infos_all_more.json"
     # ---
@@ -135,8 +134,7 @@ def read_all():
     with open(all_data_file_more, "w", encoding="utf-8") as f:
         json.dump(urls_with_more, f, ensure_ascii=False)
     # ---
-    printe.output(f"<<green>> write urls_with_more: {len(urls_with_more)} to file: {all_data_file_more}")
-
+    logger.info(f"<<green>> write urls_with_more: {len(urls_with_more)} to file: {all_data_file_more}")
 
 def start():
     # ---
@@ -150,11 +148,10 @@ def start():
     # sort it
     urls_with_more = {k: v for k, v in sorted(urls_with_more.items(), key=lambda item: len(item[1]))}
     # ---
-    printe.output(f"urls_with_more: {len(urls_with_more)}")
+    logger.info(f"urls_with_more: {len(urls_with_more)}")
     # ---
     for k, v in urls_with_more.items():
-        printe.output(f"{k}: {len(v)}")
-
+        logger.info(f"{k}: {len(v)}")
 
 if __name__ == "__main__":
     if "read_all" in sys.argv:

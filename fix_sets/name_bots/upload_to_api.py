@@ -7,11 +7,11 @@ from fix_sets.name_bots.upload_to_api import get_from_api
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from fix_sets.ncc_api import post_ncc_params
 from mass.radio.bots.bmp import work_bmp
 from nccommons.ext import get_new_ext
-
+import logging
+logger = logging.getLogger(__name__)
 
 def get_from_api(url, filename="", do_ext=True, file_text="", comment=""):
     """
@@ -23,7 +23,7 @@ def get_from_api(url, filename="", do_ext=True, file_text="", comment=""):
     file_name = filename
     # ---
     if not url:
-        printe.output("<<lightred>>upload_by_url: no url")
+        logger.info("<<lightred>>upload_by_url: no url")
         return ""
     # ---
     if "noapi" in sys.argv:
@@ -80,28 +80,28 @@ def get_from_api(url, filename="", do_ext=True, file_text="", comment=""):
     # ---
     if success:
         new_filename = upload_result.get("filename") or file_name
-        printe.output(f"<<green>> new upload Success, File:{new_filename}")
+        logger.info(f"<<green>> new upload Success, File:{new_filename}")
         return f"File:{new_filename}"
 
     elif duplicate:
         du = "File:" + duplicate
         # ---
-        printe.output(f"duplicate, find url_file_upload: {du}")
+        logger.info(f"duplicate, find url_file_upload: {du}")
         return du
     elif exists:
         du = "File:" + exists
         du = du.replace("_", " ")
         # ---
-        printe.output(f"exists, find url_file_upload: {du}")
+        logger.info(f"exists, find url_file_upload: {du}")
         return du
 
     elif error:
         error_code = error.get("code", "")
         error_info = error.get("info", "")
         # ---
-        printe.output("____________________________________________")
-        printe.output(f"<<yellow>> {file_name=}, {url=}")
-        printe.output(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
+        logger.info("____________________________________________")
+        logger.info(f"<<yellow>> {file_name=}, {url=}")
+        logger.info(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
         # ---
         if error_code == "verification-error":
             if do_ext and "MIME type of the file" in error_info:

@@ -36,7 +36,6 @@ python3 core8/pwb.py fix_sets/new ask all
 import re
 import sys
 
-from api_bots import printe
 from fix_mass.files import studies_titles, studies_titles2
 from fix_sets.bots2.done2 import filter_done_list
 from fix_sets.bots2.filter_ids import filter_no_title
@@ -48,11 +47,12 @@ from fix_sets.bots.stacks import get_stacks  # get_stacks(study_id)
 from fix_sets.bots.study_files import get_study_files
 from fix_sets.ncc_api import ncc_MainPage
 from fix_sets.new_works.get_info import get_study_infos
-
+import logging
+logger = logging.getLogger(__name__)
 
 def update_set_text(title, n_text, study_id):
     # ---
-    printe.output(f"<<yellow>> update_set_text: {title}")
+    logger.info(f"<<yellow>> update_set_text: {title}")
     # ---
     page = ncc_MainPage(title)
     # ---
@@ -66,7 +66,7 @@ def update_set_text(title, n_text, study_id):
     n_text = fix_cats(n_text, p_text)
     # ---
     if p_text.strip() == n_text.strip():
-        printe.output("no changes..")
+        logger.info("no changes..")
         return
     # ---
     if n_text.find("[[Category:Image set]]") != -1 and n_text.find("[[Category:Radiopaedia sets]]") != -1:
@@ -74,7 +74,6 @@ def update_set_text(title, n_text, study_id):
             n_text = n_text.replace("[[Category:Image set]]\n", "")
     # ---
     page.save(newtext=n_text, summary="Fix sort.")
-
 
 def fix_one_url(text, study_id, files=None):
     # ---
@@ -88,7 +87,7 @@ def fix_one_url(text, study_id, files=None):
     if http_links != 1:
         return text
     # ---
-    printe.output(f"<<red>> text has http links ({http_links})... study_id: {study_id}")
+    logger.info(f"<<red>> text has http links ({http_links})... study_id: {study_id}")
     # ---
     if not files:
         files = get_study_files(study_id)
@@ -97,7 +96,7 @@ def fix_one_url(text, study_id, files=None):
     # ---
     files2 = [x for x in files if x not in text]
     # ---
-    printe.output(f"len of files2: {len(files2)}")
+    logger.info(f"len of files2: {len(files2)}")
     # ---
     if len(files2) != 1:
         return text
@@ -117,12 +116,11 @@ def fix_one_url(text, study_id, files=None):
     if url.find("https://") == -1:
         return text
     # ---
-    printe.output(f"<<yellow>> fix_one_url: {url}")
+    logger.info(f"<<yellow>> fix_one_url: {url}")
     # ---
     text = text.replace(url, f"|File:{n_file}|")
     # ---
     return text
-
 
 def has_http_links(text, study_id):
     # ---
@@ -132,25 +130,24 @@ def has_http_links(text, study_id):
     # count how many http links in the text
     http_links = text.count("|http")
     # ---
-    printe.output(f"<<red>> text has http links ({http_links})... study_id: {study_id}")
+    logger.info(f"<<red>> text has http links ({http_links})... study_id: {study_id}")
     # ---
     has_url_append(study_id, text)
     # ---
     if "printtext" in sys.argv:
-        printe.output(text)
+        logger.info(text)
     # ---
     return True
-
 
 def work_one_study(study_id, study_title=""):
     # ---
     study_title = study_title or studies_titles.get(study_id) or studies_titles2.get(study_id)
     # ---
     if not study_title:
-        printe.output(f"<<red>> study_title is empty... study_id: {study_id}")
+        logger.info(f"<<red>> study_title is empty... study_id: {study_id}")
         return
     # ---
-    printe.output(f"{study_id=}, {study_title=}")
+    logger.info(f"{study_id=}, {study_title=}")
     # ---
     if find_has_url(study_id):
         return
@@ -162,7 +159,7 @@ def work_one_study(study_id, study_title=""):
     json_data = get_stacks(study_id)
     # ---
     if not json_data:
-        printe.output(f"\t\t<<lightred>>SKIP: <<yellow>> {study_id=}, no json_data")
+        logger.info(f"\t\t<<lightred>>SKIP: <<yellow>> {study_id=}, no json_data")
         return "", {}
     # ---
     text, to_move, urls2 = make_text_study(json_data, study_title, study_id, study_infos=study_infos)
@@ -175,19 +172,18 @@ def work_one_study(study_id, study_title=""):
         return
     # ---
     if not text:
-        printe.output(f"<<red>> text is empty... study_id: {study_id}")
+        logger.info(f"<<red>> text is empty... study_id: {study_id}")
         return
     # ---
     text = to_move_work(text, to_move, study_id)
     # ---
     update_set_text(study_title, text, study_id)
 
-
 def main(ids):
     # ---
-    printe.output(f"<<purple>> len of ids: {len(ids)}")
-    printe.output(f"<<purple>> len of ids: {len(ids)}")
-    printe.output(f"<<purple>> len of ids: {len(ids)}")
+    logger.info(f"<<purple>> len of ids: {len(ids)}")
+    logger.info(f"<<purple>> len of ids: {len(ids)}")
+    logger.info(f"<<purple>> len of ids: {len(ids)}")
     # ---
     ids = filter_done_list(ids)
     # ---
@@ -196,7 +192,6 @@ def main(ids):
     for n, (study_id, study_title) in enumerate(ids_to_titles.items()):
         print(f"_____________\n {n=}/{len(ids_to_titles)}:")
         work_one_study(study_id, study_title)
-
 
 if __name__ == "__main__":
     ids = [arg.strip() for arg in sys.argv if arg.strip().isdigit()]

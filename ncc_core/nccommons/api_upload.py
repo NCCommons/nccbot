@@ -11,17 +11,17 @@ def upload_by_url():
 import sys
 import urllib.request
 
-from api_bots import printe
 from api_bots.page_ncc import NEW_API
 from nccommons import fix_svg
 
 # ---
 from nccommons.ext import get_new_ext
+import logging
+logger = logging.getLogger(__name__)
 
 api_new = NEW_API()
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 upload_all = {1: False}
-
 
 def download_file(url):
     """
@@ -35,7 +35,6 @@ def download_file(url):
     except Exception as e:
         print(f"An error occurred while downloading the file: {e}")
         return None
-
 
 def do_post(params, code="", family="", files=None):
     """
@@ -51,7 +50,6 @@ def do_post(params, code="", family="", files=None):
     # ---
     return result
 
-
 def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedia", fix_svg_dtd=False):
     """
     Uploads a file to Wikipedia using a local file.
@@ -64,10 +62,10 @@ def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedi
     file_path = download_file(url)
     # ---
     if not file_path:
-        printe.output(f"<<lightred>> download file failed, {url=}")
+        logger.info(f"<<lightred>> download file failed, {url=}")
         return False
     # ---
-    printe.output(f"<<lightyellow>> {file_path=}...")
+    logger.info(f"<<lightyellow>> {file_path=}...")
     # ---
     if file_name.endswith(".svg") and fix_svg_dtd:
         file_path = fix_svg.remove_svg_dtd(file_path)
@@ -94,16 +92,16 @@ def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedi
     duplicate = upload_result.get("warnings", {}).get("duplicate", [""])[0].replace("_", " ")
     # ---
     if success:
-        printe.output(f"<<lightgreen>> ** upload true .. [[File:{file_name}]] ")
+        logger.info(f"<<lightgreen>> ** upload true .. [[File:{file_name}]] ")
         return True
 
     if duplicate:
-        printe.output(f"<<lightred>> ** duplicate file:  {duplicate}.")
+        logger.info(f"<<lightred>> ** duplicate file:  {duplicate}.")
 
     if error:
         error_code = error.get("code", "")
         error_info = error.get("info", "")
-        printe.output(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
+        logger.info(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
         # ---
         # if error_code == "verification-error":
         #     if do_ext and "MIME type of the file" in error_info:
@@ -111,32 +109,30 @@ def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedi
         #         if new_file_name:
         #             return upload_by_file(url, filename=new_file_name, do_ext=False)
         # else:
-        printe.output(error)
+        logger.info(error)
 
     # ---
     return False
 
-
 def do_ask(text, file_name):
     # ---
     if "nodiff" not in sys.argv:
-        printe.output(text)
+        logger.info(text)
     # ---
-    printe.output(f"<<lightyellow>> {__name__}: upload file:'{file_name}' ? ([y]es, [N]o)")
+    logger.info(f"<<lightyellow>> {__name__}: upload file:'{file_name}' ? ([y]es, [N]o)")
     sa = input()
     # ---
     if sa.strip() not in ["y", "a", "", "Y", "A", "all"]:
-        printe.output("<<lightred>> wrong answer")
+        logger.info("<<lightred>> wrong answer")
         return False
     # ---
     if sa.strip() == "a":
-        printe.output("---------------------------------------------")
-        printe.output(f"{__name__} upload_by_url save all without asking.")
-        printe.output("---------------------------------------------")
+        logger.info("---------------------------------------------")
+        logger.info(f"{__name__} upload_by_url save all without asking.")
+        logger.info("---------------------------------------------")
         upload_all[1] = True
     # ---
     return True
-
 
 def upload_by_url(
     file_name, text, url, comment="", return_file_name=False, do_ext=False, code="en", family="wikipedia"
@@ -148,7 +144,7 @@ def upload_by_url(
     """
     # ---
     if not url:
-        printe.output("<<lightred>>upload_by_url: no url")
+        logger.info("<<lightred>>upload_by_url: no url")
         return False
     # ---
     if file_name.startswith("File:"):
@@ -195,33 +191,33 @@ def upload_by_url(
     if success:
         new_filename = upload_result.get("filename") or file_name
         # { "upload": { "result": "Success", "filename": "Test1x.jpeg", "imageinfo": { "timestamp": "2024-07-24T22:28:32Z", "user": "Mr. Ibrahem", "userid": 13, "size": 67938, "width": 512, "height": 512, "parsedcomment": "", "comment": "", "html": "", "canonicaltitle": "File:Test1x.jpeg", "url": "https://nccommons.org/media/3/3f/Test1x.jpeg", "descriptionurl": "", "sha1": "e145b86530458d59bd0d9f3b709954d5301a18c9", "metadata": [ { "name": "MEDIAWIKI_EXIF_VERSION", "value": 2 } ], "commonmetadata": [], "extmetadata": { "DateTime": { "value": "2024-07-24T22:28:32Z", "source": "mediawiki-metadata", "hidden": "" }, "ObjectName": { "value": "Test1x", "source": "mediawiki-metadata" } }, "mime": "image/jpeg", "mediatype": "BITMAP", "bitdepth": 8 } } }
-        printe.output(f"<<green>> new upload Success, File:{new_filename}")
+        logger.info(f"<<green>> new upload Success, File:{new_filename}")
         return f"File:{new_filename}"
 
     elif duplicate:
         du = "File:" + duplicate
         # ---
-        printe.output(f"duplicate, find url_file_upload: {du}")
+        logger.info(f"duplicate, find url_file_upload: {du}")
         return du
 
     elif exists:
         du = "File:" + exists
         du = du.replace("_", " ")
         # ---
-        printe.output(f"exists, find url_file_upload: {du}")
+        logger.info(f"exists, find url_file_upload: {du}")
         return du
 
     elif error:
         error_code = error.get("code", "")
         error_info = error.get("info", "")
         # ---
-        printe.output("____________________________________________")
-        printe.output(f"<<yellow>> {file_name=}, {url=}")
-        printe.output(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
+        logger.info("____________________________________________")
+        logger.info(f"<<yellow>> {file_name=}, {url=}")
+        logger.info(f"<<lightred>> error when upload_by_url, error_code:{error_code}")
         # ---
-        printe.output(f"<<lightred>> url: {url}")
+        logger.info(f"<<lightred>> url: {url}")
         # ---
-        printe.output(error)
+        logger.info(error)
         # ---
         errors = ["copyuploadbaddomain", "copyuploaddisabled"]
         if error_code in errors or " url " in error_info.lower():

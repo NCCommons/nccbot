@@ -6,9 +6,9 @@ from mass.eyerounds.bots.category_bot import create_category # create_category(c
 
 import sys
 
-from api_bots import printe
 from nccommons import api
-
+import logging
+logger = logging.getLogger(__name__)
 
 def create_category(cat, chapter_url, pages) -> str:
     cat = cat.replace("_", " ").replace("  ", " ")
@@ -21,7 +21,7 @@ def create_category(cat, chapter_url, pages) -> str:
         return cat_title
     # ---
     if cat_title in pages:
-        printe.output(f"<<lightyellow>>{cat_title} already exists")
+        logger.info(f"<<lightyellow>>{cat_title} already exists")
         return cat_title
     # ---
     api.create_Page(cat_text, cat_title)

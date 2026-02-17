@@ -12,7 +12,9 @@ import sys
 from pathlib import Path
 
 import requests
-from api_bots import printe
+
+import logging
+logger = logging.getLogger(__name__)
 
 main_dir = Path(__file__).parent
 albums_file = main_dir / "jsons/albums.json"
@@ -27,13 +29,12 @@ with open(main_dir / ".env", "r") as file:
 with open(albums_file, "r") as file:
     albums_list = json.load(file)
 
-
 def get_img_titles(album_id):
     url = f"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id={album_id}&api_key={api_key}&format=json&nojsoncallback=1"
     response = requests.get(url)
 
     if response.status_code != 200:
-        printe.output(f"Failed to fetch content from {url}")
+        logger.info(f"Failed to fetch content from {url}")
         return {}
 
     data = response.json()
@@ -43,12 +44,11 @@ def get_img_titles(album_id):
 
     return titles
 
-
 def extract_infos_from_url(x):
     # Print the URL being processed
     url = f"https://api.flickr.com/services/rest?extras=title,description,url_o&per_page=500&page=1&get_user_info=1&primary_photo_extras=url_o&photoset_id={x}&method=flickr.photosets.getPhotos&api_key={api_key}&format=json&nojsoncallback=1"
     # ---
-    printe.output(f"\t Processing URL: {url}")
+    logger.info(f"\t Processing URL: {url}")
 
     # Send a GET request to the URL and get the response
     response = requests.get(url)
@@ -56,7 +56,7 @@ def extract_infos_from_url(x):
     # Check if the response status code is 200 (OK)
     if response.status_code != 200:
         # Print an error message if the request failed
-        printe.output(f"\t\t Failed to fetch content from {url}")
+        logger.info(f"\t\t Failed to fetch content from {url}")
 
         # Return an empty dictionary
         return {}
@@ -97,7 +97,6 @@ def extract_infos_from_url(x):
     # ---
     return data
 
-
 def start() -> None:
     to_work = albums_list
     # ---
@@ -108,7 +107,7 @@ def start() -> None:
         to_work = ["72177720300058248"]
     # ---
     for n, x in enumerate(to_work):
-        printe.output(f"Processing album {n}/{len(to_work)} id: {x}")
+        logger.info(f"Processing album {n}/{len(to_work)} id: {x}")
         # ---
         data = extract_infos_from_url(x)
         # ---
@@ -127,7 +126,6 @@ def start() -> None:
     # ---
     with open(main_dir / "jsons/all_data.json", "w", encoding="utf-8") as file:
         json.dump(all_data, file, ensure_ascii=False, indent=2)
-
 
 if __name__ == "__main__":
     start()

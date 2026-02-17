@@ -10,11 +10,12 @@ import json
 import re
 
 import requests
-from api_bots import printe
+
 from bs4 import BeautifulSoup
 from fix_mass.dir_studies_bot import studies_dir
 from mass.radio.jsons_files import jsons, urls_to_ids
-
+import logging
+logger = logging.getLogger(__name__)
 
 def dump_it(study_id, data):
     # ---
@@ -22,24 +23,22 @@ def dump_it(study_id, data):
     # ---
     with open(st_file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-        printe.output(f"<<green>> get_studies: write {len(data)} to file: {st_file}")
-
+        logger.info(f"<<green>> get_studies: write {len(data)} to file: {st_file}")
 
 def get_studies_from_cach(study_id):
     # ---
     st_file = studies_dir / f"{study_id}.json"
     # ---
     if st_file.exists():
-        printe.output(f"<<green>> get_studies: get_cach: {st_file} exists")
+        logger.info(f"<<green>> get_studies: get_cach: {st_file} exists")
         try:
             with open(st_file, encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
-            printe.output(f"<<red>> get_studies: get_cach: {st_file} error: {e}")
+            logger.info(f"<<red>> get_studies: get_cach: {st_file} error: {e}")
             return {}
     # ---
     return {}
-
 
 def get_images(url):
     print(f"url: {url}")
@@ -80,11 +79,10 @@ def get_images(url):
                             image["modality"] = modality
                         image_info.append(image)
 
-    printe.output(f"<<green>> len image_info: {len(image_info)}")
+    logger.info(f"<<green>> len image_info: {len(image_info)}")
     # sort images by "id"
     image_info = sorted(image_info, key=lambda x: x["id"])
     return image_info
-
 
 def get_images_stacks(study_id):
     new_url = f"https://radiopaedia.org/studies/{study_id}/stacks"
@@ -119,13 +117,12 @@ def get_images_stacks(study_id):
                 image["modality"] = modality
             image_info.append(image)
 
-    printe.output(f"<<green>> len image_info: {len(image_info)}")
+    logger.info(f"<<green>> len image_info: {len(image_info)}")
 
     # sort images by "id"
     # image_info = sorted(image_info, key=lambda x: x["id"])
 
     return image_info
-
 
 def get_stacks_fixed(study_id, case_id, get_cach=False):
     # ---
@@ -143,7 +140,6 @@ def get_stacks_fixed(study_id, case_id, get_cach=False):
         dump_it(study_id, images)
     # ---
     return images
-
 
 def main():
     n = 0
@@ -193,7 +189,6 @@ def main():
             # ---
             if ux:
                 dump_it(st_id, ux)
-
 
 if __name__ == "__main__":
     main()

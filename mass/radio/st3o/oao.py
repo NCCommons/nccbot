@@ -17,10 +17,11 @@ import sys
 
 sys.argv.append("del2")
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth, ncc_MainPage
 from mass.radio.bots.add_cat import add_cat_to_images
 from mass.radio.jsons_files import jsons
+import logging
+logger = logging.getLogger(__name__)
 
 cases_cats_list = jsons.cases_cats.copy()
 
@@ -183,13 +184,12 @@ main_ids_text = """
     98093
 """
 
-
 def create_sub_cat(study_id, case_id, case_cat, title):
     text = f"* [https://radiopaedia.org/cases/{case_id}/studies/{study_id} study: {study_id}]\n"
     text += f"[[{case_cat}|*]]\n"
     text += f"[[Category:Radiopaedia studies|{study_id}]]\n"
     # ---
-    printe.output(f"<<yellow>> create_sub_cat: {title}")
+    logger.info(f"<<yellow>> create_sub_cat: {title}")
     # ---
     page = ncc_MainPage(title)
     # ---
@@ -203,7 +203,6 @@ def create_sub_cat(study_id, case_id, case_cat, title):
     # ---
     return False
 
-
 def filter_members(cat_members):
     data = {}
     # ---
@@ -212,14 +211,14 @@ def filter_members(cat_members):
     for x in cat_members:
         # ---
         if not x.startswith("File:"):
-            # printe.output(f"!{x}")
+            # logger.info(f"!{x}")
             continue
         # ---
         # search for (Radiopaedia \d+-\d+
         se = re.match(r".*?\(Radiopaedia \d+-(\d+)", x)
         # ---
         if not se:
-            printe.output(f"!{x}")
+            logger.info(f"!{x}")
             not_match += 1
             continue
         # ---
@@ -231,7 +230,6 @@ def filter_members(cat_members):
         data[study_id].append(x)
     # ---
     return data
-
 
 def get_ids():
     main_ids = [x.strip() for x in main_ids_text.split("\n") if x.strip()]
@@ -248,7 +246,6 @@ def get_ids():
 
     return main_ids
 
-
 def start(ids):
     da = []
     # ---
@@ -259,7 +256,7 @@ def start(ids):
         cat = cases_cats_list.get(case_id)
         # ---
         if not cat:
-            printe.output(f"!{case_id} not found")
+            logger.info(f"!{case_id} not found")
             continue
         # ---
         cat_members = CatDepth(cat, sitecode="www", family="nccommons", depth=0)
@@ -278,7 +275,7 @@ def start(ids):
             # ---
             in_subs = set_cat in sub_cat
             # ---
-            printe.output(f"  {x}, {len(files)=}, {set_cat}, {in_subs}")
+            logger.info(f"  {x}, {len(files)=}, {set_cat}, {in_subs}")
             # ---
             if "create" in sys.argv:
                 if not in_subs:
@@ -294,13 +291,12 @@ def start(ids):
                 # add_cat_to_images(files, set_cat, cat)
                 da.append((files, set_cat, cat))
     # ---
-    printe.output(f"len da: {len(da)}")
+    logger.info(f"len da: {len(da)}")
     # ---
     for files, set_cat, cat in da:
-        printe.output(f"______________________________")
-        printe.output(f"  {set_cat}, {len(files)=}")
+        logger.info(f"______________________________")
+        logger.info(f"  {set_cat}, {len(files)=}")
         add_cat_to_images(files, set_cat, cat)
-
 
 if __name__ == "__main__":
     # ---

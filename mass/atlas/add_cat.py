@@ -7,14 +7,14 @@ import json
 import os
 from pathlib import Path
 
-from api_bots import printe
 from api_bots.page_ncc import ncc_MainPage
 from tqdm import tqdm
+import logging
+logger = logging.getLogger(__name__)
 
 # Specify the root folder
 main_dir = Path(__file__).parent
 root_folder = os.path.join(str(main_dir), "images")
-
 
 def get_info(root):
     info_file_path = os.path.join(root, "info.json")
@@ -25,13 +25,12 @@ def get_info(root):
 
     return info_data
 
-
 def process_folders(root_folder):
     n = 0
     for root, dirs, files in os.walk(root_folder):
         # Check if there's an info.json file in the current folder
         if "info.json" not in files:
-            printe.output(f"No info.json file found in {root}")
+            logger.info(f"No info.json file found in {root}")
             continue
 
         info_data = get_info(root)
@@ -39,7 +38,7 @@ def process_folders(root_folder):
         # images_info = info_data.get("images_info", {})
         if disease_name:
             n += 1
-            printe.output(f"{n} diseases:{disease_name}:")
+            logger.info(f"{n} diseases:{disease_name}:")
             page = ncc_MainPage(f"Category:{disease_name}", "www", family="nccommons")
             # ---
             categories = page.get_categories(with_hidden=False)
@@ -47,11 +46,10 @@ def process_folders(root_folder):
             text = page.text
             # ---
             if "Category:Atlasdermatologico" not in categories:
-                printe.output(categories)
+                logger.info(categories)
                 text += "\n[[Category:Atlasdermatologico]]"
                 # ---
                 page.save(newtext=text, summary="added [[:Category:Atlasdermatologico]]", nocreate=0, minor="")
-
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

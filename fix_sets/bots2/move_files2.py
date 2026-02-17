@@ -9,14 +9,14 @@ import re
 # import json
 import sys
 
-from api_bots import printe
 from api_bots.page_ncc import NEW_API
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
 from logs_fix.files import move_text_dir
+import logging
+logger = logging.getLogger(__name__)
 
 api_new = NEW_API()
 # api_new.Login_to_wiki()
-
 
 def change_names(file_dict, ty, study_id):
     modified_file_dict = {}
@@ -41,24 +41,22 @@ def change_names(file_dict, ty, study_id):
         new_filename = ma.group(1) + " " + new_key + ma.group(2)
         # ---
         if new_filename in new_t:
-            printe.output(f"duplicte: {new_filename}")
+            logger.info(f"duplicte: {new_filename}")
             return False
 
         modified_file_dict[value] = new_filename
 
         new_t.append(new_filename)
     # ---
-    # printe.output(f"<<green>> same_title: {same_title}.")
+    # logger.info(f"<<green>> same_title: {same_title}.")
     # ---
     return modified_file_dict
-
 
 def mv_file(old, new):
     if "mv_test" in sys.argv:
         return True
     move_it = api_new.move(old, new, reason="")
     return move_it
-
 
 def aa(tab):
     text = ""
@@ -72,12 +70,11 @@ def aa(tab):
             na_old = old.rsplit("-", maxsplit=1)[1].split(" ", maxsplit=1)[1].rsplit(")", maxsplit=1)[0]
             na_new = new.rsplit("-", maxsplit=1)[1].split(" ", maxsplit=1)[1].rsplit(")", maxsplit=1)[0]
         except Exception as e:
-            printe.output(f"Error: {e}")
+            logger.info(f"Error: {e}")
         # ---
         text += f"# [[:{old}|{na_old}]] -> [[:{new}|{na_new}]]\n"
     # ---
     return text
-
 
 def log(same_titles, diff_titles, study_id):
     # ---
@@ -98,18 +95,17 @@ def log(same_titles, diff_titles, study_id):
     try:
         with open(file2, "w", encoding="utf-8") as f:
             f.write(text)
-            printe.output(f"written to {file2}")
+            logger.info(f"written to {file2}")
 
     except Exception as e:
-        printe.output(f"<<red>> Error writing to file {file}: {str(e)}")
+        logger.info(f"<<red>> Error writing to file {file}: {str(e)}")
     # ---
     try:
         with open(file, "w", encoding="utf-8") as f:
             f.write(text)
 
     except Exception as e:
-        printe.output(f"<<red>> Error writing to file {file}: {str(e)}")
-
+        logger.info(f"<<red>> Error writing to file {file}: {str(e)}")
 
 def mv_files_change_text(text, tab, study_id):
     # ---
@@ -117,7 +113,7 @@ def mv_files_change_text(text, tab, study_id):
     # ---
     diff_titles = {old: new for old, new in tab.items() if old != new}
     # ---
-    printe.output(f"same_titles: {len(same_titles)}, diff_titles: {len(diff_titles)}")
+    logger.info(f"same_titles: {len(same_titles)}, diff_titles: {len(diff_titles)}")
     # ---
     log(same_titles, diff_titles, study_id)
     # ---
@@ -135,7 +131,6 @@ def mv_files_change_text(text, tab, study_id):
     # ---
     return n_text
 
-
 def to_move_work(text, to_move, study_id):
     # ---
     new_text = text
@@ -146,10 +141,10 @@ def to_move_work(text, to_move, study_id):
         # ---
         # if any file start with http return text
         if any(x.startswith("http") for x in files.values()):
-            printe.output(f"<<red>> {ty} {len(files)} x.startswith(http)")
+            logger.info(f"<<red>> {ty} {len(files)} x.startswith(http)")
             return text
         # ---
-        # printe.output(f"<<blue>> {ty} {len(files)}")
+        # logger.info(f"<<blue>> {ty} {len(files)}")
         # ---
         neww = change_names(files, ty, study_id)
         # ---

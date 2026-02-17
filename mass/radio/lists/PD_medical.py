@@ -10,9 +10,10 @@ import json
 import os
 from datetime import datetime
 
-from api_bots import printe
 from api_bots.page_ncc import CatDepth
 from mass.radio.jsons_bot import radio_jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 pd_file = radio_jsons_dir / "PD_medical_pages.json"
 # ---
@@ -26,7 +27,6 @@ with open(pd_file, "r", encoding="utf-8") as f:
     PD_medical_pages = json.load(f)
 # ---
 
-
 def new_list():
     members = CatDepth("Category:PD medical", sitecode="www", family="nccommons", depth=1, ns="10")
     # ---
@@ -36,7 +36,6 @@ def new_list():
         json.dump(PD_medical_pages, f)
     # ---
     return members
-
 
 def PD_medical_pages_def():
     global PD_medical_pages
@@ -50,13 +49,12 @@ def PD_medical_pages_def():
     today = datetime.today().strftime("%Y-%m-%d")
     # ---
     if date != today or not PD_medical_pages:
-        printe.output(
+        logger.info(
             f"<<purple>> PD medical pages last modified: {date}, today: {today}, current length: {len(PD_medical_pages)}"
         )
         PD_medical_pages = new_list()
     # ---
     return PD_medical_pages
-
 
 if "__main__" == __name__:
     new_list()

@@ -2,15 +2,15 @@
 
 from sets_dbs.file_infos.pages import get_files
 
-
 """
 
 import json
 import sys
 from pathlib import Path
 
-from api_bots import printe
 from api_bots.page_ncc import NEW_API
+import logging
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
 
@@ -21,11 +21,9 @@ debug = "debug" in sys.argv
 number = 10 if debug and "no" not in sys.argv else 500
 len_all_files = 0
 
-
 def dump_continues(params_continue):
     with open(Dir / "params_continue.json", "w", encoding="utf-8") as f:
         json.dump(params_continue, f, indent=2)
-
 
 def one_rev(title, x):
     # ---
@@ -34,7 +32,6 @@ def one_rev(title, x):
         "parentid": x.get("parentid", ""),
         "content": x.get("slots", {}).get("main", {}).get("content", ""),
     }
-
 
 def fetch_category_members(cat_title, params_continue=None):
     # get cat members
@@ -57,12 +54,11 @@ def fetch_category_members(cat_title, params_continue=None):
     }
     # ---
     if params_continue:
-        printe.output(f"<<blue>> add params_continue: len_all_files: {len_all_files}")
+        logger.info(f"<<blue>> add params_continue: len_all_files: {len_all_files}")
         dump_continues(params_continue)
         params.update(params_continue)
     # ---
     return api_new.post_params(params)
-
 
 def process_category_data(data):
     global len_all_files
@@ -80,7 +76,6 @@ def process_category_data(data):
         # ---
         yield tab
 
-
 def get_files(params_continue=None):
     # ---
     # params[]"rvlimit"] = number # error: "titles", "pageids" or a generator was used to supply multiple pages, but the "rvlimit", "rvstartid", "rvendid", "rvdir=newer", "rvuser", "rvexcludeuser", "rvstart", and "rvend" parameters may only be used on a single page.
@@ -97,7 +92,7 @@ def get_files(params_continue=None):
     error = data.get("error", {})
     # ---
     if error:
-        printe.output(json.dumps(error, indent=2))
+        logger.info(json.dumps(error, indent=2))
     # ---
     pages = data.get("query", {}).get("pages", [])
     # ---

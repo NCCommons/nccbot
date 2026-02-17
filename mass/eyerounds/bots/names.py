@@ -7,8 +7,8 @@ from mass.eyerounds.bots.names import make_files_names
 import os
 import sys
 
-from api_bots import printe
-
+import logging
+logger = logging.getLogger(__name__)
 
 def get_image_extension(image_url) -> tuple:
     # Split the URL to get the filename and extension
@@ -19,7 +19,6 @@ def get_image_extension(image_url) -> tuple:
 
     # Return the extension (without the dot)
     return name, extension[1:]
-
 
 def make_file(image_name, image_url) -> str:
     # base_name = os.path.basename(image_url)
@@ -36,11 +35,10 @@ def make_file(image_name, image_url) -> str:
     image_name = image_name.replace("..", ".")
     return image_name
 
-
 def make_files_names(img_infos, numb) -> dict:
     names = {}
     # ---
-    printe.output(f"___________\nMaking names for case {numb}:")
+    logger.info(f"___________\nMaking names for case {numb}:")
     # ---
     used_names = {}
     # ---
@@ -54,7 +52,7 @@ def make_files_names(img_infos, numb) -> dict:
     # ---
     duplict_names = {key: value for key, value in duplict_names.items() if value > 1}
     # ---
-    printe.output(f"Duplicate names: len(duplict_names) = {len(duplict_names)}")
+    logger.info(f"Duplicate names: len(duplict_names) = {len(duplict_names)}")
     # ---
     for image_url, img_name in img_infos.items():
         # add extension to image_name
@@ -70,7 +68,7 @@ def make_files_names(img_infos, numb) -> dict:
         # ---
         # check if extension is valid media type
         if extension.lower() not in ["jpg", "jpeg", "png", "gif", "svg"]:
-            printe.output(f"Invalid extension: {extension}")
+            logger.info(f"Invalid extension: {extension}")
             continue
         # ---
         image_name = f"EyeRounds Case {numb}, {name}"
@@ -84,11 +82,11 @@ def make_files_names(img_infos, numb) -> dict:
         names[image_url] = image_name
     # ---
     if len(list(set(names.values()))) == len(names):
-        printe.output("<<green>> All image names are unique")
+        logger.info("<<green>> All image names are unique")
         return names
     # ---
     for image_name, count in used_names.items():
         if count > 1:
-            printe.output(f"Image name [[{image_name}]] <<yellow>>used {count} times")
+            logger.info(f"Image name [[{image_name}]] <<yellow>>used {count} times")
     # ---
     return names

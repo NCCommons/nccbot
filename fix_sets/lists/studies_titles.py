@@ -7,19 +7,18 @@ python3 core8/pwb.py fix_sets/lists/studies_titles nodump fix_2
 Usage:
 from fix_mass.files import studies_titles, study_to_case_cats
 
-
 """
 
 import json
 import re
 import sys
 
-from api_bots import printe
 from fix_sets.jsons_dirs import jsons_dir
 from fix_sets.ncc_api import CatDepth
+import logging
+logger = logging.getLogger(__name__)
 
 mem_cach = {}
-
 
 def get_members_ids(title):
     # ---
@@ -45,12 +44,11 @@ def get_members_ids(title):
         # ---
         title_to_id[x] = set_id
     # ---
-    printe.output(f"title: {title}")
-    printe.output(f"\t title_to_id: {len(title_to_id):,}")
-    printe.output(f"\t not_match: {not_match:,}")
+    logger.info(f"title: {title}")
+    logger.info(f"\t title_to_id: {len(title_to_id):,}")
+    logger.info(f"\t not_match: {not_match:,}")
     # ---
     return title_to_id
-
 
 def get_mem(title):
     title_to_id = get_members_ids(title)
@@ -67,13 +65,12 @@ def get_mem(title):
         else:
             sets[set_id] = x
     # ---
-    printe.output(f"\t duplicates: {duplicates:,}")
-    printe.output(f"\t{len(sets)=:,}")
+    logger.info(f"\t duplicates: {duplicates:,}")
+    logger.info(f"\t{len(sets)=:,}")
     # ---
     mem_cach[title] = sets
     # ---
     return sets
-
 
 def dumpit(file, data):
     file = jsons_dir / file
@@ -86,12 +83,11 @@ def dumpit(file, data):
     # ---
     with open(file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-        printe.output(f"<<green>> write {len(data)} to file: {str(file)}")
-
+        logger.info(f"<<green>> write {len(data)} to file: {str(file)}")
 
 def read_new(cat, file):
     # ---
-    printe.output(f"read_new: {cat=}, {file=}")
+    logger.info(f"read_new: {cat=}, {file=}")
     # ---
     file = jsons_dir / file
     # ---
@@ -101,7 +97,7 @@ def read_new(cat, file):
     if file.exists():
         with open(file, "r", encoding="utf-8") as f:
             in_file = json.load(f)
-            printe.output(f"<<green>> read {len(in_file)} from {file=}")
+            logger.info(f"<<green>> read {len(in_file)} from {file=}")
     # ---
     sets = get_mem(cat)
     # ---
@@ -111,10 +107,9 @@ def read_new(cat, file):
     new_data = in_file.copy()
     new_data.update(new_sets)
     # ---
-    printe.output(f"new_sets: {len(new_sets)}, in_file: {len(in_file)}, new_data: {len(new_data)}")
+    logger.info(f"new_sets: {len(new_sets)}, in_file: {len(in_file)}, new_data: {len(new_data)}")
     # ---
     return new_data
-
 
 def fix_2():
     # ---
@@ -123,21 +118,20 @@ def fix_2():
     # ---
     with open(file1, "r", encoding="utf-8") as f:
         data_1 = json.load(f)
-        printe.output(f"<<green>> read {len(data_1)} from file1: {str(file1)}")
+        logger.info(f"<<green>> read {len(data_1)} from file1: {str(file1)}")
     # ---
     with open(file2, "r", encoding="utf-8") as f:
         data_2 = json.load(f)
-        printe.output(f"<<green>> read {len(data_2)} from file2: {str(file2)}")
+        logger.info(f"<<green>> read {len(data_2)} from file2: {str(file2)}")
     # ---
     # items in data_2 and not in data_1
     new_data = {x: v for x, v in data_2.items() if x not in data_1}
     data_false = {x: v for x, v in data_2.items() if x in data_1}
     # ---
-    printe.output(f"len(new_data): {len(new_data)}")
+    logger.info(f"len(new_data): {len(new_data)}")
     # ---
     dumpit("studies_titles2.json", new_data)
     dumpit("studies_titles_false.json", data_false)
-
 
 def main():
     cats_files = {
@@ -157,7 +151,6 @@ def main():
     # ---
     if "no_fix_2" not in sys.argv:
         fix_2()
-
 
 if __name__ == "__main__":
     if "fix_2" in sys.argv:

@@ -6,7 +6,7 @@ from mass.st3.One_x import OneCase
 import sys
 
 import tqdm
-from api_bots import printe
+
 from api_bots.page_ncc import NEW_API, ncc_MainPage
 from mass.radio.bots.studies_utf import dump_studies_urls_to_files
 from mass.radio.bots.update import update_text, update_text_add_pd_medical
@@ -16,6 +16,8 @@ from mass.st3.lists import authors_infos
 from mass.st3.One_x_helps import CASE_HELPS
 from nccommons import api
 from sets_dbs.dp_infos.db_duplict_new import insert_url_file
+import logging
+logger = logging.getLogger(__name__)
 
 api_new = NEW_API()
 # api_new.Login_to_wiki()
@@ -28,17 +30,14 @@ if "updatetext" in sys.argv:
 
     PD_medical_pages = PD_medical_pages_def()
 
-
 add_studies_cat_del_case = [
     "20060",
 ]
 
-
 def printt(s):
     if "nopr" in sys.argv:
         return
-    printe.output(s)
-
+    logger.info(s)
 
 class OneCase(CASE_HELPS):
     def __init__(self, case_url, caseId, title, studies_ids, author, work_dump_to_files=False):
@@ -193,7 +192,7 @@ class OneCase(CASE_HELPS):
         # ---
         result = insert_url_file(image_url, file_name)
         # ---
-        printe.output(f"<<green>> append_data: {image_url} -> {file_name} -> {result}")
+        logger.info(f"<<green>> append_data: {image_url} -> {file_name} -> {result}")
         # ---
         if file_name and file_name != image_name:
             # ---
@@ -306,7 +305,7 @@ class OneCase(CASE_HELPS):
             # ---
             if na_in_cach and "noc" not in sys.argv:
                 file_name = na_in_cach.replace("File:", "")
-                # printe.output(f"<<yellow>> make File name from studies_names_cach: {file_name}")
+                # logger.info(f"<<yellow>> make File name from studies_names_cach: {file_name}")
             # ---
             to_up[f"File:{file_name}"] = (image_url, file_name, image_id, plane, modality, study)
             # ---

@@ -7,8 +7,9 @@ from fix_sets.lists.sf_infos import from_sf_infs # from_sf_infs(url, study_id)
 
 import json
 
-from api_bots import printe
 from fix_sets.jsons_dirs import jsons_dir
+import logging
+logger = logging.getLogger(__name__)
 
 # ---
 starts_with = "https://prod-images-static.radiopaedia.org/images"
@@ -23,7 +24,6 @@ sfs_infos = {}
 with open(sfinfs_file, "r", encoding="utf-8") as f:
     sfs_infos = json.load(f)
 
-
 def from_sf_infs(url, study_id):
     # ---
     if url.startswith(starts_with):
@@ -32,13 +32,13 @@ def from_sf_infs(url, study_id):
     lista = sfs_infos.get(url)
     # ---
     if not lista:
-        printe.output(f"from_sf_infs: not found: {url}")
+        logger.info(f"from_sf_infs: not found: {url}")
         return ""
     # ---
     if len(lista) == 1:
         return lista[0]
     # ---
-    printe.output(f"from_sf_infs: {len(lista)}")
+    logger.info(f"from_sf_infs: {len(lista)}")
     # ---
     for file in lista:
         # File:Persistent trigeminal artery (Radiopaedia 56019-62643 Axial 14).jpg
@@ -46,6 +46,6 @@ def from_sf_infs(url, study_id):
         if staa in file:
             return file
     # ---
-    printe.output(f"from_sf_infs: not found: {url}")
+    logger.info(f"from_sf_infs: not found: {url}")
     # ---
     return ""

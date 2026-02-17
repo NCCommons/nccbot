@@ -8,21 +8,20 @@ import mimetypes
 import os
 import sys
 
-from api_bots import printe
 from api_bots.page_ncc import NEW_API, ncc_MainPage
 from fix_sets.name_bots.files_names_bot import get_files_names
 from mass.radio.bots.add_cat import add_cat_to_images  # add_cat_to_images(sets, cat_title)
 from mass.radio.bots.bmp import work_bmp
+import logging
+logger = logging.getLogger(__name__)
 
 api_new = NEW_API()
 # api_new.Login_to_wiki()
 
-
 def printt(s):
     if "nopr" in sys.argv:
         return
-    printe.output(s)
-
+    logger.info(s)
 
 class CASE_HELPS:
     def __init__(self, case_url, caseId, title, studies_ids, author):
@@ -100,11 +99,11 @@ class CASE_HELPS:
         # ---
         cat_title = f"Category:{set_title}"
         # ---
-        printe.output(f"len of set_files: {len(set_files)} /// cat_title:{cat_title}")
+        logger.info(f"len of set_files: {len(set_files)} /// cat_title:{cat_title}")
         # ---
         if len(studies) == 1 and "c_it" not in sys.argv:
-            printe.output(f"len of studies: {len(studies)}, return (don't create set cats for 1 study)")
-            printe.output("add 'c_it' to sys.argv to create set cats for 1 study")
+            logger.info(f"len of studies: {len(studies)}, return (don't create set cats for 1 study)")
+            logger.info("add 'c_it' to sys.argv to create set cats for 1 study")
             return
         # ---
         text = f"* [{study_url} study: {study_id}]"
@@ -196,8 +195,8 @@ class CASE_HELPS:
         p_text = page.get_text()
         # ---
         if p_text.find("[[Category:Radiopaedia case") != -1:
-            printe.output(f"<<lightyellow>>{file_title} has cat:")
-            printe.output(p_text)
+            logger.info(f"<<lightyellow>>{file_title} has cat:")
+            logger.info(p_text)
         # ---
         if p_text.find(category) == -1:
             new_text = p_text + add_text

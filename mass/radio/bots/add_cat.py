@@ -8,8 +8,9 @@ from mass.radio.bots.add_cat import add_cat_to_images, add_cat_bot, add,
 import sys
 from multiprocessing import Pool
 
-from api_bots import printe
 from api_bots.page_ncc import NEW_API, CatDepth, ncc_MainPage
+import logging
+logger = logging.getLogger(__name__)
 
 api_new = NEW_API()
 # api_new.Login_to_wiki()
@@ -20,7 +21,6 @@ skip_titles = [
     "File:Angiodysplasia - cecal active bleed (Radiopaedia 168775-136954 Coronal 91).jpeg",
 ]
 
-
 def add(da=None, title="", cat="", cat2=""):
     if da:
         title, cat, cat2 = da[0], da[1], da[2]
@@ -29,11 +29,11 @@ def add(da=None, title="", cat="", cat2=""):
         title = title.replace("_", " ")
     # ---
     if title in skip_titles:
-        printe.output(f"Skipping {title}...")
+        logger.info(f"Skipping {title}...")
         return
     # ---
     if not title or not cat:
-        printe.output("no title or cat")
+        logger.info("no title or cat")
         return
     # ---
     cat_line = f"\n[[{cat}]]"
@@ -41,7 +41,7 @@ def add(da=None, title="", cat="", cat2=""):
     # ---
     if "justadd" in sys.argv:
         added = api_new.Add_To_Bottom(cat_line, summary, title, poss="Bottom")
-        printe.output(f"Added {title} to {cat}: result: {added}")
+        logger.info(f"Added {title} to {cat}: result: {added}")
         return
     # ---
     page = ncc_MainPage(title)
@@ -54,7 +54,7 @@ def add(da=None, title="", cat="", cat2=""):
     newtext = text
     # ---
     if text.find(cat) != -1:
-        printe.output(f"cat {title} already has it.")
+        logger.info(f"cat {title} already has it.")
         summary = f"Bot: remove [[:{cat2}]]"
         if "del2" not in sys.argv:
             return
@@ -71,18 +71,16 @@ def add(da=None, title="", cat="", cat2=""):
                     break
     # ---
     if newtext.strip() == text.strip():
-        printe.output("no changes..")
+        logger.info("no changes..")
         return
     # ---
     page.save(newtext=newtext, summary=summary)
-
 
 def mu(tab):
     pool = Pool(processes=3)
     pool.map(add, tab)
     pool.close()
     pool.terminate()
-
 
 def add_cat_bot(pages, cattitle, cat2):
     if "multi" in sys.argv:
@@ -91,7 +89,6 @@ def add_cat_bot(pages, cattitle, cat2):
     else:
         for title in pages:
             add(title=title, cat=cattitle, cat2=cat2)
-
 
 def add_cat_to_pages(cat_list, cat_title):
     # ---
@@ -103,10 +100,9 @@ def add_cat_to_pages(cat_list, cat_title):
     # ---
     new_cat_list = [x for x in cat_list if x not in done]
     # ---
-    printe.output(f"{len(done)=}, {len(new_cat_list)=}")
+    logger.info(f"{len(done)=}, {len(new_cat_list)=}")
     # ---
     add_cat_bot(new_cat_list, cat_title, "")
-
 
 def add_cat_to_images(cat_list, cat_title, cat2):
     # ---
@@ -126,11 +122,11 @@ def add_cat_to_images(cat_list, cat_title, cat2):
     # ---
     new_cat_list = [x for x in cat_list if x not in done]
     # ---
-    printe.output(f"{len(done)=}, {len(new_cat_list)=}")
+    logger.info(f"{len(done)=}, {len(new_cat_list)=}")
     # ---
     if "del2" not in sys.argv and cat2:
         new_cat_list = [x for x in new_cat_list if x not in done_cat2]
         # ---
-        printe.output(f"{len(done)=}, after cat2: {len(new_cat_list)=}")
+        logger.info(f"{len(done)=}, after cat2: {len(new_cat_list)=}")
     # ---
     add_cat_bot(new_cat_list, cat_title, cat2)

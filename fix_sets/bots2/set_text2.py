@@ -7,13 +7,13 @@ from fix_sets.bots.set_text2 import make_text_study
 import json
 import sys
 
-from api_bots import printe
 from fix_sets.bots.get_img_info import one_img_info
 
 # from fix_sets.bots.has_url import has_url_append
 from fix_sets.bots.study_files import get_study_files
 from fix_sets.name_bots.files_names_bot import get_files_names
-
+import logging
+logger = logging.getLogger(__name__)
 
 def get_files_names_2(study_id, json_data, study_infos={}):
     # ---
@@ -40,10 +40,9 @@ def get_files_names_2(study_id, json_data, study_infos={}):
     urls2 = list(set(maain_uurls) - set(file_names))
     # ---
     if urls2:
-        printe.output(f"<<purple>> len urls without filenames: {len(urls2):,} ")
+        logger.info(f"<<purple>> len urls without filenames: {len(urls2):,} ")
     # ---
     return file_names, urls2
-
 
 def make_new_text(texts, to_move, study_title):
     # ---
@@ -65,7 +64,6 @@ def make_new_text(texts, to_move, study_title):
     # ---
     return text_new
 
-
 def make_text_normal(texts, to_move, study_title2):
     text = ""
     # ---
@@ -84,7 +82,6 @@ def make_text_normal(texts, to_move, study_title2):
         text += "\n}}\n"
     # ---
     return text
-
 
 def prase_json_data(json_data, study_id, study_infos={}):
     # ---
@@ -133,7 +130,7 @@ def prase_json_data(json_data, study_id, study_infos={}):
             file_name = files_names.get(url)
             # ---
             if file_name and file_name.find("Radiopaedia") == -1 and len(file_name) < 25:
-                printe.output(f"<<purple>> {url} {file_name=}")
+                logger.info(f"<<purple>> {url} {file_name=}")
                 file_name = ""
             # ---
             if file_name:
@@ -151,7 +148,6 @@ def prase_json_data(json_data, study_id, study_infos={}):
     print(f"noo: {noo}")
     # ---
     return urlls, to_move, texts, urls2
-
 
 def replace_urls_in_texts(url_to_filename, texts):
     # ---
@@ -174,12 +170,11 @@ def replace_urls_in_texts(url_to_filename, texts):
     # ---
     return texts
 
-
 def make_text_study(json_data, study_title, study_id, study_infos={}):
     # ---
     modalities = set([x["modality"] for x in json_data])
     # ---
-    printe.output(f"modalities: {modalities}")
+    logger.info(f"modalities: {modalities}")
     # ---
     urlls, to_move, texts, urls2 = prase_json_data(json_data, study_id, study_infos=study_infos)
     # ---
@@ -189,11 +184,11 @@ def make_text_study(json_data, study_title, study_id, study_infos={}):
     all_files = sum([len(x) for x in to_move.values()])
     # ---
     if all_files == 0:
-        printe.output(f"len to_move == 0 : {all_files}")
+        logger.info(f"len to_move == 0 : {all_files}")
         return "", {}
     # ---
     if all_files == len(to_move):
-        printe.output(f"len to_move == all_files : {all_files}")
+        logger.info(f"len to_move == all_files : {all_files}")
     # ---
     text = ""
     # ---
