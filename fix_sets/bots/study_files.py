@@ -20,7 +20,6 @@ from fix_sets.ncc_api import CatDepth
 # st_dit = jsons_dir / "studies_files"
 
 
-
 def dump_it(data):
     for s_id, files in data.items():
         # file = st_dit / f"{s_id}.json"

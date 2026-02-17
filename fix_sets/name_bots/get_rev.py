@@ -24,7 +24,6 @@ from fix_sets.ncc_api import post_ncc_params
 # from pathlib import Path
 
 
-
 images_to_ids = {}
 ids_to_images = {}
 
