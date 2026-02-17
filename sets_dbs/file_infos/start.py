@@ -16,9 +16,6 @@ import sys
 
 import psutil
 from sets_dbs.file_infos.db import insert_all_infos  # insert_all_infos(data_list, prnt=True)
-
-# from pathlib import Path
-# from api_bots import printe
 from sets_dbs.file_infos.p2 import get_files
 
 debug = "debug" in sys.argv

@@ -45,7 +45,6 @@ Sequential workflows are in shell scripts:
 - `db_bot.py` - SQLite wrapper using sqlite-utils (`LiteDB` class)
 - `wiki_page.py` - Wikipedia/MediaWiki API loader with lru_cache
 - `page_ncc.py` - NC Commons-specific API wrapper
-- `printe.py` - Colorized terminal output with diff support
 - `user_account_new.py` - Credential management from INI files at `../ncc/confs/user.ini`
 
 **`nccommons/`** - NC Commons functionality:
