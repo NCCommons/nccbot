@@ -4,11 +4,12 @@ Usage:
 python3 core8/pwb.py mass/eyerounds/getimages break
 
 """
-import sys
 import json
+import sys
 from pathlib import Path
-from mass.eyerounds.bots.get_case_info import extract_infos_from_url
+
 from api_bots import printe
+from mass.eyerounds.bots.get_case_info import extract_infos_from_url
 
 main_dir = Path(__file__).parent
 jsonfile = main_dir / "jsons/urls.json"

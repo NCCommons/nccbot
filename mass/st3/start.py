@@ -19,15 +19,15 @@ tfj run gnr6 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core
 
 """
 
-import sys
-import psutil
-import tqdm
 import os
+import sys
 from multiprocessing import Pool
 
+import psutil
+import tqdm
 from api_bots import printe
+from mass.st3.lists import all_ids, authors, authors_infos, ids_by_caseId, infos
 from mass.st3.One_x import OneCase
-from mass.st3.lists import authors, infos, all_ids, ids_by_caseId, authors_infos
 
 
 def print_memory():

@@ -6,21 +6,20 @@ python3 core8/pwb.py mass/usaid/up test ask
 
 """
 
-import sys
-import os
-import time
 import json
+import os
+import sys
+import time
 
 # from tqdm import tqdm
 from pathlib import Path
-from nccommons import api
 
 from api_bots import printe
 from api_bots.page_ncc import CatDepth
-
-from mass.usaid.bots.set_bot import create_set
 from mass.usaid.bots.category_bot import create_category  # create_category(album_name, pages)
 from mass.usaid.bots.names import make_files_names
+from mass.usaid.bots.set_bot import create_set
+from nccommons import api
 
 # Specify the root folder
 main_dir = Path(__file__).parent

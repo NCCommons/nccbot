@@ -6,15 +6,15 @@ python3 core8/pwb.py fix_sets/lists/studies_fixed
 
 """
 
-import tqdm
 import os
 import re
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
-from fix_mass.helps_bot.file_bot import from_cach, dumpit
-from fix_sets.ncc_api import CatDepth
+import tqdm
 from api_bots import printe
+from fix_mass.helps_bot.file_bot import dumpit, from_cach
+from fix_sets.ncc_api import CatDepth
 
 no_match = []
 

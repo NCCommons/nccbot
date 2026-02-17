@@ -6,8 +6,9 @@ db = SqlLiteFilesDB("db.sqlite")
 
 """
 
-import sys
 import re
+import sys
+
 from api_bots.db_bot import LiteDB
 
 table_keys = {

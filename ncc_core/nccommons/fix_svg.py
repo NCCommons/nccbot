@@ -6,10 +6,10 @@ from nccommons import fix_svg
 
 import os
 import urllib.request
-from tempfile import mkstemp
-from shutil import move, copymode
-from os import fdopen, remove
 import xml.etree.ElementTree as ET
+from os import fdopen, remove
+from shutil import copymode, move
+from tempfile import mkstemp
 
 
 def remove_svg_dtd(file_path, url=""):

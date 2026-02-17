@@ -8,12 +8,12 @@ from mass.radio.get_studies import get_stacks_fixed#(study_id, case_id, get_cach
 
 import json
 import re
-import requests
-from bs4 import BeautifulSoup
 
-from mass.radio.jsons_files import jsons, urls_to_ids
+import requests
 from api_bots import printe
+from bs4 import BeautifulSoup
 from fix_mass.dir_studies_bot import studies_dir
+from mass.radio.jsons_files import jsons, urls_to_ids
 
 
 def dump_it(study_id, data):

@@ -33,10 +33,10 @@ import configparser
 import os
 import sys
 
-from pywikibot import config
 import pymysql
 import pymysql.cursors
 from api_bots import printe
+from pywikibot import config
 
 # ---
 conversions = pymysql.converters.conversions

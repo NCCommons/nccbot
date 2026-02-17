@@ -5,8 +5,8 @@ python3 core8/pwb.py mass/eyerounds/bots/catbot
 
 """
 
-import re
 import json
+import re
 from pathlib import Path
 
 from mass.eyerounds.bots.url_to_title import urls_to_title

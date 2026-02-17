@@ -4,13 +4,14 @@ from fix_sets.bots.set_text2 import make_text_study
 
 """
 
-import sys
 import json
+import sys
+
 from api_bots import printe
+from fix_sets.bots.get_img_info import one_img_info
 
 # from fix_sets.bots.has_url import has_url_append
 from fix_sets.bots.study_files import get_study_files
-from fix_sets.bots.get_img_info import one_img_info
 from fix_sets.name_bots.files_names_bot import get_files_names
 
 

@@ -6,15 +6,15 @@ create pages in nccommons
 python3 nccommons/com.py -limitall:50000 -files:200 ask
 
 """
+import json
+import os
+
 #
 # (C) Ibrahem Qasim, 2023
 #
 # ---
 import re
 import sys
-import json
-import os
-
 
 # ---
 from nccommons import api

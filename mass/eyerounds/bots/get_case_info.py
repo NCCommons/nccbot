@@ -16,10 +16,11 @@ from mass.eyerounds.bots.get_case_info import extract_infos_from_url
 
 import json
 import re
+
 import requests
-from bs4 import BeautifulSoup
 import tqdm
 from api_bots import printe
+from bs4 import BeautifulSoup
 
 
 def extract_images_from_tag(soup):

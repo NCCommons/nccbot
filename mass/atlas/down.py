@@ -29,13 +29,15 @@ like:(
 python3 mass/atlas/bot.py
 
 """
+import json
+import os
+
 #
 import re
-import os
+from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-import json
 from images_path import atlas_images_path
 
 root_folder = atlas_images_path

@@ -3,12 +3,13 @@
 python3 core8/pwb.py atlas/add_cat
 
 """
-import os
 import json
+import os
 from pathlib import Path
-from tqdm import tqdm
+
 from api_bots import printe
 from api_bots.page_ncc import ncc_MainPage
+from tqdm import tqdm
 
 # Specify the root folder
 main_dir = Path(__file__).parent

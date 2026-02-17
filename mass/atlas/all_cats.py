@@ -3,8 +3,9 @@
 python3 core8/pwb.py atlas/all_cats
 
 """
-import os
 import json
+import os
+
 from api_bots.page_ncc import ncc_MainPage
 from images_path import atlas_images_path
 

@@ -4,10 +4,12 @@ from api_bots.page_ncc import ncc_MainPage, ncc_NEW_API
 
 """
 
+import configparser
+
 # ---
 import functools
 import os
-import configparser
+
 from newapi import ALL_APIS
 
 home_dir = os.getenv("HOME")

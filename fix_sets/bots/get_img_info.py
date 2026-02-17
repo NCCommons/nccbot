@@ -6,16 +6,16 @@ from fix_sets.bots.get_img_info import one_img_info
 
 """
 
-import sys
-import re
 import json
+import re
+import sys
 
 # import os
 from api_bots import printe
-from fix_sets.ncc_api import post_ncc_params
+from fix_mass.helps_bot.file_bot import dumpit, from_cach
+from fix_sets.bots2.match_helps import match_id, match_urlid
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
-from fix_mass.helps_bot.file_bot import from_cach, dumpit
-from fix_sets.bots2.match_helps import match_urlid, match_id
+from fix_sets.ncc_api import post_ncc_params
 
 # st_dic_infos = jsons_dir / "studies_files_infos"
 

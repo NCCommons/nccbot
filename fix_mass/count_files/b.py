@@ -3,11 +3,12 @@ python3 core8/pwb.py mass/radio/st3sort/count_files/b
 
 """
 
+import json
 import os
 import sys
-import tqdm
-import json
 from pathlib import Path
+
+import tqdm
 from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 
 # ---

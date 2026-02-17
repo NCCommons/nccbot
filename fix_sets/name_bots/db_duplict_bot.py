@@ -6,15 +6,16 @@ python3 core8/pwb.py fix_sets/name_bots/db_duplict_bot
 
 """
 
-import sys
 import re
+import sys
+
 from api_bots import printe
 from fix_sets.name_bots.upload_to_api import get_from_api
-from sets_dbs.dp_infos.db_duplict_new import (
+from sets_dbs.dp_infos.db_duplict_new import (  # ,find_from_data_db as find_from_db_dp # insert_url_file(url, file)
     find_data,
-    insert_url_file,
     insert_all_infos,
-)  # ,find_from_data_db as find_from_db_dp # insert_url_file(url, file)
+    insert_url_file,
+)
 
 data_maain = {}
 

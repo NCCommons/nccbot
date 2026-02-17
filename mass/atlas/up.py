@@ -12,17 +12,16 @@ python3 mass/atlas/up.py
 python3 core8/pwb.py atlas/up ask
 
 """
-import sys
-import os
-import time
 import json
-from tqdm import tqdm
-from api_bots import printe
-from nccommons import api
-from nccommons import mosab_api
-from api_bots.page_ncc import CatDepth
+import os
+import sys
+import time
 
+from api_bots import printe
+from api_bots.page_ncc import CatDepth
 from images_path import atlas_images_path
+from nccommons import api, mosab_api
+from tqdm import tqdm
 
 # Base URL for nccommons.org API
 NCCOMMONS_API_BASE_URL = "https://nccommons.org/api/"

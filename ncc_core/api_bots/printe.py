@@ -9,18 +9,17 @@ printe.output('<<red>>red')  # prints 'red' in red color
 printe.showDiff('old text', 'new text')  # prints the differences between 'old text' and 'new text'
 """
 
+import difflib
+
 # ---
 import functools
-import difflib
+import logging
 import re
 import sys
-
 from collections import abc
+from collections.abc import Iterable, Sequence
 from difflib import _format_range_unified as format_range_unified
 from itertools import zip_longest
-from collections.abc import Iterable, Sequence
-
-import logging
 
 if "debug" in sys.argv:
     logging.basicConfig(level=logging.DEBUG)

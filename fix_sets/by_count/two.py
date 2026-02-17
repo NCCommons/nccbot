@@ -6,9 +6,10 @@ python3 core8/pwb.py fix_sets/by_count/two ask
 
 import sys
 from pathlib import Path
+
 from api_bots import printe
-from fix_sets.new import work_one_study
 from fix_sets.by_count.bot import get_ids_o
+from fix_sets.new import work_one_study
 
 if "st4" in sys.argv:
     from mass.st4.start import main_by_ids

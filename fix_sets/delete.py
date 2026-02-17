@@ -2,10 +2,7 @@
 python3 core8/pwb.py fix_sets/delete
 """
 
-from fix_sets.ncc_api import post_ncc_params
-
-
-from fix_sets.ncc_api import CatDepth
+from fix_sets.ncc_api import CatDepth, post_ncc_params
 
 fixed = CatDepth("Category:To delete", sitecode="www", family="nccommons", depth=0, ns=0, onlyns=0)
 

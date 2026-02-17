@@ -1,5 +1,6 @@
-import os
 import json
+import os
+
 import googleapiclient.discovery
 
 
@@ -9,11 +10,6 @@ def get_channel_videos(channel_id):
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-
-
-import os
-import json
-import googleapiclient.discovery
 
 
 def get_channel_videos(channel_id):

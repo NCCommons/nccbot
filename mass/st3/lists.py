@@ -4,8 +4,8 @@ from mass.st3.lists import authors, infos, all_ids, ids_by_caseId, authors_infos
 
 """
 
-import sys
 import json
+import sys
 from pathlib import Path
 
 main_dir = Path(__file__).parent.parent

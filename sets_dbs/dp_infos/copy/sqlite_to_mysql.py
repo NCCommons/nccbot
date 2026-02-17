@@ -3,13 +3,14 @@
 # and save rows to pymysql database name: db, Host: host, User:user, Password: Password
 # show steps using tqdm
 
-import os
 import configparser
+import os
 import sqlite3
+from pathlib import Path
+
 import pandas as pd
 from sqlalchemy import create_engine
 from tqdm import tqdm
-from pathlib import Path
 
 home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"

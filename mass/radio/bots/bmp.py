@@ -1,6 +1,7 @@
 import os
-import requests
 from io import BytesIO
+
+import requests
 
 try:
     from PIL import Image

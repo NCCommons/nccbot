@@ -1,8 +1,9 @@
 """ """
 
 import os
-from tqdm import tqdm
 from pathlib import Path
+
+from tqdm import tqdm
 
 home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"

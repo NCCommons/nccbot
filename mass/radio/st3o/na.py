@@ -4,8 +4,8 @@ python3 /data/project/ncc/nccbot/mass/st3/na.py test
 
 """
 
-import sys
 import os
+import sys
 
 user_script_paths = [
     "I:/core/new",

@@ -5,9 +5,9 @@ python3 core8/pwb.py fix_sets/dup_sets
 from dup_sets.get_mem import get_all_titles
 """
 
+import json
 import re
 from pathlib import Path
-import json
 
 from api_bots import printe
 from fix_sets.ncc_api import CatDepth

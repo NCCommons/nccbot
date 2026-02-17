@@ -4,8 +4,9 @@ from fix_sets.bots.has_url import has_url_append, already_has_url
 
 """
 
-import sys
 import os
+import sys
+
 from logs_fix.files import has_url_dir
 
 already_has_url = [x.replace(".h", "") for x in os.listdir(has_url_dir)]

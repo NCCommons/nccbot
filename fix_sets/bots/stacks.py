@@ -4,11 +4,12 @@ from fix_sets.bots.stacks import get_stacks# get_stacks(study_id)
 
 """
 
-import requests
 import json
+
+import requests
 from api_bots import printe
+from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.jsons_dirs import get_study_dir
-from fix_mass.helps_bot.file_bot import from_cach, dumpit
 
 
 def dump_it(data, study_id):

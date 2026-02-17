@@ -3,15 +3,14 @@ python3 core8/pwb.py mass/eyerounds/mk_names
 
 """
 
-import sys
 import json
+import sys
 from pathlib import Path
 
 from api_bots import printe
-
 from mass.eyerounds.bots.catbot import category_name
-from mass.eyerounds.bots.url_to_title import urls_to_title
 from mass.eyerounds.bots.names import make_files_names
+from mass.eyerounds.bots.url_to_title import urls_to_title
 
 # Specify the root folder
 main_dir = Path(__file__).parent

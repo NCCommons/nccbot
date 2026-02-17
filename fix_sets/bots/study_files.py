@@ -6,18 +6,19 @@ from fix_sets.bots.study_files import get_study_files
 
 import re
 
-# import json
-
 # import sys
 # from pathlib import Path
 from api_bots import printe
-from fix_sets.ncc_api import CatDepth
+from fix_mass.files import study_to_case_cats
+from fix_mass.helps_bot.file_bot import dumpit, from_cach
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
-from fix_mass.helps_bot.file_bot import from_cach, dumpit
+from fix_sets.ncc_api import CatDepth
+
+# import json
+
 
 # st_dit = jsons_dir / "studies_files"
 
-from fix_mass.files import study_to_case_cats
 
 
 def dump_it(data):

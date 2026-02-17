@@ -12,15 +12,14 @@ from mass.radio.authors_list import auths_cats
 
 """
 
-import sys
 import json
+import sys
 from pathlib import Path
-from api_bots import printe
-from api_bots.page_ncc import CatDepth
-from api_bots.page_ncc import ncc_MainPage
-from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
-from mass.radio.bots.add_cat import add_cat_bot
 
+from api_bots import printe
+from api_bots.page_ncc import CatDepth, ncc_MainPage
+from mass.radio.bots.add_cat import add_cat_bot
+from mass.radio.lists.cases_to_cats import cases_cats  # cases_cats()
 
 main_dir = Path(__file__).parent.parent
 # ---

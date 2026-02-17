@@ -14,14 +14,14 @@ Category:To delete
 # import re
 # import sys
 
-import tqdm
 import json
 
+import tqdm
 from api_bots import printe
-from fix_sets.jsons_dirs import jsons_dir
+from dup_sets.del_it import to_del_it
 from dup_sets.get_mem import get_all_titles
 from dup_sets.move_pages import move_titles
-from dup_sets.del_it import to_del_it
+from fix_sets.jsons_dirs import jsons_dir
 from fix_sets.ncc_api import CatDepth
 
 fixed = CatDepth("Category:Sort studies fixed", sitecode="www", family="nccommons", depth=0, ns=0, onlyns=0)

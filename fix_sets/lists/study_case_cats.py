@@ -9,8 +9,9 @@ from fix_mass.files import studies_titles, study_to_case_cats
 
 """
 
-import tqdm
 import json
+
+import tqdm
 from fix_sets.jsons_dirs import jsons_dir
 from mass.radio.jsons_files import jsons
 

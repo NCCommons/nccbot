@@ -10,9 +10,9 @@ from mass.radio.authors_list.usa import get_usa_auths()
 
 """
 
+import json
 import re
 import sys
-import json
 from pathlib import Path
 
 # ---

@@ -4,10 +4,11 @@ python3 core8/pwb.py mass/eyerounds/geturls
 
 """
 
-import requests
-from bs4 import BeautifulSoup
 import json
 from pathlib import Path
+
+import requests
+from bs4 import BeautifulSoup
 
 Dir = Path(__file__).parent
 urlsfile = Dir / "jsons/urls.json"

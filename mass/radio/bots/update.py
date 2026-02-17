@@ -1,5 +1,6 @@
-import sys
 import re
+import sys
+
 from api_bots.page_ncc import ncc_MainPage
 
 skips = ["File:Benign enlargement of subarachnoid spaces (Radiopaedia 25801-25990 Coronal 1).jpg"]

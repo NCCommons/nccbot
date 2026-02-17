@@ -7,16 +7,16 @@ from fix_sets.by_count.co import from_files, count_files
 from fix_sets.by_count.co import files_file
 """
 
-import sys
 import json
-import tqdm
-from api_bots import printe
+import sys
 from pathlib import Path
 
-from fix_sets.jsons_dirs import st_ref_infos
-from fix_sets.lists.studies_fixed import studies_fixed_done
+import tqdm
+from api_bots import printe
 from fix_mass.files import studies_titles
 from fix_sets.bots.stacks import get_stacks  # get_stacks(study_id)
+from fix_sets.jsons_dirs import st_ref_infos
+from fix_sets.lists.studies_fixed import studies_fixed_done
 
 Dir = Path(__file__).parent
 

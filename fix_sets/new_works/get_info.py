@@ -9,11 +9,12 @@ python3 core8/pwb.py fix_sets/new_works/get_info 101829
 
 """
 
-import sys
 import json
-from mass.st3.One_x import OneCase
-from mass.radio.jsons_bot import radio_jsons_dir
+import sys
+
 from fix_mass.files import study_id_to_case_id
+from mass.radio.jsons_bot import radio_jsons_dir
+from mass.st3.One_x import OneCase
 
 with open(radio_jsons_dir / "all_ids.json", encoding="utf-8") as f:
     all_ids = json.load(f)

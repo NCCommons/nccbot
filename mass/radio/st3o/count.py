@@ -8,16 +8,14 @@ tfj run coca --image python3.9 --command "$HOME/local/bin/python3 c8/pwb.py mass
 
 import json
 import os
-import tqdm
 import sys
 from datetime import datetime
 
-from mass.radio.get_studies import get_images, get_images_stacks
+import tqdm
 from api_bots.page_ncc import ncc_MainPage
-
 from fix_mass.dir_studies_bot import studies_dir
+from mass.radio.get_studies import get_images, get_images_stacks
 from mass.radio.jsons_bot import radio_jsons_dir
-
 
 with open(radio_jsons_dir / "all_ids.json", encoding="utf-8") as f:
     all_ids = json.load(f)

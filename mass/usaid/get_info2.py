@@ -7,11 +7,12 @@ tfj run usaid --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py 
 
 """
 
-import sys
 import json
+import sys
+from pathlib import Path
+
 import requests
 from api_bots import printe
-from pathlib import Path
 
 main_dir = Path(__file__).parent
 albums_file = main_dir / "jsons/albums.json"

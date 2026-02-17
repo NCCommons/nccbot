@@ -7,10 +7,10 @@ tfj run --mem 1Gi fix --image python3.9 --command "$HOME/local/bin/python3 core8
 """
 
 import os
-import tqdm
 import sys
 from pathlib import Path
 
+import tqdm
 from api_bots.db_bot import LiteDB
 
 home_dir = os.getenv("HOME")

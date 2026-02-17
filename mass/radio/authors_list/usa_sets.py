@@ -8,17 +8,17 @@ tfj run ussets --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 co
 
 """
 
-import tqdm
-import sys
 import json
+import sys
 from multiprocessing import Pool
 from pathlib import Path
 
+import tqdm
 from api_bots import printe
-from mass.radio.authors_list.auths_by_location import locations
-from mass.radio.jsons_bot import radio_jsons_dir
 from api_bots.page_ncc import NEW_API, CatDepth
 from fix_mass.files import studies_titles, studies_titles2
+from mass.radio.authors_list.auths_by_location import locations
+from mass.radio.jsons_bot import radio_jsons_dir
 
 studies_titles.update(studies_titles2)
 

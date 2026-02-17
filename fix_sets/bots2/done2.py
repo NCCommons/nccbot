@@ -6,10 +6,11 @@ python3 core8/pwb.py fix_sets/bots2/done2 printurl
 
 """
 
-import sys
-from api_bots import printe
 import json
+import sys
 from pathlib import Path
+
+from api_bots import printe
 
 # from fix_mass.helps_bot.file_bot import from_cach, dumpit
 from fix_sets.lists.studies_fixed import studies_fixed_done

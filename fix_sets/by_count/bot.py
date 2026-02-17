@@ -15,9 +15,9 @@ from pathlib import Path
 
 from api_bots import printe
 from fix_sets.bots.ddo_bot import ddo, studies_fixed_done
-from fix_sets.new import work_one_study
 from fix_sets.by_count.co import from_files
 from fix_sets.by_count.lists import counts_from_files
+from fix_sets.new import work_one_study
 
 Dir = Path(__file__).parent
 

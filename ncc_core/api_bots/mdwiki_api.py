@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 """ """
 
-import sys
 import json
+import sys
 import time
+
 import pywikibot
-
 from api_bots import printe
-
 from api_bots.page_md import load_main_api
 
 main_api = load_main_api()

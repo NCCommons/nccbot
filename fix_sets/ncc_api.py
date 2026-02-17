@@ -6,9 +6,7 @@ from fix_sets.ncc_api import post_ncc_params
 
 """
 
-from api_bots.page_ncc import NEW_API
-from api_bots.page_ncc import CatDepth
-from api_bots.page_ncc import ncc_MainPage
+from api_bots.page_ncc import NEW_API, CatDepth, ncc_MainPage
 
 api_new = NEW_API()
 

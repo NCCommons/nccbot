@@ -8,8 +8,8 @@ import sys
 from pathlib import Path
 
 from api_bots import printe
-from mass.radio.bots.bmp import work_bmp
 from fix_sets.ncc_api import post_ncc_params
+from mass.radio.bots.bmp import work_bmp
 from nccommons.ext import get_new_ext
 
 

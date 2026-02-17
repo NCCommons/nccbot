@@ -7,21 +7,23 @@ from fix_sets.name_bots.get_rev import get_images_ids, get_file_urls_rev # get_f
 
 """
 
-import tqdm
-import sys
-import re
 import json
+import re
+import sys
 
-# from pathlib import Path
-
+import tqdm
 from api_bots import printe
-from fix_sets.ncc_api import post_ncc_params
+from fix_mass.helps_bot.file_bot import dumpit, from_cach
+from fix_sets.bots2.match_helps import match_id  # match_id(content, title)
 
 # from fix_mass.files import study_to_case_cats
 from fix_sets.bots.study_files import get_study_files
 from fix_sets.jsons_dirs import get_study_dir
-from fix_mass.helps_bot.file_bot import from_cach, dumpit
-from fix_sets.bots2.match_helps import match_id  # match_id(content, title)
+from fix_sets.ncc_api import post_ncc_params
+
+# from pathlib import Path
+
+
 
 images_to_ids = {}
 ids_to_images = {}

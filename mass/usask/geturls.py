@@ -14,12 +14,13 @@ python3 I:/ncc/nccbot/mass/usask/geturls.py
 python3 core8/pwb.py mass/usask/geturls
 """
 
-import requests
-from bs4 import BeautifulSoup
-import os
 import json
+import os
 import sys
 from pathlib import Path
+
+import requests
+from bs4 import BeautifulSoup
 
 Dir = Path(__file__).parent
 urlsfile = os.path.join(str(Dir), "urls.json")

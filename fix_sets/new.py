@@ -31,20 +31,18 @@ python3 core8/pwb.py fix_sets/new ask all
 
 import re
 import sys
+
 from api_bots import printe
-from fix_sets.ncc_api import ncc_MainPage
-
-from fix_sets.bots.stacks import get_stacks  # get_stacks(study_id)
-from fix_sets.bots.has_url import has_url_append, find_has_url  # , already_has_url
-
-from fix_sets.bots2.text_cat_bot import add_cat_to_set, fix_cats
-from fix_sets.bots2.filter_ids import filter_no_title
-from fix_sets.bots2.done2 import filter_done_list
-from fix_sets.bots2.set_text2 import make_text_study
-from fix_sets.bots2.move_files2 import to_move_work
-
 from fix_mass.files import studies_titles, studies_titles2
+from fix_sets.bots2.done2 import filter_done_list
+from fix_sets.bots2.filter_ids import filter_no_title
+from fix_sets.bots2.move_files2 import to_move_work
+from fix_sets.bots2.set_text2 import make_text_study
+from fix_sets.bots2.text_cat_bot import add_cat_to_set, fix_cats
+from fix_sets.bots.has_url import find_has_url, has_url_append  # , already_has_url
+from fix_sets.bots.stacks import get_stacks  # get_stacks(study_id)
 from fix_sets.bots.study_files import get_study_files
+from fix_sets.ncc_api import ncc_MainPage
 from fix_sets.new_works.get_info import get_study_infos
 
 

@@ -6,10 +6,11 @@ tfj run --mem 1Gi fixjsosns --image python3.9 --command "$HOME/local/bin/python3
 
 """
 
-import tqdm
 from pathlib import Path
-from fix_sets.jsons_dirs import get_study_dir
+
+import tqdm
 from api_bots import printe
+from fix_sets.jsons_dirs import get_study_dir
 
 Dir = Path(__file__).parent
 

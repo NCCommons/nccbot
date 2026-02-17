@@ -18,10 +18,10 @@ Category:Image stacks
 """
 
 import sys
+
 from api_bots import printe
 from dup_sets.move_pages import move_them
 from fix_sets.ncc_api import CatDepth
-
 
 lal = [
     "GovernmentZA",

@@ -11,14 +11,15 @@ Category:Radiopaedia case Active rickets id: 58738 study: 65957
 """
 
 import os
-import sys
-import psutil
 import re
+import sys
+
+import psutil
+from sets_dbs.file_infos.db import insert_all_infos  # insert_all_infos(data_list, prnt=True)
 
 # from pathlib import Path
 # from api_bots import printe
 from sets_dbs.file_infos.p2 import get_files
-from sets_dbs.file_infos.db import insert_all_infos  # insert_all_infos(data_list, prnt=True)
 
 debug = "debug" in sys.argv
 number = 10 if debug and "no" not in sys.argv else 2000

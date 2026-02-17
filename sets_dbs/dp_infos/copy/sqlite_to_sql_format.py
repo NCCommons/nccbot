@@ -6,6 +6,7 @@
 # write the chunk lines at once not one by one
 
 import sqlite3
+
 import pandas as pd
 from tqdm import tqdm
 

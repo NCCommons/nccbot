@@ -3,11 +3,12 @@ python3 nccbot/sets_dbs/dp_infos/copy/sql_format_to_mysql.py
 INSERT INTO infos (url, urlid, file) VALUES ('https://prod-images-static.radiopaedia.org/images/53744263/IMG-0001-00076.jpg', '53744263', 'File:Hangman's fracture (Radiopaedia 83504-98605 Axial 9).jpg');
 """
 
-import pymysql
-import sys
 import os
-from tqdm import tqdm
+import sys
 from pathlib import Path
+
+import pymysql
+from tqdm import tqdm
 
 # wget https://huggingface.co/Ibrahemqasim/radio_ncc/resolve/main/backup_no_duplicates.sql -O ~/public_html/adminer.sql
 

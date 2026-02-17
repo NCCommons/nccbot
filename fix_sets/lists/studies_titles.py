@@ -10,13 +10,13 @@ from fix_mass.files import studies_titles, study_to_case_cats
 
 """
 
+import json
 import re
 import sys
-import json
 
 from api_bots import printe
-from fix_sets.ncc_api import CatDepth
 from fix_sets.jsons_dirs import jsons_dir
+from fix_sets.ncc_api import CatDepth
 
 mem_cach = {}
 

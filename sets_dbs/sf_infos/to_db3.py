@@ -5,15 +5,16 @@ tfj run --mem 1Gi tdb3 --image python3.9 --command "$HOME/local/bin/python3 core
 
 """
 
+import os
 import re
 import sys
-import os
-import psutil
+from pathlib import Path
+
 import ijson
+import psutil
 
 # import json
 import tqdm
-from pathlib import Path
 
 try:
     from db import insert_all_infos

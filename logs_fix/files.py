@@ -2,8 +2,8 @@
 from logs_fix.files import has_url_dir, move_text_dir
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"

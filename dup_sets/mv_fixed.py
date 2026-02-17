@@ -7,12 +7,11 @@ tfj run dup --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core8
 """
 
 import sys
-import tqdm
 from multiprocessing import Pool
 
-from fix_sets.ncc_api import ncc_MainPage
+import tqdm
 from api_bots import printe
-from fix_sets.ncc_api import CatDepth
+from fix_sets.ncc_api import CatDepth, ncc_MainPage
 
 # [[Category:Sort studies fixed]]
 # [[Category:Image set]]

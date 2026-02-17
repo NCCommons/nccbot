@@ -3,8 +3,8 @@
 python3 core8/pwb.py mass/eyerounds/added
 
 """
-import sys
 import json
+import sys
 from pathlib import Path
 
 main_dir = Path(__file__).parent

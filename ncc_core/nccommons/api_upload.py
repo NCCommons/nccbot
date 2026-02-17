@@ -11,11 +11,12 @@ def upload_by_url():
 import sys
 import urllib.request
 
-# ---
-from nccommons.ext import get_new_ext
-from nccommons import fix_svg
 from api_bots import printe
 from api_bots.page_ncc import NEW_API
+from nccommons import fix_svg
+
+# ---
+from nccommons.ext import get_new_ext
 
 api_new = NEW_API()
 yes_answer = ["y", "a", "", "Y", "A", "all"]

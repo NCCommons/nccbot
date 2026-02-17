@@ -6,16 +6,17 @@ python3 core8/pwb.py mass/usask/getimages break
 
 """
 
+import json
+import os
 import re
 import sys
-import os
-import json
 from pathlib import Path
+
 import requests
-from bs4 import BeautifulSoup
 
 # ---
 from api_bots import printe
+from bs4 import BeautifulSoup
 
 # ---
 

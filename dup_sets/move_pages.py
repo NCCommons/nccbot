@@ -5,12 +5,12 @@ python3 core8/pwb.py fix_sets/dup_sets
 from dup_sets.move_pages import move_titles
 """
 
-import tqdm
 import sys
 from multiprocessing import Pool
 
+import tqdm
 from api_bots import printe
-from fix_sets.ncc_api import ncc_MainPage, CatDepth
+from fix_sets.ncc_api import CatDepth, ncc_MainPage
 
 len_all = {1: 0}
 

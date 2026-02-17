@@ -16,12 +16,13 @@ import os
 import sys
 
 sys.argv.append("dump_studies_urls_to_files")
-import tqdm
-import time
 import json
+import time
 from multiprocessing import Pool
-from api_bots import printe
 from pathlib import Path
+
+import tqdm
+from api_bots import printe
 from fix_mass.count_files.Case_co import CaseDo
 from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 from mass.radio.jsons_bot import radio_jsons_dir

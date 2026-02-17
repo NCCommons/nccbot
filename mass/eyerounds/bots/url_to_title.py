@@ -6,10 +6,11 @@ from mass.eyerounds.bots.url_to_title import urls_to_title
 
 """
 
-import tqdm
 import json
 from pathlib import Path
+
 import requests
+import tqdm
 from bs4 import BeautifulSoup
 
 # Specify the root folder

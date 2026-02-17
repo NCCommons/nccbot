@@ -2,12 +2,13 @@
 """
 python3 core8/pwb.py mass/radio/delete
 """
+from api_bots.page_ncc import CatDepth
+
 #
 # (C) Ibrahem Qasim, 2023
 #
 # ---
 from nccommons import api
-from api_bots.page_ncc import CatDepth
 
 # ---
 cats = CatDepth("Category:Cats to delete", sitecode="www", family="nccommons", depth=0, ns="all")

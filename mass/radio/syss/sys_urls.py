@@ -3,13 +3,13 @@
 python3 core8/pwb.py mass/radio/syss/sys_urls
 """
 
-import sys
-import os
 import json
+import os
+import sys
 from pathlib import Path
 
 # ---
-from mass.radio.geturlsnew import get_urls_system, systems, length_of_systems
+from mass.radio.geturlsnew import get_urls_system, length_of_systems, systems
 from mass.radio.jsons_files import jsons
 
 # ---

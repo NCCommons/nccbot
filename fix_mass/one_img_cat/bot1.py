@@ -15,14 +15,12 @@ python3 core8/pwb.py fix_mass/one_img_cat/bot1 ask
 
 import sys
 from pathlib import Path
+
 from api_bots import printe
-from api_bots.page_ncc import ncc_MainPage
-from api_bots.page_ncc import CatDepth
-
-from fix_sets.bots2.filter_ids import filter_no_title
-
-from fix_mass.one_img_cat.gt_files import from_files_g, work_get_files_data, count_files, count_files_true
+from api_bots.page_ncc import CatDepth, ncc_MainPage
+from fix_mass.one_img_cat.gt_files import count_files, count_files_true, from_files_g, work_get_files_data
 from fix_mass.one_img_cat.lists import args_na
+from fix_sets.bots2.filter_ids import filter_no_title
 
 Dir = Path(__file__).parent
 

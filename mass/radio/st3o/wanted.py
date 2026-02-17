@@ -7,8 +7,8 @@ python3 core8/pwb.py mass/st3/wanted nomulti add_category
 
 """
 
-import sys
 import re
+import sys
 
 # ---
 from api_bots.page_ncc import NEW_API

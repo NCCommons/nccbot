@@ -10,13 +10,14 @@ python3 core8/pwb.py fix_mass/del_pages/bot ask nocach
 
 """
 
-import sys
-import tqdm
 import re
+import sys
 from pathlib import Path
+
+import tqdm
 from api_bots import printe
 from api_bots.page_ncc import CatDepth
-from fix_mass.helps_bot.file_bot import from_cach, dumpit
+from fix_mass.helps_bot.file_bot import dumpit, from_cach
 
 Dir = Path(__file__).parent
 

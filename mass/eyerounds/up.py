@@ -14,23 +14,22 @@ tfj run eyeroundsx --image python3.9 --command "$HOME/local/bin/python3 core8/pw
 
 """
 
-import sys
-import os
-import time
 import json
+import os
+import sys
+import time
 
 # from tqdm import tqdm
 from pathlib import Path
-from nccommons import api
 
 from api_bots import printe
 from api_bots.page_ncc import CatDepth
-
 from mass.eyerounds.bots.catbot import category_name
-from mass.eyerounds.bots.url_to_title import urls_to_title
-from mass.eyerounds.bots.set_bot import create_set
 from mass.eyerounds.bots.category_bot import create_category  # create_category(chapter_name, pages)
 from mass.eyerounds.bots.names import make_files_names
+from mass.eyerounds.bots.set_bot import create_set
+from mass.eyerounds.bots.url_to_title import urls_to_title
+from nccommons import api
 
 # Specify the root folder
 main_dir = Path(__file__).parent

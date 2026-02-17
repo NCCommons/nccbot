@@ -9,6 +9,7 @@ tfj run seta2 --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py 
 """
 
 import sys
+
 from fix_sets.new import work_one_study
 
 main_ids_text = """

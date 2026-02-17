@@ -8,9 +8,10 @@
 # CREATE TABLE IF NOT EXISTS
 
 import sqlite3
+
 import pandas as pd
-from tqdm import tqdm
 from pymysql.converters import escape_string
+from tqdm import tqdm
 
 # Connect to SQLite database
 conn_sqlite = sqlite3.connect("fs_infos_duplict1.sqlite")

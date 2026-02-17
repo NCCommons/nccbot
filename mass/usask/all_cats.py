@@ -3,9 +3,10 @@
 python3 core8/pwb.py mass/usask/all_cats ask
 
 """
-import os
 import json
+import os
 from pathlib import Path
+
 from api_bots.page_ncc import ncc_MainPage
 
 # Specify the root folder

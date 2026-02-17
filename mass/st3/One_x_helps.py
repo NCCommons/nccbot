@@ -4,15 +4,15 @@ from mass.st3.One_x_helps import CASE_HELPS
 
 """
 
-import sys
 import mimetypes
 import os
+import sys
 
 from api_bots import printe
 from api_bots.page_ncc import NEW_API, ncc_MainPage
-from mass.radio.bots.bmp import work_bmp
-from mass.radio.bots.add_cat import add_cat_to_images  # add_cat_to_images(sets, cat_title)
 from fix_sets.name_bots.files_names_bot import get_files_names
+from mass.radio.bots.add_cat import add_cat_to_images  # add_cat_to_images(sets, cat_title)
+from mass.radio.bots.bmp import work_bmp
 
 api_new = NEW_API()
 # api_new.Login_to_wiki()

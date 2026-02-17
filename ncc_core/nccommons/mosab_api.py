@@ -9,6 +9,9 @@ from nccommons import mosab_api
 # upload = mosab_api.upload_by_url(file_name, text, url, comment='')
 # ---
 """
+import configparser
+import os
+
 #
 # (C) Ibrahem Qasim, 2023
 #
@@ -17,13 +20,12 @@ import sys
 import time
 import urllib
 import urllib.parse
-import os
-import configparser
+from pathlib import Path
+
 import requests
 
 # ---
 from api_bots import printe
-from pathlib import Path
 
 Dir = str(Path(__file__).parents[0])
 # print(f'Dir : {Dir}')

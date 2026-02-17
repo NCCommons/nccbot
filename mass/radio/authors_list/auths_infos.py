@@ -5,10 +5,11 @@ from mass.radio.authors_list.auths_infos import get_author_infos
 
 '''
 
-import requests
 import sys
-from bs4 import BeautifulSoup
+
+import requests
 from api_bots import printe
+from bs4 import BeautifulSoup
 
 
 def get_soup(url):

@@ -11,17 +11,17 @@ python3 core8/pwb.py mass/usask/up break
 
 """
 
-import sys
-import re
-import os
-import time
 import json
-from tqdm import tqdm
-from api_bots import printe
+import os
+import re
+import sys
+import time
 from pathlib import Path
+
+from api_bots import printe
+from api_bots.page_ncc import CatDepth, ncc_MainPage
 from nccommons import api
-from api_bots.page_ncc import CatDepth
-from api_bots.page_ncc import ncc_MainPage
+from tqdm import tqdm
 
 # Specify the root folder
 main_dir = Path(__file__).parent

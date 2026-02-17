@@ -5,9 +5,9 @@ python3 core8/pwb.py import_to_ncc/bot
 """
 
 from api_bots import printe
-from nccommons import api
 from api_bots.page_ncc import ncc_NEW_API
 from api_bots.wiki_page import load_main_api
+from nccommons import api
 
 api_new = ncc_NEW_API()
 

@@ -4,10 +4,12 @@ from api_bots.page_md import load_main_api
 
 """
 
+import configparser
+
 # ---
 import functools
 import os
-import configparser
+
 from newapi import ALL_APIS
 
 home_dir = os.getenv("HOME")

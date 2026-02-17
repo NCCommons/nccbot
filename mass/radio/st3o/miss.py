@@ -6,12 +6,11 @@ tfj run miss --image python3.9 --command "$HOME/local/bin/python3 c8/pwb.py mass
 
 """
 
-import sys
 import json
+import sys
 
-from mass.st3.start import main
 from mass.radio.jsons_bot import radio_jsons_dir
-
+from mass.st3.start import main
 
 with open(radio_jsons_dir / "all_ids.json", encoding="utf-8") as f:
     all_ids = json.load(f)

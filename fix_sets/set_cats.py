@@ -10,15 +10,15 @@ python3 core8/pwb.py fix_sets/set_cats studies_titles2 ask
 
 """
 
-import tqdm
 import re
 import sys
-from api_bots import printe
-from fix_sets.ncc_api import ncc_MainPage, CatDepth
 
-from fix_sets.bots2.text_cat_bot import add_cat_to_set
-from fix_sets.bots2.filter_ids import filter_no_title
+import tqdm
+from api_bots import printe
 from fix_mass.files import studies_titles, studies_titles2
+from fix_sets.bots2.filter_ids import filter_no_title
+from fix_sets.bots2.text_cat_bot import add_cat_to_set
+from fix_sets.ncc_api import CatDepth, ncc_MainPage
 
 
 def work_one_study(study_id, study_title="", categories=[]):

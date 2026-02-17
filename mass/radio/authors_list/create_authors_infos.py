@@ -7,9 +7,10 @@ tfj run auths --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 cor
 
 """
 
-import sys
 import json
+import sys
 from pathlib import Path
+
 from api_bots import printe
 from mass.radio.authors_list.auths_infos import get_author_infos
 from mass.radio.jsons_bot import radio_jsons_dir

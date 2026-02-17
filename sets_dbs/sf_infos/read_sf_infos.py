@@ -7,12 +7,13 @@ tfj run --mem 4Gi readall --image python3.9 --command "$HOME/local/bin/python3 c
 
 """
 
-import sys
-import os
-import psutil
 import json
-import tqdm
+import os
+import sys
 from pathlib import Path
+
+import psutil
+import tqdm
 from api_bots import printe
 from fix_sets.jsons_dirs import jsons_dir
 

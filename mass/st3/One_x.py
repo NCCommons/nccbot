@@ -4,18 +4,17 @@ from mass.st3.One_x import OneCase
 """
 
 import sys
+
 import tqdm
-from nccommons import api
 from api_bots import printe
 from api_bots.page_ncc import NEW_API, ncc_MainPage
-
-from mass.st3.One_x_helps import CASE_HELPS
-from mass.radio.get_studies import get_stacks_fixed  # (study_id, case_id, get_cach=False)
-from mass.radio.bots.update import update_text_add_pd_medical, update_text
 from mass.radio.bots.studies_utf import dump_studies_urls_to_files
+from mass.radio.bots.update import update_text, update_text_add_pd_medical
+from mass.radio.get_studies import get_stacks_fixed  # (study_id, case_id, get_cach=False)
 from mass.radio.jsons_files import jsons
-
 from mass.st3.lists import authors_infos
+from mass.st3.One_x_helps import CASE_HELPS
+from nccommons import api
 from sets_dbs.dp_infos.db_duplict_new import insert_url_file
 
 api_new = NEW_API()

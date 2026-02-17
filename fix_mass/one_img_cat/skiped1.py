@@ -14,15 +14,14 @@ python3 core8/pwb.py fix_mass/one_img_cat/skiped ask
 # import re
 import sys
 from pathlib import Path
+
 from api_bots import printe
 from api_bots.page_ncc import ncc_MainPage
-
-from fix_sets.bots2.text_cat_bot import add_cat_to_set
-from fix_sets.bots2.filter_ids import filter_no_title
-from fix_sets.bots2.done2 import filter_done_list
 from fix_mass.files import studies_titles
-
-from fix_mass.one_img_cat.gt_files import from_files_g, work_get_files_data, count_files
+from fix_mass.one_img_cat.gt_files import count_files, from_files_g, work_get_files_data
+from fix_sets.bots2.done2 import filter_done_list
+from fix_sets.bots2.filter_ids import filter_no_title
+from fix_sets.bots2.text_cat_bot import add_cat_to_set
 
 Dir = Path(__file__).parent
 
