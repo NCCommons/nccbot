@@ -10,8 +10,6 @@ import json
 import logging
 import sys
 from pathlib import Path
-
-from api_bots import printe
 from api_bots.page_ncc import NEW_API
 
 Dir = Path(__file__).parent
@@ -30,7 +28,7 @@ def dump_continues(params_continue):
     try:
         with open(Dir / "params_continue.json", "w", encoding="utf-8") as f:
             json.dump(params_continue, f, indent=2)
-    except Exception as e:
+    except Exception:
         logger.exception('Exception:', exc_info=True)
 
 
@@ -38,14 +36,9 @@ def get_continues():
     try:
         with open(Dir / "params_continue.json", "r", encoding="utf-8") as f:
             return json.load(f)
-    except Exception as e:
+    except Exception:
         logger.exception('Exception:', exc_info=True)
         return {}
-
-
-def printdebug(s):
-    if debug:
-        printe.output(s)
 
 
 def one_rev(title, x):
@@ -62,7 +55,7 @@ def get_data(params_continue=None):
     cat_title = "Category:Uploads by Mr. Ibrahem"
     # ---
     if params_continue:
-        printe.output(f"<<blue>> add params_continue: len_all_files: {len_all_files[1]}")
+        logger.info(f"<<blue>> add params_continue: len_all_files: {len_all_files[1]}")
         dump_continues(params_continue)
     # ---
     # get cat members
@@ -92,7 +85,7 @@ def get_data(params_continue=None):
         # ---
         max_do -= 1
         # ---
-        # printdebug(f"max_do:{max_do}")
+        # logger.debug(f"max_do:{max_do}")
         # ---
         if max_do == 0:
             break
@@ -107,14 +100,14 @@ def get_data(params_continue=None):
         error = data.get("error", {})
         # ---
         if error:
-            printe.output(json.dumps(error, indent=2))
+            logger.warning(json.dumps(error, indent=2))
         # ---
         if data.get("continue"):
             params_continue = data["continue"]
         # ---
         del data
     # ---
-    printdebug(f"len(pages): {len(pages)}")
+    logger.debug(f"len(pages): {len(pages)}")
     # ---
     len_all_files[1] += len(pages)
     # ---
@@ -126,7 +119,7 @@ def get_files(params_continue=None, load_json=False):
     if load_json and not params_continue:
         params_continue = get_continues()
     # ---
-    printdebug("get_files")
+    logger.debug("get_files")
     # ---
     pages, continues = get_data(params_continue)
     # ---
@@ -144,7 +137,7 @@ def get_files(params_continue=None, load_json=False):
 
 
 def test():
-    for x in get_files():
+    for _ in get_files():
         pass
 
 

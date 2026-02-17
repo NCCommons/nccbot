@@ -17,8 +17,6 @@ import sys
 import psutil
 from infos.db import insert_all_infos  # insert_all_infos(data_list, prnt=True)
 
-# from pathlib import Path
-# from newapi import printe
 from infos.p2 import get_files
 
 debug = "debug" in sys.argv

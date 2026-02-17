@@ -8,9 +8,10 @@ from infos.pages import get_files
 import json
 import sys
 from pathlib import Path
-
-from newapi import printe
 from api_bots.page_ncc import ncc_NEW_API
+import logging
+
+logger = logging.getLogger(__name__)
 
 Dir = Path(__file__).parent
 debug = "debug" in sys.argv
@@ -43,7 +44,7 @@ def get_file_rev(title):
     # ---
     error = data.get("error", {})
     if error:
-        printe.output(json.dumps(error, indent=2))
+        logger.warning(json.dumps(error, indent=2))
     # ---
     pages = data.get("query", {}).get("pages", [])
     # ---
@@ -109,7 +110,7 @@ def get_files(params_continue=None):
     }
     # ---
     if params_continue:
-        printe.output(f"<<blue>> add params_continue: len_all_files: {len_all_files}")
+        logger.info(f"<<blue>> add params_continue: len_all_files: {len_all_files}")
         dump_continues(params_continue)
         params.update(params_continue)
     # ---
@@ -127,7 +128,7 @@ def get_files(params_continue=None):
     error = data.get("error", {})
     # ---
     if error:
-        printe.output(json.dumps(error, indent=2))
+        logger.warning(json.dumps(error, indent=2))
     # ---
     pages = data.get("query", {}).get("pages", [])
     # ---

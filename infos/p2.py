@@ -10,8 +10,6 @@ import json
 import logging
 import sys
 from pathlib import Path
-
-from newapi import printe
 from api_bots.page_ncc import ncc_NEW_API
 logger = logging.getLogger(__name__)
 Dir = Path(__file__).parent
@@ -41,11 +39,6 @@ def get_continues():
         return {}
 
 
-def printdebug(s):
-    if debug:
-        printe.output(s)
-
-
 def get_file_rev(title):
     # ---
     params = {
@@ -66,7 +59,7 @@ def get_file_rev(title):
     # ---
     error = data.get("error", {})
     if error:
-        printe.output(json.dumps(error, indent=2))
+        logger.info(json.dumps(error, indent=2))
     # ---
     pages = data.get("query", {}).get("pages", [])
     # ---
@@ -112,7 +105,7 @@ def get_data(params_continue=None):
     cat_title = "Category:Uploads by Mr. Ibrahem"
     # ---
     if params_continue:
-        printe.output(f"<<blue>> add params_continue: len_all_files: {len_all_files[1]}")
+        logger.info(f"<<blue>> add params_continue: len_all_files: {len_all_files[1]}")
         dump_continues(params_continue)
     # ---
     # get cat members
@@ -144,7 +137,7 @@ def get_data(params_continue=None):
         # ---
         max_do -= 1
         # ---
-        # printdebug(f"max_do:{max_do}")
+        # logger.debug(f"max_do:{max_do}")
         # ---
         if max_do == 0:
             break
@@ -159,14 +152,14 @@ def get_data(params_continue=None):
         error = data.get("error", {})
         # ---
         if error:
-            printe.output(json.dumps(error, indent=2))
+            logger.info(json.dumps(error, indent=2))
         # ---
         if data.get("continue"):
             params_continue = data["continue"]
         # ---
         del data
     # ---
-    printdebug(f"len(pages): {len(pages)}")
+    logger.debug(f"len(pages): {len(pages)}")
     # ---
     len_all_files[1] += len(pages)
     # ---
@@ -178,7 +171,7 @@ def get_files(params_continue=None, load_json=False):
     if load_json and not params_continue:
         params_continue = get_continues()
     # ---
-    printdebug("get_files")
+    logger.debug("get_files")
     # ---
     pages, continues = get_data(params_continue)
     # ---

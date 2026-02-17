@@ -654,7 +654,7 @@ class PatchManager:
         return OutPut
 
 
-def output(textm, *uargs, **kwargs):
+def outputz(textm, *uargs, **kwargs):
     """
     Prints the given text with color formatting.
 
@@ -671,6 +671,24 @@ def output(textm, *uargs, **kwargs):
     toprint = make_str(textm)
 
     print(toprint, end=end)
+
+
+def output(textm):
+    """
+    Prints the given text with color formatting.
+
+    The text can contain color tags like '<<color>>' where 'color' is the name of the color.
+    The color will be applied to the text that follows the tag, until the end of the string or until a '<<default>>' tag is found.
+
+    If 'noprint' is in sys.argv, the function will return without printing anything.
+
+    :param textm: The text to print. Can contain color tags.
+    """
+    if "noprint" in sys.argv:
+        return
+    toprint = make_str(textm)
+
+    print(toprint)
 
 
 def error(text):
