@@ -9,10 +9,6 @@ python3 c8/pwb.py fix_mass/count_files/Case_co
 import json
 import os
 import sys
-import traceback
-
-# ---
-from api_bots import printe
 from fix_mass.dir_studies_bot import studies_dir
 from mass.radio.bots.studies_utf import dump_studies_urls_to_files
 from mass.radio.get_studies import get_images, get_images_stacks
@@ -20,20 +16,23 @@ from mass.radio.get_studies import get_images, get_images_stacks
 # ---
 try:
     import pywikibot
-
     pywikibotoutput = pywikibot.output
 except ImportError:
     pywikibotoutput = print
 
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 def printt(s):
     if "nopr" in sys.argv:
         return
-    printe.output(s)
+    logger.info(f"{s}")
 
 
 class CaseDo:
-    def __init__(self, caseId, title, studies_ids):
+    def __init__(self, caseId, title, studies_ids):  # noqa: N803
         self.caseId = caseId
         self.title = title
         self.studies_ids = studies_ids
@@ -52,12 +51,9 @@ class CaseDo:
                 try:
                     with open(st_file, encoding="utf-8") as f:
                         images = json.loads(f.read())
-                except Exception as e:
-                    printe.output("<<lightred>> Traceback (most recent call last):")
-                    printe.output(f"{study} : error")
-                    print(e)
-                    print(traceback.format_exc())
-                    print("CRITICAL:")
+                except Exception:
+                    logger.error(f"{study} : error")
+                    logger.critical("CRITICAL:", exc_info=True)
             # ---
             images = [image for image in images if image]
             # ---
@@ -79,7 +75,7 @@ class CaseDo:
         # ---
         self.img_to_url[study] = {}
         # ---
-        for i, image in enumerate(images, 1):
+        for _, image in enumerate(images, 1):
             if not isinstance(image, dict):
                 continue
             # ---
