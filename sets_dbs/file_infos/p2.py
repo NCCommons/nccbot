@@ -7,6 +7,7 @@ python3 core8/pwb.py fix_db/file_infos/p2 debug
 """
 
 import json
+import logging
 import sys
 from pathlib import Path
 
@@ -14,7 +15,7 @@ from api_bots import printe
 from api_bots.page_ncc import NEW_API
 
 Dir = Path(__file__).parent
-
+logger = logging.getLogger(__name__)
 api_new = NEW_API()
 # api_new.Login_to_wiki()
 
@@ -30,7 +31,7 @@ def dump_continues(params_continue):
         with open(Dir / "params_continue.json", "w", encoding="utf-8") as f:
             json.dump(params_continue, f, indent=2)
     except Exception as e:
-        printe.output(e)
+        logger.exception('Exception:', exc_info=True)
 
 
 def get_continues():
@@ -38,7 +39,7 @@ def get_continues():
         with open(Dir / "params_continue.json", "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
-        printe.output(e)
+        logger.exception('Exception:', exc_info=True)
         return {}
 
 
