@@ -10,6 +10,7 @@ import sys
 import os
 import psutil
 import ijson
+
 # import json
 import tqdm
 from pathlib import Path
@@ -28,6 +29,7 @@ all_data_file = Dir / "jsons/sf_infos_all.json"
 numbs = 1000 if "2" not in sys.argv else 2
 
 debug = "debug" in sys.argv
+
 
 def print_memory():
     yellow, purple = "\033[93m%s\033[00m", "\033[95m%s\033[00m"

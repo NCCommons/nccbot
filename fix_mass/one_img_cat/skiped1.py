@@ -10,6 +10,7 @@ python3 core8/pwb.py fix_mass/one_img_cat/skiped ask
 العمل على المقالات التي بها صورة واحدة فقط
 
 """
+
 # import re
 import sys
 from pathlib import Path

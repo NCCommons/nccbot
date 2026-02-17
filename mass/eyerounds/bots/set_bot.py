@@ -5,6 +5,7 @@ from mass.eyerounds.bots.set_bot import create_set
 import re
 import sys
 from api_bots import printe
+
 # from api_bots.page_ncc import CatDepth
 from api_bots.page_ncc import ncc_MainPage
 
@@ -14,7 +15,7 @@ from api_bots.page_ncc import ncc_MainPage
 def format_text(chapter_name, files) -> str:
     # files_sorted = sorted(files.items(), key=lambda item: item[1], reverse=True)
     # ---
-    files_list = '\n'.join([f"|File:{file_name}|" for _, file_name in files.items()])
+    files_list = "\n".join([f"|File:{file_name}|" for _, file_name in files.items()])
     # ---
     text = (
         "{{Imagestack\n"
@@ -45,7 +46,7 @@ def create_set(chapter_name, files) -> bool:
     page = ncc_MainPage(title)
     # ---
     if not page.exists():
-    # if title not in pages or not page.exists():
+        # if title not in pages or not page.exists():
         ca = page.Create(text=text, summary="Create new set")
         return ca
 

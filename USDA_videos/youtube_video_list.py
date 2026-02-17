@@ -2,6 +2,7 @@ import os
 import json
 import googleapiclient.discovery
 
+
 def get_channel_videos(channel_id):
     """Fetches all videos from a YouTube channel and saves the data to a JSON file."""
 
@@ -9,9 +10,11 @@ def get_channel_videos(channel_id):
     # *DO NOT* leave this option enabled in production.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
+
 import os
 import json
 import googleapiclient.discovery
+
 
 def get_channel_videos(channel_id):
     """Fetches all videos from a YouTube channel and saves the data to a JSON file."""
@@ -26,24 +29,19 @@ def get_channel_videos(channel_id):
 
     youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=DEVELOPER_KEY)
 
-    channels_response = youtube.channels().list(
-        part="contentDetails",
-        id=channel_id
-    ).execute()
+    channels_response = youtube.channels().list(part="contentDetails", id=channel_id).execute()
 
-    playlist_id = channels_response['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+    playlist_id = channels_response["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
     videos = []
 
-    playlist_items_response = youtube.playlistItems().list(
-        part="snippet",
-        playlistId=playlist_id,
-        maxResults=50
-    ).execute()
+    playlist_items_response = (
+        youtube.playlistItems().list(part="snippet", playlistId=playlist_id, maxResults=50).execute()
+    )
 
-    for item in playlist_items_response['items']:
-        video_title = item['snippet']['title']
-        video_id = item['snippet']['resourceId']['videoId']
+    for item in playlist_items_response["items"]:
+        video_title = item["snippet"]["title"]
+        video_id = item["snippet"]["resourceId"]["videoId"]
         video_url = f"https://www.youtube.com/watch?v={video_id}"
         videos.append({"title": video_title, "url": video_url})
 

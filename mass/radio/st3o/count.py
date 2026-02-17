@@ -5,6 +5,7 @@ python3 core8/pwb.py mass/st3/count
 tfj run coca --image python3.9 --command "$HOME/local/bin/python3 c8/pwb.py mass/radio/cases_in_ids && $HOME/local/bin/python3 c8/pwb.py mass/st3/count"
 
 """
+
 import json
 import os
 import tqdm
@@ -50,7 +51,6 @@ def cases_counts():
     except (IOError, json.JSONDecodeError) as e:
         print(f"Error reading {cases_count_file}: {e}")
         return {}
-
 
     return cases_count
 

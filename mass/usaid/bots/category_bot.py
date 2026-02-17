@@ -14,10 +14,7 @@ def create_category(cat, album_url, album_id, pages) -> str:
     # ---
     cat_title = f"Category:{cat}"
     # ---
-    cat_text = (
-        f"* Album url: [{album_url} {album_id}].\n"
-        "[[Category:USAID]]"
-    )
+    cat_text = f"* Album url: [{album_url} {album_id}].\n" "[[Category:USAID]]"
     # ---
     if "nocat" in sys.argv:
         return cat_title

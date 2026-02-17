@@ -4,6 +4,7 @@ python3 core8/pwb.py mass/radio/lists/cases_to_cats
 
 from mass.radio.lists.cases_to_cats import cases_cats# cases_cats()
 """
+
 import json
 import re
 import os
@@ -13,7 +14,7 @@ from api_bots import printe
 from mass.radio.jsons_bot import radio_jsons_dir
 
 
-cases_cats_file = radio_jsons_dir / 'cases_cats.json'
+cases_cats_file = radio_jsons_dir / "cases_cats.json"
 # ---
 cases_cats_list = []
 # ---
@@ -53,12 +54,14 @@ def cases_cats():
     # Get the time of last modification
     last_modified_time = os.path.getmtime(cases_cats_file)
     # ---
-    date = datetime.fromtimestamp(last_modified_time).strftime('%Y-%m-%d')
+    date = datetime.fromtimestamp(last_modified_time).strftime("%Y-%m-%d")
     # ---
-    today = datetime.today().strftime('%Y-%m-%d')
+    today = datetime.today().strftime("%Y-%m-%d")
     # ---
     if date != today or not cases_cats_list:
-        printe.output(f"<<purple>> Cases to categories last modified: {date}, today: {today}, current length: {len(cases_cats_list)}")
+        printe.output(
+            f"<<purple>> Cases to categories last modified: {date}, today: {today}, current length: {len(cases_cats_list)}"
+        )
         cases_cats_list = new_list()
     # ---
     return cases_cats_list

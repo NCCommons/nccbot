@@ -3,6 +3,7 @@
 from fix_sets.bots.set_text2 import make_text_study
 
 """
+
 import sys
 import json
 from api_bots import printe

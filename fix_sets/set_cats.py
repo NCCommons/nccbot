@@ -9,6 +9,7 @@ python3 core8/pwb.py fix_sets/set_cats studies_titles2 ask
 إضافة تصنيف الحالة إلى صفحات الدراسات
 
 """
+
 import tqdm
 import re
 import sys

@@ -4,6 +4,7 @@ python3 core8/pwb.py mass/radio/syss/sys_infos
 python3 core8/pwb.py mass/radio/syss/sys_infos todo
 
 """
+
 import sys
 import os
 import json
@@ -56,14 +57,16 @@ for n, sy in enumerate(nnno, start=10):
     # ---
     ln = length_of_systems[sy] * 20
     # ---
-    if 'todo' in sys.argv:
+    if "todo" in sys.argv:
         to_do = get_to_do(sy)
         if to_do:
             print(f"system: {sy.ljust(25)} to_do: {str(len(to_do)).ljust(15)} len_system_urls: {ln:,}")
         continue
     # ---
     if not system_to_work:
-        print(f'tfj run syi{n} --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/syss/sys_infos {sy2}" #{ln:,}')
+        print(
+            f'tfj run syi{n} --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/syss/sys_infos {sy2}" #{ln:,}'
+        )
     # ---
     v = os.path.join(str(main_dir), f"jsons/{sy}_infos.json")
     # ---
@@ -103,10 +106,7 @@ if not u_data:
     print("exit()")
     exit()
 # ---
-new_infos = {
-    x: v
-    for x, v in u_data.items() if x not in ma_infos
-}
+new_infos = {x: v for x, v in u_data.items() if x not in ma_infos}
 # ---
 print(f"new_infos: {len(new_infos)}")
 

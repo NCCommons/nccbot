@@ -2,6 +2,7 @@
 
 python3 core8/pwb.py mass/radio/syss/sys_urls
 """
+
 import sys
 import os
 import json
@@ -38,7 +39,9 @@ for n, sy in enumerate(nnno, start=10):
     ln = length_of_systems[sy] * 20
     # ---
     if not system_to_work:
-        print(f'tfj run sy{n} --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/syss/sys_urls {sy2}" #{ln:,}')
+        print(
+            f'tfj run sy{n} --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/syss/sys_urls {sy2}" #{ln:,}'
+        )
     # ---
     v = os.path.join(str(main_dir), f"jsons/{sy}.json")
     # ---
@@ -74,10 +77,7 @@ if not urls_data:
     print("exit()")
     exit()
 # ---
-new_urls = {
-    x: v['title']
-    for x, v in urls_data.items() if x not in systems_data.get(system_to_work, {})
-}
+new_urls = {x: v["title"] for x, v in urls_data.items() if x not in systems_data.get(system_to_work, {})}
 # ---
 print(f"new_urls: {len(new_urls)}, urls_data: {len(urls_data)}")
 # ---

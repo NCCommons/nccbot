@@ -7,6 +7,7 @@ python3 core8/pwb.py mass/radio/authors_list/usa_sets ask
 tfj run ussets --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/authors_list/usa_sets"
 
 """
+
 import tqdm
 import sys
 import json
@@ -123,7 +124,9 @@ def start() -> None:
     # ---
     titles = get_titles(tab)
     # ---
-    done = CatDepth("Category:Radiopaedia studies by United States authors", sitecode="www", family="nccommons", depth=0, ns="")
+    done = CatDepth(
+        "Category:Radiopaedia studies by United States authors", sitecode="www", family="nccommons", depth=0, ns=""
+    )
     # ---
     new_titles = [x for x in titles if x not in done]
     # ---

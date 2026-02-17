@@ -3,6 +3,7 @@
 from api_bots.page_ncc import ncc_MainPage, ncc_NEW_API
 
 """
+
 # ---
 import functools
 import os
@@ -21,7 +22,7 @@ password = config["DEFAULT"].get("password", "").strip()
 
 @functools.lru_cache(maxsize=1)
 def load_main_api() -> ALL_APIS:
-    return ALL_APIS(lang='www', family='nccommons', username=username, password=password)
+    return ALL_APIS(lang="www", family="nccommons", username=username, password=password)
 
 
 main_api = load_main_api()

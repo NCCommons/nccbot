@@ -18,6 +18,7 @@ import sys
 import os
 import time
 import json
+
 # from tqdm import tqdm
 from pathlib import Path
 from nccommons import api
@@ -28,14 +29,34 @@ from api_bots.page_ncc import CatDepth
 from mass.eyerounds.bots.catbot import category_name
 from mass.eyerounds.bots.url_to_title import urls_to_title
 from mass.eyerounds.bots.set_bot import create_set
-from mass.eyerounds.bots.category_bot import create_category # create_category(chapter_name, pages)
+from mass.eyerounds.bots.category_bot import create_category  # create_category(chapter_name, pages)
 from mass.eyerounds.bots.names import make_files_names
 
 # Specify the root folder
 main_dir = Path(__file__).parent
 
-pages_images = CatDepth("Category:EyeRounds images", sitecode="www", family="nccommons", depth=0, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
-pages = CatDepth("Category:EyeRounds", sitecode="www", family="nccommons", depth=0, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
+pages_images = CatDepth(
+    "Category:EyeRounds images",
+    sitecode="www",
+    family="nccommons",
+    depth=0,
+    ns="all",
+    nslist=[],
+    without_lang="",
+    with_lang="",
+    tempyes=[],
+)
+pages = CatDepth(
+    "Category:EyeRounds",
+    sitecode="www",
+    family="nccommons",
+    depth=0,
+    ns="all",
+    nslist=[],
+    without_lang="",
+    with_lang="",
+    tempyes=[],
+)
 time.sleep(1)
 print("time.sleep(1)")
 
@@ -55,14 +76,19 @@ def get_data() -> dict:
     data = dict(sorted(data.items(), key=lambda item: len(item[1]["images"]), reverse=True))
 
     # print how many has images and how many has no images
-    printe.output(f"<<green>> Number of sections with images: {len([k for k, v in data.items() if len(v['images']) > 0])}")
+    printe.output(
+        f"<<green>> Number of sections with images: {len([k for k, v in data.items() if len(v['images']) > 0])}"
+    )
 
-    printe.output(f"<<green>> Number of sections with no images: {len([k for k, v in data.items() if len(v['images']) == 0])}")
+    printe.output(
+        f"<<green>> Number of sections with no images: {len([k for k, v in data.items() if len(v['images']) == 0])}"
+    )
 
     # print len of all images
     printe.output(f"<<green>> Number of images: {sum(len(v['images']) for k, v in data.items())}")
 
     return data
+
 
 def make_image_text(category, image_url, chapter_url):
     # ---
@@ -103,6 +129,7 @@ def upload_image(category, image_url, image_name, chapter_url) -> bool:
 
     return upload
 
+
 def process_images(images_info, category, numb, chapter_url) -> dict:
     files = {}
     if category and "noup" not in sys.argv:
@@ -128,11 +155,12 @@ def process_images(images_info, category, numb, chapter_url) -> dict:
 
     return files
 
+
 def process_folder() -> None:
     data = get_data()
     # ---
     if "test" in sys.argv:
-        url= "https://eyerounds.org/cases/89_Phlyctenular-Keratoconjunctivitis-Staphylococcal-Blepharitis.htm"
+        url = "https://eyerounds.org/cases/89_Phlyctenular-Keratoconjunctivitis-Staphylococcal-Blepharitis.htm"
         data = {url: data[url]}
     # ---
     done = []

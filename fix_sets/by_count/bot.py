@@ -9,6 +9,7 @@ tfj run byc5 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core
 $HOME/local/bin/python3 core8/pwb.py fix_sets/by_count/bot hasskip 8 ask
 
 """
+
 import sys
 from pathlib import Path
 
@@ -58,7 +59,7 @@ def doda(ids_by_count, numbs=None):
                 new.extend(ids)
     # ---
     if new:
-        new  = list(set(new))
+        new = list(set(new))
         new2 = {x: ids_by_count[x] for x in new}
         return new2
     # ---
@@ -69,7 +70,7 @@ def remove_done(iui):
     # ---
     print(f"remove_done.  done:{len(studies_fixed_done):,}\t ids:{len(iui):,}")
     # ---
-    iui_no_done = {x: v for x,v in iui.items() if x not in studies_fixed_done}
+    iui_no_done = {x: v for x, v in iui.items() if x not in studies_fixed_done}
     # ---
     printe.output(f"\t remove_done:\t ids:{len(iui):,} after_done: <<yellow>>{len(iui_no_done):,}")
     # ---

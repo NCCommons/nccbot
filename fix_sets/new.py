@@ -28,6 +28,7 @@ python3 core8/pwb.py fix_sets/new ask 80302
 python3 core8/pwb.py fix_sets/new ask 14090
 python3 core8/pwb.py fix_sets/new ask all
 """
+
 import re
 import sys
 from api_bots import printe
@@ -71,6 +72,7 @@ def update_set_text(title, n_text, study_id):
             n_text = n_text.replace("[[Category:Image set]]\n", "")
     # ---
     page.save(newtext=n_text, summary="Fix sort.")
+
 
 def fix_one_url(text, study_id, files=None):
     # ---

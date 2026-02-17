@@ -6,9 +6,11 @@ import re
 from fix_mass.files import study_to_case_cats, study_id_to_case_id
 
 from mass.radio.jsons_files import jsons
+
 # ---
 cases_cats_list = jsons.cases_cats.copy()
 # ---
+
 
 def add_cat_to_set(p_text, study_id, title):
     # ---

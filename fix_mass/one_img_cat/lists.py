@@ -3,6 +3,7 @@
 from fix_mass.one_img_cat.lists import args_na, args_na_more
 
 """
+
 args_na = {
     1: "Category:Radiopaedia sets one image",
     2: "Category:Radiopaedia sets two images",

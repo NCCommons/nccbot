@@ -5,6 +5,7 @@ from fix_sets.lists.studies_fixed import studies_fixed_done, studies_fixed_done
 python3 core8/pwb.py fix_sets/lists/studies_fixed
 
 """
+
 import tqdm
 import os
 import re
@@ -23,7 +24,9 @@ dd_file = Path(__file__).parent / "already_done.json"
 def new_data():
     uu = []
     # ---
-    jj = CatDepth("Category:Sort studies fixed", sitecode="www", family="nccommons", depth=0, no_props=True, gcmlimit=5000)
+    jj = CatDepth(
+        "Category:Sort studies fixed", sitecode="www", family="nccommons", depth=0, no_props=True, gcmlimit=5000
+    )
     # ---
     for x in tqdm.tqdm(jj):
         # Regex to extract study IDs from categories

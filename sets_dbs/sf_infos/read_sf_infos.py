@@ -6,6 +6,7 @@ python3 core8/pwb.py sets_dbs/sf_infos/read_sf_infos read_all
 tfj run --mem 4Gi readall --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py sets_dbs/sf_infos/read_sf_infos read_all"
 
 """
+
 import sys
 import os
 import psutil
@@ -32,6 +33,7 @@ sf_infos_dir = Dir / "sf_infos_json"
 
 if not sf_infos_dir.exists():
     sf_infos_dir.mkdir()
+
 
 def print_memory():
     yellow, purple = "\033[93m%s\033[00m", "\033[95m%s\033[00m"

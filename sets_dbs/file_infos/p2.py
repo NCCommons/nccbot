@@ -5,6 +5,7 @@ from sets_dbs.file_infos.pages import get_files
 python3 core8/pwb.py fix_db/file_infos/p2 debug
 
 """
+
 import sys
 import json
 from pathlib import Path
@@ -43,6 +44,7 @@ def get_continues():
 def printdebug(s):
     if debug:
         printe.output(s)
+
 
 def one_rev(title, x):
     # ---

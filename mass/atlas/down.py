@@ -46,11 +46,11 @@ if not os.path.exists(root_folder):
 
 def remove_session_id_from_url(url):
     # Define a regular expression to match the session ID pattern
-    session_id_pattern = re.compile(r';jsessionid=[^?&]+')
+    session_id_pattern = re.compile(r";jsessionid=[^?&]+")
 
     # Use the regular expression to replace the session ID with an empty string
 
-    return session_id_pattern.sub('', url)
+    return session_id_pattern.sub("", url)
 
 
 # Function to download and save an image
@@ -59,7 +59,7 @@ def save_image(url, folder_name, file_name):
     response = requests.get(url, stream=True, timeout=10)
     image_path = os.path.join(folder_name, file_name)
 
-    with open(image_path, 'wb') as file:
+    with open(image_path, "wb") as file:
         for chunk in response.iter_content(chunk_size=128):
             file.write(chunk)
 
@@ -69,13 +69,13 @@ def process_disease_page(disease_url, disease_name):
     print(f"Processing disease page: {disease_url}")
 
     response = requests.get(disease_url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.text, "html.parser")
 
-    image_links = soup.find_all("a", class_='thumbWrapper')
+    image_links = soup.find_all("a", class_="thumbWrapper")
     images_info = {}
 
     for index, link in enumerate(image_links):
-        image_url = urljoin("https://www.atlasdermatologico.com.br/", link['href'])
+        image_url = urljoin("https://www.atlasdermatologico.com.br/", link["href"])
         image_url = remove_session_id_from_url(image_url)
 
         image_name = f"{disease_name} (Dermatology Atlas {index + 1}).jpg"
@@ -89,15 +89,15 @@ def scrape_data(url):
     print(f"Opening URL: {url}")
 
     response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.text, "html.parser")
 
-    disease_items = soup.find_all('li', class_='ui-datalist-item')
+    disease_items = soup.find_all("li", class_="ui-datalist-item")
 
     for item in disease_items:
-        disease_name = item.find('span', itemprop='name').get_text().strip()
+        disease_name = item.find("span", itemprop="name").get_text().strip()
         disease_name = disease_name.title()
 
-        disease_href = item.find("a")['href']
+        disease_href = item.find("a")["href"]
         disease_url = urljoin("https://www.atlasdermatologico.com.br/", disease_href)
         disease_url = remove_session_id_from_url(disease_url)
 

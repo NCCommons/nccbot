@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-
-"""
+""" """
 
 import sys
 import json
@@ -11,6 +9,7 @@ import pywikibot
 from api_bots import printe
 
 from api_bots.page_md import load_main_api
+
 main_api = load_main_api()
 api_new = main_api.NEW_API()
 
@@ -190,7 +189,14 @@ def import_history(FILE_PATH, title):
 
 
 def import_page(title):
-    params = {"action": "import", "format": "json", "interwikisource": "wikipedia", "interwikipage": title, "fullhistory": 1, "assignknownusers": 1}
+    params = {
+        "action": "import",
+        "format": "json",
+        "interwikisource": "wikipedia",
+        "interwikipage": title,
+        "fullhistory": 1,
+        "assignknownusers": 1,
+    }
     # ---
     r4 = post_s(params, addtoken=True)
     # ---
@@ -200,7 +206,19 @@ def import_page(title):
     return r4
 
 
-def page_put_new(NewText, summary, title, time_sleep="", family="", lang="", minor="", nocreate=1, tags="", returntrue=False, return_table=False):
+def page_put_new(
+    NewText,
+    summary,
+    title,
+    time_sleep="",
+    family="",
+    lang="",
+    minor="",
+    nocreate=1,
+    tags="",
+    returntrue=False,
+    return_table=False,
+):
     # ---
     printe.output(f" page_put {title}:")
     # ---
@@ -243,7 +261,20 @@ Save_2020 = {1: False}
 Save_2040 = {1: False}
 
 
-def page_put(oldtext="", newtext="", summary="", title="", time_sleep="", family="", lang="", minor="", nocreate=1, tags="", returntrue=False, diff=True):
+def page_put(
+    oldtext="",
+    newtext="",
+    summary="",
+    title="",
+    time_sleep="",
+    family="",
+    lang="",
+    minor="",
+    nocreate=1,
+    tags="",
+    returntrue=False,
+    diff=True,
+):
     # ---
     if not Save_2020[1] and "ask" in sys.argv and "save" not in sys.argv:
         if diff:
@@ -252,7 +283,9 @@ def page_put(oldtext="", newtext="", summary="", title="", time_sleep="", family
             except BaseException:
                 printe.output(" -mdwiki cant showDiff")
         printe.output(f" -Edit summary: {summary}:")
-        sa = py_input(f"<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Do you want to accept these changes? ([y]es, [N]o, [a]ll): for page {lang}:{title}.org")
+        sa = py_input(
+            f"<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Do you want to accept these changes? ([y]es, [N]o, [a]ll): for page {lang}:{title}.org"
+        )
         # ---
         if sa == "a":
             printe.output("<<lightgreen>> ---------------------------------")
@@ -264,7 +297,18 @@ def page_put(oldtext="", newtext="", summary="", title="", time_sleep="", family
             printe.output("wrong answer")
             return False
     # ---
-    return page_put_new(newtext, summary, title, time_sleep=time_sleep, family=family, lang=lang, minor=minor, nocreate=nocreate, tags=tags, returntrue=returntrue)
+    return page_put_new(
+        newtext,
+        summary,
+        title,
+        time_sleep=time_sleep,
+        family=family,
+        lang=lang,
+        minor=minor,
+        nocreate=nocreate,
+        tags=tags,
+        returntrue=returntrue,
+    )
 
 
 def Add_To_Bottom2(aptext, summary, title, poss="", family="", minor=""):
@@ -363,7 +407,14 @@ def create_Page(text, summary, title, ask, sleep=0, family="", duplicate4="", mi
     if sys.argv and "workibrahem" in sys.argv:
         params["summary"] = "+"
     # ---
-    sa = {"error": {"code": "articleexists", "info": "The article you tried to create has been created already.", "*": "See https://ar.wikipedia.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce&gt; for notice of API deprecations and breaking changes."}, "servedby": "mw1284"}
+    sa = {
+        "error": {
+            "code": "articleexists",
+            "info": "The article you tried to create has been created already.",
+            "*": "See https://ar.wikipedia.org/w/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce&gt; for notice of API deprecations and breaking changes.",
+        },
+        "servedby": "mw1284",
+    }
     Faco = False
     # ---
     if not Save_2040[1] and (ask or "ask" in sys.argv and "save" not in sys.argv):
@@ -433,7 +484,9 @@ def move(From, to, reason, lang="ar", nosleep=False, retry=True):
     JustMove = True
     # ---
     if not Save_2020[1] and "ask" in sys.argv:
-        sa = py_input(f"<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Do you move page:[[{lang}:{From}]] to [[{to}]]? ([y]es, [N]o, [a]ll)")
+        sa = py_input(
+            f"<<lightyellow>>mdwiki/mdpy/mdwiki_api.py: Do you move page:[[{lang}:{From}]] to [[{to}]]? ([y]es, [N]o, [a]ll)"
+        )
         # ---
         if sa == "a":
             printe.output("<<lightgreen>> ---------------------------------")
@@ -696,7 +749,9 @@ def subcatquery(title, depth=0, ns="all", limit=0, test=False, without_lang="", 
     # ---
     # if "printresult" in sys.argv: printe.output(result_table)
     # ---
-    printe.output(f"<<lightblue>>catdepth.py: find {len(result_table)} pages({str(ns)}) in :{title}, depth:{depth} in {delta} seconds")
+    printe.output(
+        f"<<lightblue>>catdepth.py: find {len(result_table)} pages({str(ns)}) in :{title}, depth:{depth} in {delta} seconds"
+    )
     # ---
     result_tab = list(result_table.keys())
     # ---
@@ -814,7 +869,14 @@ def Get_template_pages(title, namespace="*", limit="max"):
     # ---
     printe.output(f'Get_template_pages for template:"{title}", limit:"{limit}",namespace:"{namespace}"')
     # ---
-    params = {"action": "query", "prop": "info", "titles": title, "generator": "transcludedin", "gtinamespace": namespace, "gtilimit": limit}
+    params = {
+        "action": "query",
+        "prop": "info",
+        "titles": title,
+        "generator": "transcludedin",
+        "gtinamespace": namespace,
+        "gtilimit": limit,
+    }
     # ---
     Main_table = []
     gticontinue = "x"
@@ -929,7 +991,7 @@ def Get_UserContribs(user, limit="max", namespace="*", ucshow=""):
         "ucnamespace": namespace,
         "uclimit": limit,
         "ucuser": user,
-        "ucprop": "title"
+        "ucprop": "title",
         # "ucshow": "new"
     }
     # ---

@@ -8,6 +8,7 @@ python3 core8/pwb.py mass/radio/authors_list/usa_images ask
 tfj run usaimages1 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/authors_list/usa_images"
 
 """
+
 import sys
 from mass.radio.authors_list.usa import get_usa_auths
 
@@ -37,7 +38,7 @@ def add_pd_to_images(not_in_pd: list) -> None:
         if not image.startswith("File:"):
             continue
         # ---
-        page = ncc_MainPage(image, 'www', family='nccommons')
+        page = ncc_MainPage(image, "www", family="nccommons")
         text = page.get_text()
         # ---
         new_text = text
@@ -69,7 +70,9 @@ def get_cats_images(cats: list) -> list:
     result = {}
     # ---
     for cat in cats:
-        cat_members = CatDepth(cat, sitecode='www', family="nccommons", depth=1, onlyns=6, tempyes=["Template:PD-medical"])
+        cat_members = CatDepth(
+            cat, sitecode="www", family="nccommons", depth=1, onlyns=6, tempyes=["Template:PD-medical"]
+        )
         # ---
         result.update(cat_members)
     # ---
@@ -89,7 +92,7 @@ def one_auth_wrk(auth: str, auth_cats: list) -> None:
     # print(all_auth_images)
 
     # images has "Template:PD-medical" in thir "templates"
-    in_pd = {image: va for image, va in all_auth_images.items() if "Template:PD-medical" in va['templates']}
+    in_pd = {image: va for image, va in all_auth_images.items() if "Template:PD-medical" in va["templates"]}
     printe.output(f"\tin_pd: {len(in_pd)}")
 
     # images not in in_pd
@@ -119,7 +122,7 @@ def test() -> None:
     start(usa_auths)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if "test" in sys.argv:
         test()
         exit()

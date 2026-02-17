@@ -137,7 +137,9 @@ def do_ask(text, file_name):
     return True
 
 
-def upload_by_url(file_name, text, url, comment="", return_file_name=False, do_ext=False, code="en", family="wikipedia"):
+def upload_by_url(
+    file_name, text, url, comment="", return_file_name=False, do_ext=False, code="en", family="wikipedia"
+):
     """
 
     Uploads a file to Wikipedia using a URL.

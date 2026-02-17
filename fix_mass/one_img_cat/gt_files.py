@@ -3,6 +3,7 @@
 from fix_mass.one_img_cat.gt_files import from_files_g, work_get_files_data, count_files, count_files_true
 
 """
+
 import json
 import tqdm
 from pathlib import Path
@@ -109,6 +110,7 @@ def work_get_files_data():
     # ---
     return lisst_of_s
 
+
 if __name__ == "__main__":
     # python3 core8/pwb.py fix_mass/one_img_cat/gt_files
     # ---
@@ -121,4 +123,4 @@ if __name__ == "__main__":
     # ---
     for _, ma, counts in fos:
         print(f"{ma=}, {counts=}")
-        print(count_files_true('', ma, counts=counts))
+        print(count_files_true("", ma, counts=counts))

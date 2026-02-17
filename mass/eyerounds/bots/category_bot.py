@@ -14,10 +14,7 @@ def create_category(cat, chapter_url, pages) -> str:
     # ---
     cat_title = f"Category:{cat}"
     # ---
-    cat_text = (
-        f"* Case url: [{chapter_url} here].\n"
-        "[[Category:EyeRounds]]"
-    )
+    cat_text = f"* Case url: [{chapter_url} here].\n" "[[Category:EyeRounds]]"
     # ---
     if "nocat" in sys.argv:
         return cat_title

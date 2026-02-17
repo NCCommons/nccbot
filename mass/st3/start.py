@@ -18,6 +18,7 @@ tfj run gnr5 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core
 tfj run gnr6 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/st3/start get:6 mdwiki"
 
 """
+
 import sys
 import psutil
 import tqdm
@@ -81,7 +82,9 @@ def ddo(taba):
         num = i // length + 1
         tabs[str(num)] = dict(list(ids_tabs.items())[i : i + length])
         # print(f'tab {num} : {len(tabs[str(num)])}')
-        print(f'tfj run mnx{num} --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/st3/start get:{num} {len(tabs[str(num)])}"')
+        print(
+            f'tfj run mnx{num} --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/st3/start get:{num} {len(tabs[str(num)])}"'
+        )
 
     for arg in sys.argv:
         arg, _, value = arg.partition(":")

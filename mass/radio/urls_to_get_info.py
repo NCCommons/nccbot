@@ -1,8 +1,8 @@
-'''
+"""
 
 python3 core8/pwb.py mass/radio/urls_to_get_info
 
-'''
+"""
 
 import os
 import psutil
@@ -30,11 +30,11 @@ urls_to_get_info -= already_done_urls
 print(f"Already done: {already_done}, Length of urls_to_get_info: {len(urls_to_get_info)}")
 
 # Step 4: Save the dictionary to a JSON file
-dump_json_file('jsons/urls_to_get_info.json', list(urls_to_get_info), False)
+dump_json_file("jsons/urls_to_get_info.json", list(urls_to_get_info), False)
 # dumps_jsons(urls_to_get_info=1)
 
 print("Step 5: Saved urls_to_get_info dictionary to jsons.")
 
 usage = psutil.Process(os.getpid()).memory_info().rss
-print(f'memory usage: psutil {usage / 1024 / 1024} MB')
+print(f"memory usage: psutil {usage / 1024 / 1024} MB")
 # memory usage: psutil 253.40234375 MB

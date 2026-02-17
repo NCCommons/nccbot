@@ -16,17 +16,19 @@ from nccommons import api
 # ---
 import sys
 import time
+
 # ---
 from api_bots import printe
 from nccommons import api_upload
 from api_bots.page_ncc import NEW_API
 
-api_new = NEW_API('www', family='nccommons')
+api_new = NEW_API("www", family="nccommons")
 # api_new.Login_to_wiki()
 # ---
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 # ---
 Save_all = {1: False}
+
 
 def py_input(s):
     printe.output(s)
@@ -34,23 +36,32 @@ def py_input(s):
     # ---
     return sa
 
+
 def do_post(params):
     # ---
-    params['format'] = 'json'
-    params['utf8'] = 1
+    params["format"] = "json"
+    params["utf8"] = 1
     # ---
     json1 = api_new.post_params(params, addtoken=True)
     # ---
     return json1
 
-def Get_All_pages(start, namespace="0", limit="max", apfilterredir='', limit_all=0):
-    return api_new.Get_All_pages(start=start, namespace=namespace, limit=limit, apfilterredir=apfilterredir, limit_all=limit_all)
 
-def upload_by_url(file_name, text, url, comment='', return_file_name=False, do_ext=False):
-    return api_upload.upload_by_url(file_name, text, url, comment=comment, return_file_name=return_file_name, do_ext=do_ext)
+def Get_All_pages(start, namespace="0", limit="max", apfilterredir="", limit_all=0):
+    return api_new.Get_All_pages(
+        start=start, namespace=namespace, limit=limit, apfilterredir=apfilterredir, limit_all=limit_all
+    )
+
+
+def upload_by_url(file_name, text, url, comment="", return_file_name=False, do_ext=False):
+    return api_upload.upload_by_url(
+        file_name, text, url, comment=comment, return_file_name=return_file_name, do_ext=do_ext
+    )
+
 
 def upload_by_file(file_name, text, url, comment="", code="en", family="wikipedia"):
     return api_upload.upload_by_file(file_name, text, url, comment=comment, code=code, family=family)
+
 
 def create_Page(text, title, summary="create page"):
     printe.output(f" create Page {title}:")
@@ -59,9 +70,9 @@ def create_Page(text, title, summary="create page"):
     params = {"action": "edit", "title": title, "text": text, "summary": summary, "notminor": 1, "createonly": 1}
     # ---
     if not Save_all[1] and ("ask" in sys.argv and "save" not in sys.argv):
-        if 'nodiff' not in sys.argv:
+        if "nodiff" not in sys.argv:
             printe.output(text)
-        sa = py_input(f"<<lightyellow>> nccommons.py: create:\"{title}\" page ? ([y]es, [N]o)")
+        sa = py_input(f'<<lightyellow>> nccommons.py: create:"{title}" page ? ([y]es, [N]o)')
         # ---
         if sa.strip() not in yes_answer:
             printe.output("<<lightred>> wrong answer")
@@ -80,7 +91,7 @@ def create_Page(text, title, summary="create page"):
     # ---
     success = upload_result.get("result") == "Success"
     error = result.get("error", {})
-    error_code = result.get("error", {}).get("code", '')
+    error_code = result.get("error", {}).get("code", "")
     # ---
     if success:
         printe.output(f"** true ..  [[{title}]] ")
@@ -98,8 +109,10 @@ def create_Page(text, title, summary="create page"):
     # ---
     return False
 
+
 def Find_pages_exists_or_not(liste):
     return api_new.Find_pages_exists_or_not(liste)
 
-if __name__ == '__main__':
-    print(Get_All_pages('', limit='10', limit_all=10))
+
+if __name__ == "__main__":
+    print(Get_All_pages("", limit="10", limit_all=10))

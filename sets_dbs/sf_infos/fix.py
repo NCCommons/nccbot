@@ -5,6 +5,7 @@ python3 core8/pwb.py sets_dbs/sf_infos/fix
 tfj run --mem 1Gi fix --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py sets_dbs/sf_infos/fix new"
 
 """
+
 import os
 import tqdm
 import sys

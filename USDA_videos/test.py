@@ -11,10 +11,7 @@ DEVELOPER_KEY = input("Enter your YouTube Data API key: ")
 
 youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=DEVELOPER_KEY)
 
-request = youtube.channels().list(
-    part="id,snippet",
-    id="UCUSDAAPHIS"
-)
+request = youtube.channels().list(part="id,snippet", id="UCUSDAAPHIS")
 response = request.execute()
 
 print(response)

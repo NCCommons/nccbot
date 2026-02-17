@@ -17,7 +17,9 @@ def geo():
     print(f"length of jsons.cases_in_ids: {len(jsons.cases_in_ids)} ")
     already = 0
 
-    cases = CatDepth("Category:Radiopaedia images by case", sitecode="www", family="nccommons", depth=0, ns="14")  # 8068 cat before me
+    cases = CatDepth(
+        "Category:Radiopaedia images by case", sitecode="www", family="nccommons", depth=0, ns="14"
+    )  # 8068 cat before me
 
     reg = r"^Category:Radiopaedia case (\d+) (.*?)$"
     # ---
@@ -32,7 +34,9 @@ def geo():
             # ---
             if case_id in new_cases_in:
                 already += 1
-                print(f"already:{already}, case_id {case_id} already in new_cases_in ({case_title}, {new_cases_in[case_id]})")
+                print(
+                    f"already:{already}, case_id {case_id} already in new_cases_in ({case_title}, {new_cases_in[case_id]})"
+                )
             # ---
             new_cases_in[case_id] = case_title
             # ---

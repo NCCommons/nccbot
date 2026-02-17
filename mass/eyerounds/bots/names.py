@@ -9,7 +9,6 @@ import sys
 from api_bots import printe
 
 
-
 def get_image_extension(image_url) -> tuple:
     # Split the URL to get the filename and extension
     _, filename = os.path.split(image_url)
@@ -35,6 +34,7 @@ def make_file(image_name, image_url) -> str:
     image_name = f"{image_name}.{extension}"
     image_name = image_name.replace("..", ".")
     return image_name
+
 
 def make_files_names(img_infos, numb) -> dict:
     names = {}

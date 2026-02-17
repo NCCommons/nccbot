@@ -4,6 +4,7 @@ from mass.eyerounds.bots.catbot import category_name
 python3 core8/pwb.py mass/eyerounds/bots/catbot
 
 """
+
 import re
 import json
 from pathlib import Path

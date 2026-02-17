@@ -1,13 +1,16 @@
-'''
+"""
 
 python3 core8/pwb.py mass/radio/geturlsnew
 
-'''
+"""
+
 import requests
 from bs4 import BeautifulSoup
 from api_bots import printe
+
 # ---
-from mass.radio.jsons_files import jsons, dump_json_file#, ids_to_urls, urls_to_ids
+from mass.radio.jsons_files import jsons, dump_json_file  # , ids_to_urls, urls_to_ids
+
 # dumps_jsons(infos=0, urls=0, cases_in_ids=0, cases_dup=0, authors=0, to_work=0, all_ids=0, urls_to_get_info=0, systems=0)
 # ---
 systems = [
@@ -30,7 +33,7 @@ systems = [
     "Trauma",  # 171
     "Urogenital",  # 221
     "Vascular",  # 180
-    "Not Applicable"  # 7
+    "Not Applicable",  # 7
 ]
 # ---
 length_of_systems = {
@@ -53,7 +56,7 @@ length_of_systems = {
     "Trauma": 171,
     "Urogenital": 221,
     "Vascular": 180,
-    "Not Applicable": 7
+    "Not Applicable": 7,
 }
 # ---
 
@@ -70,7 +73,7 @@ def get_urls_system(system, only_one=False, return_tab=False, len_all=0):
     # ---
     # url = f'https://radiopaedia.org/search?lang=us&page=1&scope=cases&sort=title&system={sys2}'
     # url = f'https://radiopaedia.org/search?lang=us&page=1&scope=cases&sort=date_of_publication&system={sys2}'
-    url = f'https://radiopaedia.org/search?lang=us&page=1&scope=cases&sort=completeness&system={sys2}'
+    url = f"https://radiopaedia.org/search?lang=us&page=1&scope=cases&sort=completeness&system={sys2}"
     # ---
     tat = {}
     # ---
@@ -85,18 +88,18 @@ def get_urls_system(system, only_one=False, return_tab=False, len_all=0):
         if response.status_code == 200:
 
             # Step 2: Parse the HTML content
-            soup = BeautifulSoup(response.content, 'html.parser')
+            soup = BeautifulSoup(response.content, "html.parser")
             # find  <a class="next_page" aria-label="Next page" rel="next" href="/search?lang=us&amp;page=2&amp;scope=cases&amp;sort=title&amp;system=Spine">Next &#8594;</a>
-            next_page = soup.find("a", class_='next_page')
+            next_page = soup.find("a", class_="next_page")
             if next_page:
-                url = "https://radiopaedia.org" + next_page.get('href').strip()
+                url = "https://radiopaedia.org" + next_page.get("href").strip()
             else:
                 url = None
             # ---
             if n == 1 and only_one:
                 # find len of search results
                 # <div role="navigation" aria-label="Pagination" class="pagination clear">
-                pagination = soup.find('div', role='navigation', class_='pagination clear')
+                pagination = soup.find("div", role="navigation", class_="pagination clear")
                 # ---
                 last_href = 0
                 # ---
@@ -109,32 +112,26 @@ def get_urls_system(system, only_one=False, return_tab=False, len_all=0):
                 print(f"last_href: {last_href}")
                 return last_href
             # ---
-            links = soup.find_all("a", class_='search-result search-result-case')
+            links = soup.find_all("a", class_="search-result search-result-case")
             # ---
             for link in links:
                 # ---
-                href = link.get('href').strip()
-                href = href.replace('?lang=us', '')
-                href = f'https://radiopaedia.org{href}'
+                href = link.get("href").strip()
+                href = href.replace("?lang=us", "")
+                href = f"https://radiopaedia.org{href}"
                 # ---
-                title = link.find('h4', class_='search-result-title-text').text.strip()
+                title = link.find("h4", class_="search-result-title-text").text.strip()
                 # ---
-                author = ''
+                author = ""
                 # <div class="search-result-author"><span>Henry Knipe</span></div>
-                au = link.find('div', class_='search-result-author')
+                au = link.find("div", class_="search-result-author")
                 if au:
-                    author = au.text.strip() or ''
+                    author = au.text.strip() or ""
                 # ---
                 # <span class="published">Published 15 Oct 2015</span>
-                published = link.find('span', class_='published').text.replace('Published ', '').strip()
+                published = link.find("span", class_="published").text.replace("Published ", "").strip()
                 # ---
-                tab = {
-                    "title": title,
-                    "system": system,
-                    "author": author,
-                    "published": published,
-                    "url": href
-                }
+                tab = {"title": title, "system": system, "author": author, "published": published, "url": href}
                 # ---
                 jsons.infos[href] = tab
                 # ---
@@ -172,15 +169,15 @@ def main():
         if new:
             jsons.urls.update(new)
         # ---
-        dump_json_file('jsons/urls.json', jsons.urls, False)
-        dump_json_file('jsons/infos.json', jsons.infos, False)
+        dump_json_file("jsons/urls.json", jsons.urls, False)
+        dump_json_file("jsons/infos.json", jsons.infos, False)
         # ---
         jsons.systems[system] = True
         # dump
-        dump_json_file('jsons/systems.json', jsons.systems, False)
+        dump_json_file("jsons/systems.json", jsons.systems, False)
     # ---
-    dump_json_file('jsons/urls.json', jsons.urls, False)
-    dump_json_file('jsons/infos.json', jsons.infos, False)
+    dump_json_file("jsons/urls.json", jsons.urls, False)
+    dump_json_file("jsons/infos.json", jsons.infos, False)
     # ---
 
 

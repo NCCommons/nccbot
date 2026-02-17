@@ -8,6 +8,7 @@ jsons.ids
 jsons.all_ids
 
 """
+
 # ---
 from mass.radio.jsons_files import jsons, dump_json_file, urls_to_ids
 
@@ -34,15 +35,7 @@ for caseId, v in jsons.ids.items():
         all_ids[caseId] = v
         add += 1
 # ---
-params = {
-    "caseId": 0,
-    "title": "",
-    "studies": [],
-    "url": "",
-    "system": "",
-    "author": "",
-    "published": ""
-}
+params = {"caseId": 0, "title": "", "studies": [], "url": "", "system": "", "author": "", "published": ""}
 # ---
 added_key = 0
 # ---

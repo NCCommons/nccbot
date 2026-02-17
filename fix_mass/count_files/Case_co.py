@@ -5,6 +5,7 @@ python3 c8/pwb.py fix_mass/count_files/Case_co
 
 
 """
+
 import sys
 import os
 import json
@@ -19,6 +20,7 @@ from fix_mass.dir_studies_bot import studies_dir
 # ---
 try:
     import pywikibot
+
     pywikibotoutput = pywikibot.output
 except ImportError:
     pywikibotoutput = print

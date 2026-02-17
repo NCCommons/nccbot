@@ -29,7 +29,7 @@ def doo():
     for n, (album_id, tab) in enumerate(data.items(), start=1):
         # tab = { "url": "https://www.flickr.com/photos/usaid_images/albums/72157623336842886/", "title": "USAID Administrator Rajiv Shah", "images": [], "photo_count": 11 }
         # ---
-        url   = tab["url"]
+        url = tab["url"]
         title = tab["title"]
         count = tab["photo_count"]
         # ---
@@ -44,14 +44,7 @@ def doo():
         text += f"| [{url} {album_id}]\n"  # + '|| {{#ifexist:' + x2 + '|1|0}}\n'
         text += f"| {count}\n"
     # ---
-    text += (
-        "|-\n"
-        "! #\n"
-        "! \n"
-        "! \n"
-        "! \n"
-        f"! {all_images}\n"
-    )
+    text += "|-\n" "! #\n" "! \n" "! \n" "! \n" f"! {all_images}\n"
     # ---
     text += "|}"
     text += "\n[[Category:USAID|*]]"
@@ -64,6 +57,7 @@ def doo():
         page.save(newtext=text, summary="update", nocreate=0, minor="")
     else:
         printe.output("<<lightyellow>> No changes")
+
 
 if __name__ == "__main__":
     # Process all subfolders in the specified root folder

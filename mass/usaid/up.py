@@ -25,8 +25,28 @@ from mass.usaid.bots.names import make_files_names
 # Specify the root folder
 main_dir = Path(__file__).parent
 
-pages_images = CatDepth("Category:USAID images", sitecode="www", family="nccommons", depth=0, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
-pages = CatDepth("Category:USAID", sitecode="www", family="nccommons", depth=0, ns="all", nslist=[], without_lang="", with_lang="", tempyes=[])
+pages_images = CatDepth(
+    "Category:USAID images",
+    sitecode="www",
+    family="nccommons",
+    depth=0,
+    ns="all",
+    nslist=[],
+    without_lang="",
+    with_lang="",
+    tempyes=[],
+)
+pages = CatDepth(
+    "Category:USAID",
+    sitecode="www",
+    family="nccommons",
+    depth=0,
+    ns="all",
+    nslist=[],
+    without_lang="",
+    with_lang="",
+    tempyes=[],
+)
 time.sleep(1)
 print("time.sleep(1)")
 

@@ -5,6 +5,7 @@ python3 core8/pwb.py fix_sets/bots/get_img_info
 from fix_sets.bots.get_img_info import one_img_info
 
 """
+
 import sys
 import re
 import json

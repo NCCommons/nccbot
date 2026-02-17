@@ -11,6 +11,7 @@ from mass.radio.authors_list import auths_cats
 # auth_cats = auths_cats.get_auth_cats(id2cat, auth)
 
 """
+
 import sys
 import json
 from pathlib import Path

@@ -1,4 +1,4 @@
-'''
+"""
 
 1. open url https://openpress.usask.ca/undergradimaging/
 2. match all <p class="toc__title">
@@ -12,7 +12,7 @@ like:(
 
 python3 I:/ncc/nccbot/mass/usask/geturls.py
 python3 core8/pwb.py mass/usask/geturls
-'''
+"""
 
 import requests
 from bs4 import BeautifulSoup
@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 Dir = Path(__file__).parent
-urlsfile = os.path.join(str(Dir), 'urls.json')
+urlsfile = os.path.join(str(Dir), "urls.json")
 
 url = "https://openpress.usask.ca/undergradimaging/"
 
@@ -38,15 +38,15 @@ if response.status_code != 200:
     sys.exit()
 
 # Step 2: Parse the HTML content
-soup = BeautifulSoup(response.text, 'html.parser')
+soup = BeautifulSoup(response.text, "html.parser")
 print("Step 2: Parsed the HTML content.")
 
 # Step 3 and 4: Extract href and title, and add to the dictionary
 urls_dict = {}
-for p_tag in soup.find_all('p', class_='toc__title'):
+for p_tag in soup.find_all("p", class_="toc__title"):
     if a_tag := p_tag.find("a"):
         title = a_tag.text.strip()
-        href = a_tag['href']
+        href = a_tag["href"]
         urls_dict[title] = {"url": href, "images": {}}
         print(f"Step 3-4: Extracted href and title - Title: {title}, Href: {href}")
 

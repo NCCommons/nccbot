@@ -11,6 +11,7 @@ tfj run mnt6 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core
 python3 core8/pwb.py mass/radio/st3sort/do nomulti
 
 """
+
 import os
 import sys
 
@@ -26,6 +27,7 @@ from fix_mass.dir_studies_bot import studies_urls_to_files_dir
 from mass.radio.jsons_bot import radio_jsons_dir
 
 main_dir = Path(__file__).parent.parent.parent
+
 
 def do_it(va):
     # ---

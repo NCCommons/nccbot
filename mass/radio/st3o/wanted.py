@@ -6,6 +6,7 @@ python3 core8/pwb.py mass/st3/wanted nomulti ask
 python3 core8/pwb.py mass/st3/wanted nomulti add_category
 
 """
+
 import sys
 import re
 
@@ -14,7 +15,7 @@ from api_bots.page_ncc import NEW_API
 from mass.st3.start import main_by_ids
 
 # ---
-api_new = NEW_API('www', family='nccommons')
+api_new = NEW_API("www", family="nccommons")
 # api_new.Login_to_wiki()
 # ---
 
@@ -22,7 +23,7 @@ api_new = NEW_API('www', family='nccommons')
 def titles_to_ids(titles):
     cases = []
     # ---
-    reg = r'^Category:Radiopaedia case (\d+) (.*?)$'
+    reg = r"^Category:Radiopaedia case (\d+) (.*?)$"
     # ---
     for cat in titles:
         match = re.match(reg, cat)
@@ -44,7 +45,7 @@ if "unused" in sys.argv:
 # ---
 cats = api_new.querypage_list(qppage=prop, qplimit="max", Max=5000)
 # ---
-cats = [x['title'] for x in cats]
+cats = [x["title"] for x in cats]
 # ---
 print(f"len cats: {len(cats)}")
 # ---

@@ -4,10 +4,11 @@ python3 core8/pwb.py mass/radio/delc ask diff
 
 
 """
+
 import re
 from api_bots.page_ncc import ncc_MainPage
 
-cats = '''
+cats = """
     Category:Radiopaedia case 9951 Negative ulnar variance
     Category:Radiopaedia case 11146 Abdominal CSF pseudocyst
     Category:Radiopaedia case 11159 Achilles tendon rupture
@@ -41,7 +42,7 @@ cats = '''
     Category:Radiopaedia case 80949 Normal wrist alignment, dorsal and volar intercalated segmental instability (illustration)
     Category:Radiopaedia case 90395 Cerebellar vermis (illustration)
     Category:Radiopaedia case 11276 Cardiac pacemaker
-    '''
+    """
 # ---
 cats = [x.strip() for x in cats.split("\n") if x.strip()]
 # ---

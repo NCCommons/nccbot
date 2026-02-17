@@ -12,7 +12,7 @@ root_folder = atlas_images_path
 
 
 def get_info(root):
-    info_file_path = os.path.join(root, 'info.json')
+    info_file_path = os.path.join(root, "info.json")
 
     # Read information from info.json
     with open(info_file_path, "r", encoding="utf-8") as info_file:
@@ -38,19 +38,19 @@ def process_folders(_folder):
 
     all_diseases = dict(sorted(all_diseases.items(), key=lambda x: x[1], reverse=True))
 
-    text = '{| class="wikitable sortable"\n|-\n' + '! # !! Category !! Image set !! Number of images\n|-\n'
+    text = '{| class="wikitable sortable"\n|-\n' + "! # !! Category !! Image set !! Number of images\n|-\n"
     for n, (x, count) in enumerate(all_diseases.items(), start=1):
-        text += f'! {n}\n'
-        text += f'| [[:Category:{x}]]\n'  # + ' ||{{#ifexist:Category:' + x + '|1|0}}\n'
-        text += f'| [[{x}]]\n'  # + '|| {{#ifexist:' + x + '|1|0}}\n'
-        text += f'| {count}\n'
-        text += '|-\n'
+        text += f"! {n}\n"
+        text += f"| [[:Category:{x}]]\n"  # + ' ||{{#ifexist:Category:' + x + '|1|0}}\n'
+        text += f"| [[{x}]]\n"  # + '|| {{#ifexist:' + x + '|1|0}}\n'
+        text += f"| {count}\n"
+        text += "|-\n"
 
-    text += '|}'
+    text += "|}"
 
-    page = ncc_MainPage('User:Mr._Ibrahem/Atlasdermatologico', 'www', family='nccommons')
+    page = ncc_MainPage("User:Mr._Ibrahem/Atlasdermatologico", "www", family="nccommons")
     # ---
-    page.save(newtext=text, summary='update', nocreate=0, minor='')
+    page.save(newtext=text, summary="update", nocreate=0, minor="")
 
 
 if __name__ == "__main__":

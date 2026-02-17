@@ -310,7 +310,7 @@ ids = """
     98093
 """
 # ---
-ids = [ x.strip() for x in ids.split("\n") if x.strip() ]
+ids = [x.strip() for x in ids.split("\n") if x.strip()]
 # ---
 print(f"len ids: {len(ids)}")
 # ---

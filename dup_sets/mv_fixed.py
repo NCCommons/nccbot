@@ -5,6 +5,7 @@ python3 core8/pwb.py dup_sets/mv_fixed
 tfj run dup --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py dup_sets/mv_fixed multi"
 
 """
+
 import sys
 import tqdm
 from multiprocessing import Pool

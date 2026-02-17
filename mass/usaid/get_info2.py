@@ -16,7 +16,7 @@ from pathlib import Path
 main_dir = Path(__file__).parent
 albums_file = main_dir / "jsons/albums.json"
 
-api_key = ''
+api_key = ""
 # read api key from .env
 with open(main_dir / ".env", "r") as file:
     for line in file:
@@ -83,7 +83,9 @@ def extract_infos_from_url(x):
             "ispublic": 1,
             "isfriend": 0,
             "isfamily": 0,
-            "description": {"_content": "Ventilators provided by the U.S. Government are packaged prior to being shipped to El Salvador to assist the country with their ongoing COVID-19 response."},
+            "description": {
+                "_content": "Ventilators provided by the U.S. Government are packaged prior to being shipped to El Salvador to assist the country with their ongoing COVID-19 response."
+            },
             "url_o": "https://live.staticflickr.com/65535/49945886736_620b5ec5d2_o.jpg",
             "height_o": 7379,
             "width_o": 4922,

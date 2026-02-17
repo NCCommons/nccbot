@@ -1,6 +1,7 @@
 """
 from fix_mass.files import studies_titles, studies_titles2, study_to_case_cats, study_id_to_case_id
 """
+
 import json
 import os
 from pathlib import Path

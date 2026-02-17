@@ -1,4 +1,4 @@
-'''
+"""
 
 $HOME/local/bin/python3 core8/pwb.py mass/radio/authors_list/usa nomulti updatetext ask
 
@@ -8,7 +8,8 @@ tfj run tab2 --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core
 from mass.radio.authors_list.usa import get_usa_auths()
 # usa_auths = get_usa_auths()
 
-'''
+"""
+
 import re
 import sys
 import json
@@ -21,10 +22,10 @@ from mass.st3.start import main_by_ids
 # ---
 main_dir = Path(__file__).parent
 # ---
-with open(main_dir / 'authors_infos.json', "r", encoding="utf-8") as f:
+with open(main_dir / "authors_infos.json", "r", encoding="utf-8") as f:
     authors_infos = json.load(f)
 # ---
-with open(main_dir / 'authors_to_cases.json', "r", encoding="utf-8") as f:
+with open(main_dir / "authors_to_cases.json", "r", encoding="utf-8") as f:
     authors_to_cases = json.load(f)
 # ---
 
@@ -43,7 +44,7 @@ def work(tab):
 
 
 def get_usa_auths():
-    usa_auths = [k for k, v in authors_infos.items() if 'united states' in v['location'].lower()]
+    usa_auths = [k for k, v in authors_infos.items() if "united states" in v["location"].lower()]
     print(f"len usa_auths: {len(usa_auths)}")
     # ---
     return usa_auths
@@ -73,5 +74,5 @@ def sa():
         work(tab)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sa()

@@ -6,6 +6,7 @@ python3 core8/pwb.py mass/radio/authors_list/bot
 tfj run auths --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py mass/radio/authors_list/bot && $HOME/local/bin/python3 core8/pwb.py mass/radio/authors_list/save"
 
 """
+
 import sys
 import json
 from pathlib import Path

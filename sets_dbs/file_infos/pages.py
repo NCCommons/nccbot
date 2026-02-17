@@ -4,6 +4,7 @@ from sets_dbs.file_infos.pages import get_files
 
 
 """
+
 import sys
 import json
 from pathlib import Path
@@ -23,6 +24,7 @@ len_all_files = 0
 def dump_continues(params_continue):
     with open(Dir / "params_continue.json", "w", encoding="utf-8") as f:
         json.dump(params_continue, f, indent=2)
+
 
 def one_rev(title, x):
     # ---
@@ -106,7 +108,13 @@ def get_files(params_continue=None):
                 "revid": 3777248,
                 "parentid": 0,
                 "timestamp": "2024-02-06T12:49:27Z",
-                "slots": {"main": {"contentmodel": "wikitext", "contentformat": "text/x-wiki", "content": "== {{int:summary}} ==..."}},
+                "slots": {
+                    "main": {
+                        "contentmodel": "wikitext",
+                        "contentformat": "text/x-wiki",
+                        "content": "== {{int:summary}} ==...",
+                    }
+                },
             }
         ],
         "title": "File:État criblé with acute on chronic ischemia and amyloid angiopathy (Radiopaedia 35335-36839 Axial 3).jpg",

@@ -10,14 +10,14 @@ import pandas as pd
 from tqdm import tqdm
 
 # Connect to SQLite database
-conn_sqlite = sqlite3.connect('fs_infos_duplict1.sqlite')
+conn_sqlite = sqlite3.connect("fs_infos_duplict1.sqlite")
 
 # Get total number of rows
 total_rows = pd.read_sql_query("SELECT COUNT(*) FROM infos", conn_sqlite).iloc[0, 0]
 print("Total rows in SQLite database:", total_rows)
 
 # Create a file to store the SQL dump
-with open('backup.sql', 'w') as f:
+with open("backup.sql", "w") as f:
     # Write table creation statement
     f.write("CREATE TABLE infos (url TEXT, urlid TEXT, file TEXT);\n")
 
@@ -28,7 +28,10 @@ with open('backup.sql', 'w') as f:
         start = i * chunk_size
         end = (i + 1) * chunk_size
         df = pd.read_sql_query(f"SELECT * FROM infos LIMIT {start}, {chunk_size}", conn_sqlite)
-        insert_statements = df.apply(lambda row: f"INSERT INTO infos (url, urlid, file) VALUES ('{row['url']}', '{row['urlid']}', '{row['file']}');\n", axis=1)
+        insert_statements = df.apply(
+            lambda row: f"INSERT INTO infos (url, urlid, file) VALUES ('{row['url']}', '{row['urlid']}', '{row['file']}');\n",
+            axis=1,
+        )
         f.writelines(insert_statements)
 
 # Close connection

@@ -1,6 +1,7 @@
 """
 from images_path import atlas_images_path
 """
+
 import os
 from pathlib import Path
 

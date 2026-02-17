@@ -3,6 +3,7 @@
 python3 core8/pwb.py mass/radio/authors_list/auths_by_location
 from mass.radio.authors_list.auths_by_location import locations
 """
+
 import json
 import tqdm
 from pathlib import Path

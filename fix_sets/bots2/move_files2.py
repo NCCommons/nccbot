@@ -3,16 +3,19 @@ s
 from fix_sets.bots.move_files2 import to_move_work
 
 """
+
 import re
+
 # import json
 import sys
 from api_bots import printe
 from api_bots.page_ncc import NEW_API
-from fix_sets.jsons_dirs import get_study_dir#, jsons_dir
+from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
 from logs_fix.files import move_text_dir
 
 api_new = NEW_API()
 # api_new.Login_to_wiki()
+
 
 def change_names(file_dict, ty, study_id):
     modified_file_dict = {}

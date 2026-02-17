@@ -4,6 +4,7 @@
 from mass.radio.authors_list.auths_infos import get_author_infos
 
 '''
+
 import requests
 import sys
 from bs4 import BeautifulSoup
@@ -25,7 +26,7 @@ def get_soup(url):
     # ---
     # Step 2: Parse the HTML content
     try:
-        soup = BeautifulSoup(response.content, 'html.parser')
+        soup = BeautifulSoup(response.content, "html.parser")
     except Exception as e:
         print(f"Error parsing HTML content: {e}")
         return
@@ -40,11 +41,7 @@ def get_user_infos(url):
     """Return:
         - user_info: A dictionary containing the user's URL and location."""
     # ---
-    user_info = {
-        "url": "",
-        "location": "",
-        "cases": 0
-    }
+    user_info = {"url": "", "location": "", "cases": 0}
     # ---
     if "empty" in sys.argv:
         return user_info
@@ -58,11 +55,11 @@ def get_user_infos(url):
     # ---
     # <div class="author-info">Case contributed by <a href="/users/frank?lang=us">Frank Gaillard</a>        </div>
     user_url = ""
-    div = soup.find('div', class_='author-info')
+    div = soup.find("div", class_="author-info")
     if div:
         a = div.find("a")
         if a:
-            user_url = a.get('href')
+            user_url = a.get("href")
             if user_url and user_url.startswith("/"):
                 user_url = f"https://radiopaedia.org{user_url}"
     # ---
@@ -70,7 +67,7 @@ def get_user_infos(url):
         soup2 = get_soup(user_url)
         if soup2:
             # <dd class="institution-and-location">Melbourne, Australia</dd>
-            dd = soup2.find('dd', class_='institution-and-location')
+            dd = soup2.find("dd", class_="institution-and-location")
             if dd:
                 location = dd.text.strip()
     # ---
@@ -92,11 +89,7 @@ def get_author_infos(auth, first_case_url):
     # ---
     printe.output(f"<<yellow>> get_author_infos:{auth=}, {first_case_url=}")
     # ---
-    info = {
-        "url": "",
-        "location": "",
-        "cases": 0
-    }
+    info = {"url": "", "location": "", "cases": 0}
     # ---
     na = get_user_infos(first_case_url)
     # ---

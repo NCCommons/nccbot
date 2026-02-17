@@ -12,6 +12,7 @@ python3 core8/pwb.py fix_mass/one_img_cat/bot1 ask
 إضافة تصنيف إلى الصفحات التي بها صورة واحدة فقط
 
 """
+
 import sys
 from pathlib import Path
 from api_bots import printe

@@ -39,7 +39,10 @@ def doo():
         #     names[name] += 1
 
     done = {}
-    text = '{| class="wikitable sortable"\n|-\n' + "! # !! Category !! Image set !! Case number !! Url !! Number of images\n"
+    text = (
+        '{| class="wikitable sortable"\n|-\n'
+        + "! # !! Category !! Image set !! Case number !! Url !! Number of images\n"
+    )
 
     # ---
     def background_color(numb):
@@ -85,15 +88,7 @@ def doo():
         text += f"| [{url} ]\n"  # + '|| {{#ifexist:' + x2 + '|1|0}}\n'
         text += f"| {count}\n"
     # ---
-    text += (
-        "|-\n"
-        "! #\n"
-        "! \n"
-        "! \n"
-        "! \n"
-        "! \n"
-        f"! {all_images}\n"
-    )
+    text += "|-\n" "! #\n" "! \n" "! \n" "! \n" "! \n" f"! {all_images}\n"
     # ---
     text += "|}"
     text += "\n[[Category:EyeRounds|*]]"

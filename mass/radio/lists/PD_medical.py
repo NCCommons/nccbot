@@ -5,6 +5,7 @@ from mass.radio.lists.PD_medical import PD_medical_pages_def
 PD_medical_pages = PD_medical_pages_def()
 
 """
+
 import json
 import os
 from datetime import datetime
@@ -13,7 +14,7 @@ from api_bots import printe
 from mass.radio.jsons_bot import radio_jsons_dir
 
 
-pd_file = radio_jsons_dir / 'PD_medical_pages.json'
+pd_file = radio_jsons_dir / "PD_medical_pages.json"
 # ---
 PD_medical_pages = []
 # ---
@@ -44,12 +45,14 @@ def PD_medical_pages_def():
     # Get the time of last modification
     last_modified_time = os.path.getmtime(pd_file)
     # ---
-    date = datetime.fromtimestamp(last_modified_time).strftime('%Y-%m-%d')
+    date = datetime.fromtimestamp(last_modified_time).strftime("%Y-%m-%d")
     # ---
-    today = datetime.today().strftime('%Y-%m-%d')
+    today = datetime.today().strftime("%Y-%m-%d")
     # ---
     if date != today or not PD_medical_pages:
-        printe.output(f"<<purple>> PD medical pages last modified: {date}, today: {today}, current length: {len(PD_medical_pages)}")
+        printe.output(
+            f"<<purple>> PD medical pages last modified: {date}, today: {today}, current length: {len(PD_medical_pages)}"
+        )
         PD_medical_pages = new_list()
     # ---
     return PD_medical_pages

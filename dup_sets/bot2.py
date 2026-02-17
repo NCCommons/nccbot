@@ -38,7 +38,6 @@ for x in lal[:]:
         break
 
 
-
 def in_both():
     # ---
     Image_set = CatDepth("Category:Image set", sitecode="www", family="nccommons", depth=0, ns=0, onlyns=0)

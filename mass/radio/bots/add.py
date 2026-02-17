@@ -1,10 +1,11 @@
-'''
+"""
 
 python3 core8/pwb.py mass/radio/bots/add nodump
 
 إضافة البيانات الناقصة من jsons.infos
 
-'''
+"""
+
 # ---
 import sys
 from mass.radio.jsons_files import jsons, dumps_jsons, dump_json_file, urls_to_ids
@@ -21,28 +22,28 @@ added_author = 0
 added_published = 0
 # ---
 for caseId, v in all_ids.copy().items():
-    info = jsons.infos.get(v['url'], {})
+    info = jsons.infos.get(v["url"], {})
 
     if not info:
         no_info += 1
         continue
 
-    system = v.get('system', '')
-    if not system and info.get('system', ''):
+    system = v.get("system", "")
+    if not system and info.get("system", ""):
         added_system += 1
-        all_ids[caseId]['system'] = info.get('system', '')
+        all_ids[caseId]["system"] = info.get("system", "")
 
-    author = v.get('author', '')
-    if not author and info.get('author', ''):
+    author = v.get("author", "")
+    if not author and info.get("author", ""):
         added_author += 1
-        all_ids[caseId]['author'] = info.get('author', '')
+        all_ids[caseId]["author"] = info.get("author", "")
 
-    published = v.get('published', '')
-    if not published and info.get('published', ''):
+    published = v.get("published", "")
+    if not published and info.get("published", ""):
         added_published += 1
-        all_ids[caseId]['published'] = info.get('published', '')
+        all_ids[caseId]["published"] = info.get("published", "")
 
-dump_json_file('jsons/all_ids.json', all_ids, False)
+dump_json_file("jsons/all_ids.json", all_ids, False)
 
 print("Step 5: Save dictionary to jsons.")
 

@@ -19,6 +19,7 @@ tfj run newall --mem 1Gi --image python3.9 --command "$HOME/local/bin/python3 co
 
 
 """
+
 import sys
 from api_bots import printe
 from fix_mass.files import studies_titles, studies_titles2

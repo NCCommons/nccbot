@@ -5,6 +5,7 @@ python3 core8/pwb.py fix_mass/jsons/fix_jsons
 tfj run --mem 1Gi fixjsosns --image python3.9 --command "$HOME/local/bin/python3 core8/pwb.py fix_mass/jsons/fix_jsons"
 
 """
+
 import tqdm
 from pathlib import Path
 from fix_sets.jsons_dirs import get_study_dir

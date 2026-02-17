@@ -3,6 +3,7 @@
 python3 core8/pwb.py import_to_ncc/bot
 
 """
+
 from api_bots import printe
 from nccommons import api
 from api_bots.page_ncc import ncc_NEW_API
@@ -29,11 +30,11 @@ def import_file(title):
     # ---
     page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---
-    if not page.exists() :
+    if not page.exists():
         printe.output(f"<<lightred>>{title} not exists on commons.wikimedia.org")
         return False
     # ---
-    if page.isRedirect() :
+    if page.isRedirect():
         title_file = page.get_redirect_target()
         page = main_api.MainPage(title_file, "commons", family="wikimedia")
     # ---

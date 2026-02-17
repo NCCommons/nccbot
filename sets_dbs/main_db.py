@@ -37,6 +37,7 @@ from pywikibot import config
 import pymysql
 import pymysql.cursors
 from api_bots import printe
+
 # ---
 conversions = pymysql.converters.conversions
 conversions[pymysql.FIELD_TYPE.DATE] = lambda x: str(x)
