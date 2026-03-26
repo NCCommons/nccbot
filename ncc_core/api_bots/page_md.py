@@ -4,22 +4,16 @@ from api_bots.page_md import load_main_api
 
 """
 
-import configparser
-
-# ---
 import functools
 import os
-
+from dotenv import load_dotenv
 from newapi import ALL_APIS
 
-home_dir = os.getenv("HOME")
-project = home_dir if home_dir else "I:/mdwiki/mdwiki"
-# ---
-config = configparser.ConfigParser()
-config.read(f"{project}/confs/user.ini")
+load_dotenv()
 
-my_username = config["DEFAULT"].get("my_username", "")
-mdwiki_pass = config["DEFAULT"].get("mdwiki_pass", "")
+
+my_username = os.getenv("MDWIKI_HIMO_USERNAME", "")
+mdwiki_pass = os.getenv("MDWIKI_HIMO_PASSWORD", "")
 
 
 @functools.lru_cache(maxsize=1)
