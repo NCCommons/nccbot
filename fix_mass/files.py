@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-home_dir = os.getenv("HOME")
+home_dir = os.getenv("HOME", "")
 project = home_dir if home_dir else "I:/ncc"
 jsons_dir = Path(project) / "ncc_data/ncc_jsons_dump/fix_mass_jsons"
 

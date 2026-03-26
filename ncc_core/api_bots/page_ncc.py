@@ -11,8 +11,8 @@ load_dotenv()
 
 from newapi import ALL_APIS
 
-username = os.getenv("WIKIPEDIA_BOT_USERNAME")
-password = os.getenv("WIKIPEDIA_BOT_PASSWORD")
+username = os.getenv("WIKIPEDIA_BOT_USERNAME", "")
+password = os.getenv("WIKIPEDIA_BOT_PASSWORD", "")
 
 
 @functools.lru_cache(maxsize=1)

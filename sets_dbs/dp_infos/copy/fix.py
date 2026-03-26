@@ -5,7 +5,7 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-home_dir = os.getenv("HOME")
+home_dir = os.getenv("HOME", "")
 project = home_dir if home_dir else "I:/ncc"
 Dir = Path(project) / "ncc_data/sets_dbs/dp_infos/copy"
 

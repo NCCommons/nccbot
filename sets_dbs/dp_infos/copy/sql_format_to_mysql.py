@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 # wget https://huggingface.co/Ibrahemqasim/radio_ncc/resolve/main/backup_no_duplicates.sql -O ~/public_html/adminer.sql
 
-home_dir = os.getenv("HOME")
+home_dir = os.getenv("HOME", "")
 project = home_dir if home_dir else "I:/ncc"
 Dir = Path(project) / "ncc_data/sets_dbs/dp_infos/copy"
 

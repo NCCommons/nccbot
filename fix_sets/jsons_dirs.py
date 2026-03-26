@@ -10,7 +10,7 @@ from pathlib import Path
 import logging
 logger = logging.getLogger(__name__)
 
-home_dir = os.getenv("HOME")
+home_dir = os.getenv("HOME", "")
 project = home_dir if home_dir else "I:/ncc"
 jsons_dir = Path(project) / "ncc_data/ncc_jsons_dump/fix_mass_jsons"
 

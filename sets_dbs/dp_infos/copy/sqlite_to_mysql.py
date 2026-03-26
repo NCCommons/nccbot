@@ -12,7 +12,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from tqdm import tqdm
 
-home_dir = os.getenv("HOME")
+home_dir = os.getenv("HOME", "")
 project = home_dir if home_dir else "I:/ncc"
 Dir = Path(project) / "ncc_data/sets_dbs/dp_infos/copy"
 
@@ -51,7 +51,7 @@ def db_host():
     host = "tools.db.svc.wikimedia.cloud"
     db_name = f"{user}__ncc"
     # ---
-    home = os.getenv("HOME")
+    home = os.getenv("HOME", "")
     # ---
     if not home:
         host = "127.0.0.1"

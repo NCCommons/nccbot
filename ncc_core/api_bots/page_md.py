@@ -12,8 +12,8 @@ from newapi import ALL_APIS
 load_dotenv()
 
 
-my_username = os.getenv("MDWIKI_HIMO_USERNAME")
-mdwiki_pass = os.getenv("MDWIKI_HIMO_PASSWORD")
+my_username = os.getenv("MDWIKI_HIMO_USERNAME", "")
+mdwiki_pass = os.getenv("MDWIKI_HIMO_PASSWORD", "")
 
 
 @functools.lru_cache(maxsize=1)
