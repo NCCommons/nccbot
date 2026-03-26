@@ -13,7 +13,7 @@ from pathlib import Path
 import tqdm
 from api_bots.db_bot import LiteDB
 
-home_dir = os.getenv("HOME", "")
+home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"
 Dir = Path(project) / "ncc_data/sets_dbs/sf_infos"
 

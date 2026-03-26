@@ -5,7 +5,7 @@ from logs_fix.files import has_url_dir, move_text_dir
 import os
 from pathlib import Path
 
-home_dir = os.getenv("HOME", "")
+home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"
 logs_fix_dir = Path(project) / "ncc_data/logs_fix"
 

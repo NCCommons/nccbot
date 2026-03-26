@@ -21,7 +21,7 @@ try:
 except ImportError:
     from sets_dbs.sf_infos.db import insert_all_infos
 
-home_dir = os.getenv("HOME", "")
+home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"
 Dir = Path(project) / "ncc_data/sets_dbs/sf_infos"
 

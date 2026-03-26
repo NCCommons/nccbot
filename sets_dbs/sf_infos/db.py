@@ -11,7 +11,7 @@ from pathlib import Path
 
 from fix_mass.sqlite_bot import SqlLiteFilesDB
 
-home_dir = os.getenv("HOME", "")
+home_dir = os.getenv("HOME")
 project = home_dir if home_dir else "I:/ncc"
 Dir = Path(project) / "ncc_data/sets_dbs/sf_infos"
 db_path = Dir / "sf_infos.sqlite"

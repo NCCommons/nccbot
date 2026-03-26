@@ -53,7 +53,7 @@ main_args = {
     "autocommit": True,
 }
 # ---
-home = os.getenv("HOME", "")
+home = os.getenv("HOME")
 # ---
 if "localhost" in sys.argv or not home:
     main_args["host"] = "127.0.0.1"
