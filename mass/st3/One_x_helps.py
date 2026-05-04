@@ -8,15 +8,15 @@ import mimetypes
 import os
 import sys
 
-from api_bots.page_ncc import NEW_API, ncc_MainPage
+from api_bots.page_ncc import NewApi, ncc_MainPage
 from fix_sets.name_bots.files_names_bot import get_files_names
 from mass.radio.bots.add_cat import add_cat_to_images  # add_cat_to_images(sets, cat_title)
 from mass.radio.bots.bmp import work_bmp
 import logging
 logger = logging.getLogger(__name__)
 
-api_new = NEW_API()
-# api_new.Login_to_wiki()
+api_new = NewApi()
+
 
 def printt(s):
     if "nopr" in sys.argv:

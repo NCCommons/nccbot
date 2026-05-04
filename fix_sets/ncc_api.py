@@ -6,9 +6,9 @@ from fix_sets.ncc_api import post_ncc_params
 
 """
 
-from api_bots.page_ncc import NEW_API, CatDepth, ncc_MainPage
+from api_bots.page_ncc import NewApi, CatDepth, ncc_MainPage
 
-api_new = NEW_API()
+api_new = NewApi()
 
 
 def post_ncc_params(params, **kwargs):
@@ -22,6 +22,6 @@ __all__ = [
     "post_ncc_params",
     "ncc_MainPage",
     "CatDepth",
-    "NEW_API",
+    "NewApi",
     "api_new",
 ]

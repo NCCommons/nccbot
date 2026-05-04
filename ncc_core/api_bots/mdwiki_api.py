@@ -10,7 +10,7 @@ from api_bots.page_md import load_main_api
 
 logger = logging.getLogger(__name__)
 main_api = load_main_api()
-api_new = main_api.NEW_API()
+api_new = main_api.NewApi()
 
 """
 # ---
@@ -27,7 +27,7 @@ from mdpy.bots import mdwiki_api
 # mdwiki_api.Get_UserContribs(user, limit="max", namespace="*", ucshow="")
 # mdwiki_api.GetPageText(title)
 # mdwiki_api.Get_All_pages(start, limit="max", namespace="*", apfilterredir='')
-# mdwiki_api.Search(value="", ns="", offset='', srlimit="max", RETURN_dict=False, addparams={})
+# mdwiki_api.Search(value="", ns="", offset='', srlimit="max", return_dict=False, addparams={})
 # mdwiki_api.import_page(title)
 # mdwiki_api.Get_page_links(title, namespace="*", limit="max")
 # mdwiki_api.subcatquery(title, depth=0, ns="all", without_lang="", with_lang="", tempyes=[], limit=0)
@@ -1012,7 +1012,7 @@ def Get_UserContribs(user, limit="max", namespace="*", ucshow=""):
     return Main_table
 
 
-def Search(value="", lang="", family="", ns="", offset="", srlimit="max", RETURN_dict=False, addparams=None):  # noqa: N803
+def Search(value="", lang="", family="", ns="", offset="", srlimit="max", return_dict=False, addparams=None):  # noqa: N803
     # ---
     if addparams is None:
         addparams = {}
@@ -1054,7 +1054,7 @@ def Search(value="", lang="", family="", ns="", offset="", srlimit="max", RETURN
     json1 = post_s(params, addtoken=True)
     if "query" in json1 and "search" in json1["query"]:
         for pag in json1["query"]["search"]:
-            if RETURN_dict:
+            if return_dict:
                 Lidy.append(pag)
             else:
                 tit = pag["title"]

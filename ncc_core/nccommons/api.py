@@ -19,13 +19,13 @@ import time
 
 # ---
 
-from api_bots.page_ncc import NEW_API
+from api_bots.page_ncc import NewApi
 from nccommons import api_upload
 import logging
 logger = logging.getLogger(__name__)
 
-api_new = NEW_API("www", family="nccommons")
-# api_new.Login_to_wiki()
+api_new = NewApi("www", family="nccommons")
+
 # ---
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 # ---

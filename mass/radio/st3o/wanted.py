@@ -11,12 +11,12 @@ import re
 import sys
 
 # ---
-from api_bots.page_ncc import NEW_API
+from api_bots.page_ncc import NewApi
 from mass.st3.start import main_by_ids
 
 # ---
-api_new = NEW_API("www", family="nccommons")
-# api_new.Login_to_wiki()
+api_new = NewApi("www", family="nccommons")
+
 # ---
 
 
@@ -43,7 +43,7 @@ if "unused" in sys.argv:
 # Unusedcategories: { "ns": 14, "title": "Category:Radiopaedia case 10033 Congenital diaphragmatic hernia" }
 # Wantedcategories:{'value': '823', 'ns': 14, 'title': 'Category:Radiopaedia case 154144 Primary CNS lymphoma-atypical cortical location'}
 # ---
-cats = api_new.querypage_list(qppage=prop, qplimit="max", Max=5000)
+cats = api_new.querypage_list(qppage=prop, qplimit="max", max=5000)
 # ---
 cats = [x["title"] for x in cats]
 # ---

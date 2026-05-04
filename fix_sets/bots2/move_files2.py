@@ -9,14 +9,14 @@ import re
 # import json
 import sys
 
-from api_bots.page_ncc import NEW_API
+from api_bots.page_ncc import NewApi
 from fix_sets.jsons_dirs import get_study_dir  # , jsons_dir
 from logs_fix.files import move_text_dir
 import logging
 logger = logging.getLogger(__name__)
 
-api_new = NEW_API()
-# api_new.Login_to_wiki()
+api_new = NewApi()
+
 
 def change_names(file_dict, ty, study_id):
     modified_file_dict = {}
