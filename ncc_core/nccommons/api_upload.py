@@ -11,7 +11,7 @@ def upload_by_url():
 import sys
 import urllib.request
 
-from api_bots.page_ncc import NEW_API
+from api_bots.page_ncc import NewApi
 from nccommons import fix_svg
 
 # ---
@@ -19,7 +19,7 @@ from nccommons.ext import get_new_ext
 import logging
 logger = logging.getLogger(__name__)
 
-api_new = NEW_API()
+api_new = NewApi()
 yes_answer = ["y", "a", "", "Y", "A", "all"]
 upload_all = {1: False}
 
@@ -44,7 +44,7 @@ def do_post(params, code="", family="", files=None):
     params["format"] = "json"
     params["utf8"] = 1
     # ---
-    # api_new.Login_to_wiki()
+    
     # ---
     result = api_new.post_params(params, addtoken=True, files=files)
     # ---

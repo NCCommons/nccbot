@@ -8,12 +8,12 @@ from mass.radio.bots.add_cat import add_cat_to_images, add_cat_bot, add,
 import sys
 from multiprocessing import Pool
 
-from api_bots.page_ncc import NEW_API, CatDepth, ncc_MainPage
+from api_bots.page_ncc import NewApi, CatDepth, ncc_MainPage
 import logging
 logger = logging.getLogger(__name__)
 
-api_new = NEW_API()
-# api_new.Login_to_wiki()
+api_new = NewApi()
+
 
 study_done = []
 

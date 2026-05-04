@@ -69,7 +69,7 @@ def update_text(title, text):
     if Modality != "":
         text = text.replace("* Modality: ", f"* Modality: {Modality}")
     # ---
-    ASK = "Category:Uploads by Fæ" in p_text and "askusa" in sys.argv
+    ask = "Category:Uploads by Fæ" in p_text and "askusa" in sys.argv
     # ---
     if p_text.find("Category:Uploads by Fæ") != -1:
         text = text.replace("[[Category:Uploads by Mr. Ibrahem", "[[Category:Uploads by Fæ")
@@ -77,7 +77,7 @@ def update_text(title, text):
     text = fix_cats(text, p_text)
     # ---
     if p_text.strip() != text.strip():
-        page.save(newtext=text, summary="update", ASK=ASK)
+        page.save(newtext=text, summary="update", ask=ask)
     # ---
     skips.append(title)
 

@@ -10,12 +10,12 @@ import json
 import logging
 import sys
 from pathlib import Path
-from api_bots.page_ncc import NEW_API
+from api_bots.page_ncc import NewApi
 
 Dir = Path(__file__).parent
 logger = logging.getLogger(__name__)
-api_new = NEW_API()
-# api_new.Login_to_wiki()
+api_new = NewApi()
+
 
 debug = "debug" in sys.argv
 number = 10 if debug and "no" not in sys.argv else 500

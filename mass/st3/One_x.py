@@ -7,7 +7,7 @@ import sys
 
 import tqdm
 
-from api_bots.page_ncc import NEW_API, ncc_MainPage
+from api_bots.page_ncc import NewApi, ncc_MainPage
 from mass.radio.bots.studies_utf import dump_studies_urls_to_files
 from mass.radio.bots.update import update_text, update_text_add_pd_medical
 from mass.radio.get_studies import get_stacks_fixed  # (study_id, case_id, get_cach=False)
@@ -19,8 +19,8 @@ from sets_dbs.dp_infos.db_duplict_new import insert_url_file
 import logging
 logger = logging.getLogger(__name__)
 
-api_new = NEW_API()
-# api_new.Login_to_wiki()
+api_new = NewApi()
+
 # ---
 urls_done = []
 # ---

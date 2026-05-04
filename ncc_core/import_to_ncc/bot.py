@@ -41,7 +41,7 @@ def import_file(title):
     file_text = page.get_text()
     file_text = file_text.replace("{{PD-user|norro}}", "")
 
-    api_commons = main_api.NEW_API()
+    api_commons = main_api.NewApi()
     img_url = api_commons.Get_image_url(title_file)
     # ---
     summary = "Bot: import from commons.wikimedia.org"
@@ -52,7 +52,7 @@ def import_file(title):
     return upload
 
 def get_wanted_images():
-    pages = api_new.querypage_list(qppage="Wantedfiles", qplimit="100", Max=100)
+    pages = api_new.querypage_list(qppage="Wantedfiles", qplimit="100", max=100)
     # "results": [ { "value": "32", "ns": 6, "title": "File:Pictogram voting info.svg" }, {}, ... ]
 
     if pages:

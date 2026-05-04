@@ -15,7 +15,7 @@ from pathlib import Path
 
 import tqdm
 
-from api_bots.page_ncc import NEW_API, CatDepth
+from api_bots.page_ncc import NewApi, CatDepth
 from fix_mass.files import studies_titles, studies_titles2
 from mass.radio.authors_list.auths_by_location import locations
 from mass.radio.jsons_bot import radio_jsons_dir
@@ -34,7 +34,7 @@ with open(radio_jsons_dir / "all_ids.json", "r", encoding="utf-8") as f:
 with open(main_dir / "authors_list" / "authors_to_cases.json", "r", encoding="utf-8") as f:
     authors_to_cases = json.load(f)
 
-api_new = NEW_API()
+api_new = NewApi()
 
 def get_studies_of_cases(cases: list) -> list:
     """
