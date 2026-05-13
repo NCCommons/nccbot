@@ -40,7 +40,7 @@ from pywikibot import config
 
 logger = logging.getLogger(__name__)
 # ---
-conversions = pymysql.converters.conversions
+conversions = pymysql.converters.conversions.copy()
 conversions[pymysql.FIELD_TYPE.DATE] = lambda x: str(x)
 # ---
 can_use_sql_db = {1: True}
